@@ -19,7 +19,7 @@ const App = () => {
   const routing = useRouter();
 
   return (
-    <div className="bg-white dark:bg-slate-800">
+    <div className="bg-white dark:bg-slate-800 flex flex-col min-h-screen">
       <Navbar />
       {routing}
       <Footer />
