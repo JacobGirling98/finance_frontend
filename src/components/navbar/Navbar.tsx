@@ -25,7 +25,7 @@ const Navbar = () => {
           <p className="pr-2">My Finances</p>
           <BanknotesIcon className="block h-6 w-6" aria-hidden={true} />
         </div>
-        {navigation.map((item) => (
+        {navigation.map(item => (
           <a
             key={item.name}
             href={item.href}
@@ -33,16 +33,18 @@ const Navbar = () => {
               item.current
                 ? "bg-gray-900 text-white"
                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
-              "px-3 py-2 rounded-md text-sm font-medium"
+              "px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
             )}
             aria-current={item.current ? "page" : undefined}
           >
             {item.name}
           </a>
         ))}
-        <div className="text-right">
-          <button className="px-2 bg-indigo-600 rounded-md inline-flex justify-center text-sm font-medium text-white">
-            Sync
+        <div className="flex items-center ml-auto">
+          <button className="px-2 bg-indigo-700 rounded-md text-base font-medium text-white h-full w-28 hover:bg-indigo-600 active:bg-indigo-500 transition duration-150 ease-in-out">
+            <span>
+              Sync
+            </span>
           </button>
         </div>
       </div>
