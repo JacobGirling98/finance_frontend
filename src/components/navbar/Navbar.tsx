@@ -1,17 +1,7 @@
 import React from "react";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
-
-interface NavType {
-  name: string;
-  href: string;
-  current: boolean;
-}
-
-const navigation: NavType[] = [
-  { name: "Add Transaction", href: "/new", current: false },
-  { name: "View Spending", href: "/view", current: false },
-  { name: "Standing Orders", href: "/standing", current: false },
-];
+import { navigation } from "../../hooks/useRouter";
+import { Link } from "react-router-dom";
 
 const classNames = (...classes: string[]): string => {
   return classes.filter(Boolean).join(" ");
@@ -26,25 +16,24 @@ const Navbar = () => {
           <BanknotesIcon className="block h-6 w-6" aria-hidden={true} />
         </div>
         {navigation.map(item => (
-          <a
-            key={item.name}
-            href={item.href}
-            className={classNames(
-              item.current
-                ? "bg-gray-900 text-white"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-              "px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-            )}
-            aria-current={item.current ? "page" : undefined}
-          >
-            {item.name}
-          </a>
+          <Link to={item.path} className="mx-1 rounded-md">
+            <button
+              key={item.name}
+              className={classNames(
+                item.current
+                  ? "bg-gray-900 text-white"
+                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                " px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+              )}
+              aria-current={item.current ? "page" : undefined}
+            >
+              {item.name}
+            </button>
+          </Link>
         ))}
         <div className="flex items-center ml-auto">
           <button className="px-2 bg-indigo-700 rounded-md text-base font-medium text-white h-full w-28 hover:bg-indigo-600 active:bg-indigo-500 transition duration-150 ease-in-out">
-            <span>
-              Sync
-            </span>
+            <span>Sync</span>
           </button>
         </div>
       </div>
