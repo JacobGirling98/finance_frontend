@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import HomePage from "../views/HomePage/HomePage";
+import NewMoneyPage from "../views/NewMoneyPage/NewMoneyPage";
 
 interface NavType {
   name: string;
@@ -11,9 +11,9 @@ interface NavType {
 export const navigation: NavType[] = [
   {
     name: "Add Transaction",
-    path: "/new",
+    path: "/",
     current: false,
-    element: <p>New</p>,
+    element: <NewMoneyPage />,
   },
   {
     name: "View Spending",
@@ -29,13 +29,6 @@ export const navigation: NavType[] = [
   },
 ];
 
-const useRouter = () => {
-  const landingRoute = {
-    path: "/",
-    element: <HomePage />,
-  };
-
-  return useRoutes([landingRoute, ...navigation]);
-};
+const useRouter = () => useRoutes(navigation);
 
 export default useRouter;

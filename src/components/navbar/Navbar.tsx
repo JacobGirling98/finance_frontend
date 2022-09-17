@@ -9,7 +9,7 @@ const Navbar = () => {
           <p className="pr-2">My Finances</p>
           <BanknotesIcon className="block h-6 w-6" aria-hidden={true} />
         </div>
-        <NavButtons className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" />
+        <NavButtons className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out text-gray-300 hover:bg-gray-700 hover:text-white" />
         <div className="flex items-center ml-auto">
           <button className="px-2 bg-indigo-700 rounded-md text-base font-medium text-white h-full w-28 hover:bg-indigo-600 active:bg-indigo-500 transition duration-150 ease-in-out">
             <span>Sync</span>

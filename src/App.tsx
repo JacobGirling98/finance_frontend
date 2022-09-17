@@ -19,7 +19,7 @@ const App = () => {
   const routing = useRouter();
 
   return (
-    <div className="bg-white dark:bg-slate-800  min-h-screen">
+    <div className="bg-white dark:bg-gray-800  min-h-screen">
       <Navbar />
       <div>
        {routing}
