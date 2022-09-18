@@ -23,14 +23,14 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
       </label>
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative m-1">
-          <div className="relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none focus-visible:ring-2 ring-1 ring-black">
+          <div className="relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none">
             <Combobox.Input
               onChange={event => setQuery(event.target.value)}
               onClick={() => {
                 setSelected("");
                 setQuery("");
               }}
-              className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-gray-600"
+              className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-gray-600 focus:outline-none"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon

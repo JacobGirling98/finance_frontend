@@ -10,7 +10,7 @@ const DatePicker = () => {
         type="date"
         id="date"
         name="date"
-        className="rounded-md h-10 px-2 ring-1 shadow-lg bg-gray-600 bg-opacity-80 ring-black text-gray-100 focus:outline-none"
+        className="rounded-md h-10 px-2 shadow-lg bg-gray-600 text-gray-100 focus:outline-none"
       />
     </>
   );
