@@ -35,7 +35,6 @@ const NewMoneyPage = () => {
 
   return (
     <>
-    
       <div className="flex">
         <h1 className="text-white mx-5 my-1 text- text-4xl">
           <span className="italic">Add Transaction</span>
@@ -79,6 +78,11 @@ const NewMoneyPage = () => {
       </div>
       <div>
         <CreditRow />
+      </div>
+      <div className="flex m-5">
+        <button className="rounded-md h-10 w-24 text-base text-white bg-green-700 hover:bg-green-600 active:bg-green-500 transition duration-150 ease-in-out">
+          Submit
+        </button>
       </div>
     </>
   );
