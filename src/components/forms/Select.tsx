@@ -6,9 +6,11 @@ interface SelectProps {
   selected: string;
   setSelected: (s: string) => void;
   options: string[];
+  allowCreate?: boolean;
+  title: string;
 }
 
-const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
+const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, title }) => {
   const [query, setQuery] = useState<string>("");
 
   const filteredOptions =
@@ -19,7 +21,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
   return (
     <>
       <label htmlFor="category" className="text-white mb-1 ml-2">
-        Category
+        {title}
       </label>
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative">
@@ -39,7 +41,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
               />
             </Combobox.Button>
           </div>
-          {filteredOptions.length > 0 && (
+          {(filteredOptions.length > 0 || (allowCreate && query.length > 0)) && (
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -65,6 +67,15 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
                     )}
                   </Combobox.Option>
                 ))}
+                {allowCreate && query.length > 0 && (
+                  <Combobox.Option
+                    key={filteredOptions.length}
+                    value={query}
+                    className="relative cursor-default select-none py-2 pl-10 pr-4 rounded-md hover:bg-gray-500 hover:opacity-80"
+                  >
+                    Create "{query}"
+                  </Combobox.Option>
+                )}
               </Combobox.Options>
             </Transition>
           )}
