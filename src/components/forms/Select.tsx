@@ -22,7 +22,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options }) => {
         Category
       </label>
       <Combobox value={selected} onChange={setSelected}>
-        <div className="relative m-1">
+        <div className="relative">
           <div className="relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none">
             <Combobox.Input
               onChange={event => setQuery(event.target.value)}

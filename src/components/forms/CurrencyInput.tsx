@@ -2,7 +2,6 @@ import React from "react";
 
 interface CurrencyCmpProps {
   value: string;
-  className?: string;
   handleValueChange: (value: string) => void;
 }
 
