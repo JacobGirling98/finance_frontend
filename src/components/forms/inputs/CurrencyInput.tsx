@@ -25,7 +25,7 @@ const CurrencyInput: React.FC<CurrencyCmpProps> = ({
   return (
     <>
       <label htmlFor="price" className="text-white mb-1 ml-2">
-        Price
+        Value
       </label>
       <div className="relative rounded-md shadow-lg">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
