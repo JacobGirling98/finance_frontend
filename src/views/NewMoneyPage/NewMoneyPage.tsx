@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import CreditRow from "../../components/forms/CreditRow";
+import CreditDebitRow from "../../components/forms/CreditDebitRow";
+import FormButton from "../../components/button/FormButton";
+import BankTransferRow from "../../components/forms/BankTransferRow";
 
 enum TransactionType {
   CREDIT = "Credit",
@@ -33,6 +35,17 @@ const NewMoneyPage = () => {
     }
   };
 
+  const renderBody = () => {
+    switch (transactionType) {
+      case TransactionType.CREDIT:
+        return <CreditDebitRow />
+      case TransactionType.DEBIT:
+        return <CreditDebitRow />
+      case TransactionType.BANK_TRANSFER:
+        return <BankTransferRow />
+    }
+  }
+
   return (
     <>
       <div className="flex">
@@ -55,7 +68,7 @@ const NewMoneyPage = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 bg-gray-900 bg-opacity-80 w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
+                <Listbox.Options className="absolute mt-1 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full z-10 rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
                   {Object.entries(TransactionType).map(([key, value], index) => (
                     <Listbox.Option key={index} value={enumFrom(key)} className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md hover:bg-gray-500 hover:opacity-80`}>
                       {({ selected }) => (
@@ -77,12 +90,13 @@ const NewMoneyPage = () => {
         </div>
       </div>
       <div>
-        <CreditRow />
+       <CreditDebitRow />
       </div>
       <div className="flex m-5">
-        <button className="rounded-md h-10 w-24 text-base text-white bg-green-700 hover:bg-green-600 active:bg-green-500 transition duration-150 ease-in-out">
-          Submit
-        </button>
+        <FormButton value="Submit" className="bg-green-700 hover:bg-green-600 active:bg-green-500 ring-green-800"/>
+        <FormButton value="Add Row" className="bg-blue-700 hover:bg-blue-600 active:bg-blue-500 ring-blue-800"/>
+        <FormButton value="Clear" className="bg-red-700 hover:bg-red-600 active:bg-red-500 ring-red-800"/>
+        <FormButton value="Upload Receipt" className="w-32 bg-orange-700 hover:bg-orange-600 active:bg-orange-500 ring-orange-800"/>
       </div>
     </>
   );

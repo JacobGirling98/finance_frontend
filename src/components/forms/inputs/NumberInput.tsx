@@ -3,13 +3,11 @@ import React, { FC } from "react";
 interface NumberInputProps {
   value: string;
   onChange: (value: string) => void;
-  key: string;
 }
 
 const NumberInput: FC<NumberInputProps> = ({
   value,
-  onChange,
-  key
+  onChange
 }) => {
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const changedValue = e.currentTarget.value;
@@ -25,8 +23,8 @@ const NumberInput: FC<NumberInputProps> = ({
       </label>
       <input
         type="string"
-        id={key}
-        name={key}
+        id="price"
+        name="price"
         className="rounded-md h-10 px-2 shadow-lg bg-gray-600 text-gray-100 focus:outline-none"
         value={value}
         onChange={handleChange}

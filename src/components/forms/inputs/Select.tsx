@@ -16,7 +16,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, 
   const filteredOptions =
     query === ""
       ? options
-      : options.filter(option => option.toLowerCase().includes(query));
+      : options.filter(option => option.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <>
@@ -48,7 +48,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, 
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Combobox.Options className="absolute mt-1 max-h-60 bg-gray-900 bg-opacity-80 w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
+              <Combobox.Options className="absolute mt-1 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
                 {filteredOptions.map((category, index) => (
                   <Combobox.Option
                     key={index}
