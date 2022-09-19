@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, ReactElement, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import CreditDebitRow from "../../components/forms/CreditDebitRow";
 import FormButton from "../../components/button/FormButton";
 import BankTransferRow from "../../components/forms/BankTransferRow";
 import PersonalTransferRow from "../../components/forms/PersonalTransferRow";
+import IncomeRow from "../../components/forms/IncomeRow";
 
 enum TransactionType {
   CREDIT = "Credit",
@@ -36,7 +37,7 @@ const NewMoneyPage = () => {
     }
   };
 
-  const renderBody = () => {
+  const renderBody = (): ReactElement => {
     switch (transactionType) {
       case TransactionType.CREDIT:
         return <CreditDebitRow />;
@@ -46,6 +47,10 @@ const NewMoneyPage = () => {
         return <BankTransferRow />;
       case TransactionType.PERSONAL_TRANSFER:
         return <PersonalTransferRow />;
+      case TransactionType.INCOME:
+        return <IncomeRow />
+      default:
+        return <CreditDebitRow />
     }
   };
 
