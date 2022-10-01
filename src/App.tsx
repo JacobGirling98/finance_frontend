@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import useRouter from "./hooks/useRouter";
@@ -20,11 +20,11 @@ const App = () => {
 
   return (
     <div className="bg-white dark:bg-gray-800  min-h-screen">
-      <Navbar />
+      <Navbar/>
       <div>
-       {routing}
+        {routing}
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

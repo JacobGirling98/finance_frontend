@@ -1,14 +1,17 @@
 import React from "react";
 
-interface CurrencyCmpProps {
-  value: string;
-  handleValueChange: (value: string) => void;
+interface CurrencyInputProps {
+  value: number;
+  handleValueChange: (value: number) => void;
 }
 
-const CurrencyInput: React.FC<CurrencyCmpProps> = ({
-  value,
-  handleValueChange,
-}) => {
+const CurrencyInput: React.FC<CurrencyInputProps> = (
+  {
+    value,
+    handleValueChange,
+  }) => {
+  let innerValue = value === 0 ? "" : value.toString()
+
   const decimalValidator: RegExp = /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/;
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -18,7 +21,8 @@ const CurrencyInput: React.FC<CurrencyCmpProps> = ({
         changedValue.split(".")[1].length <= 2) &&
       (decimalValidator.test(changedValue) || changedValue === "")
     ) {
-      handleValueChange(changedValue);
+      innerValue = changedValue
+      handleValueChange(Number(changedValue));
     }
   };
 
@@ -35,7 +39,7 @@ const CurrencyInput: React.FC<CurrencyCmpProps> = ({
           id="value"
           className="block w-full h-10 rounded-md pl-7 pr-12 bg-gray-600 text-gray-100 overflow-hidden focus:outline-none"
           type="text"
-          value={value}
+          value={innerValue}
           onChange={e => handleChange(e)}
         />
       </div>

@@ -1,21 +1,27 @@
-import { FC, useState } from "react";
+import {FC} from "react";
 import CurrencyInput from "./inputs/CurrencyInput";
 import Input from "./inputs/Input";
 import Select from "./inputs/Select";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import {PersonalTransfer} from "../../types/NewMoney";
+import DeleteRowButton from "../button/DeleteRowButton";
 
 const categories = ["Food", "Tech", "Gaming"];
 const descriptions = ["Rent", "Game", "Book"];
 const accounts = ["Current", "Savings"];
 
-const PersonalTransferRow: FC = () => {
-  const [date, setDate] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [value, setValue] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [outbound, setOutbound] = useState<string>("");
-  const [inbound, setInbound] = useState<string>("");
+interface PersonalTransferRowProps {
+  data: PersonalTransfer
+  index: number;
+  handleDelete: (index: number) => void;
+  isLastRow: boolean;
+  handleChange: (index: number, value: string | number, field: keyof PersonalTransfer) => void
+}
 
+const PersonalTransferRow: FC<PersonalTransferRowProps> = (
+  {
+    data, index, handleDelete, isLastRow, handleChange
+  }
+) => {
   return (
     <div className="flex">
       <div className="grid grid-cols-6 gap-4 mx-6 flex-grow">
@@ -24,51 +30,49 @@ const PersonalTransferRow: FC = () => {
             title="Date"
             key="date"
             type="date"
-            value={date}
-            onChange={setDate}
+            value={data.date}
+            onChange={(value) => handleChange(index, value, "date")}
           />
         </div>
         <div className="flex justify-center flex-col mx-2">
           <Select
             title="Category"
-            selected={category}
-            setSelected={setCategory}
+            selected={data.category}
+            setSelected={(value) => handleChange(index, value, "category")}
             options={categories}
           />
         </div>
         <div className="flex justify-center flex-col mx-2">
           <Select
             title="Outbound"
-            selected={outbound}
-            setSelected={setOutbound}
+            selected={data.outbound}
+            setSelected={(value) => handleChange(index, value, "outbound")}
             options={accounts}
           />
         </div>
         <div className="flex justify-center flex-col mx-2">
           <Select
             title="Inbound"
-            selected={inbound}
-            setSelected={setInbound}
+            selected={data.inbound}
+            setSelected={(value) => handleChange(index, value, "inbound")}
             options={accounts}
           />
         </div>
         <div className="flex justify-center flex-col mx-2">
-          <CurrencyInput value={value} handleValueChange={setValue} />
+          <CurrencyInput value={data.value} handleValueChange={(value) => handleChange(index, value, "value")}/>
         </div>
         <div className="flex justify-center flex-col mx-2">
           <Select
             title="Description"
-            selected={description}
-            setSelected={setDescription}
+            selected={data.description}
+            setSelected={(value) => handleChange(index, value, "description")}
             options={descriptions}
             allowCreate={true}
           />
         </div>
       </div>
       <div className="flex self-center mt-7 ml-auto mr-6">
-        <button className="">
-          <TrashIcon className="h-8 w-8 text-gray-400 ho" />
-        </button>
+        <DeleteRowButton index={index} handleDelete={handleDelete} disabled={isLastRow}/>
       </div>
     </div>
   );
