@@ -38,7 +38,7 @@ export const emptyPersonalTransferErrors = (): ValidationErrors<PersonalTransfer
 
 export const emptyBankTransferErrors = (): ValidationErrors<BankTransfer> => ({
   ...({
-    category: "", date: "", description: "", quantity: "0", recipient: "", value: "0"
+    category: "", date: "", description: "", quantity: "", recipient: "", value: ""
   })
 })
 
