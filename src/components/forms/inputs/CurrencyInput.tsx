@@ -51,7 +51,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = (
           onChange={e => handleChange(e)}
         />
       </div>
-      <ErrorMessage message={error} />
+      <ErrorMessage message={error}/>
     </>
   );
 };

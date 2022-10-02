@@ -17,7 +17,7 @@ const NumberInput: FC<NumberInputProps> = (
   let [innerValue, setInnerValue] = useState<string>("")
 
   useEffect(() => {
-    setInnerValue(value.toString())
+    setInnerValue(value === 0 ? "" : value.toString())
   }, [value])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {

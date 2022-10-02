@@ -53,8 +53,7 @@ const NewMoneyPage = () => {
 
   const handleTransactionChange = (index: number, value: string | number, field: transactionFields) => {
     let changedTransactions: Transaction[] = transactions;
-    (changedTransactions[index] as Record<typeof field, typeof value>)[field] =
-      value;
+    (changedTransactions[index] as Record<typeof field, typeof value>)[field] = (typeof value === "number" && isNaN(value) ? 0 : value);
     setTransactions([...changedTransactions]);
   }
 
@@ -63,8 +62,7 @@ const NewMoneyPage = () => {
     setTransactionType(value)
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
+  const handleSubmit = () => {
     const errors: ValidationErrors<Transaction>[] = transactions.map(transaction => {
       return validate(transaction, transactionType)
     })
@@ -178,7 +176,6 @@ const NewMoneyPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
         <div className="flex">
           <h1 className="text-white mx-5 my-1 text- text-4xl">
             <span className="italic">Add Transaction</span>
@@ -240,28 +237,24 @@ const NewMoneyPage = () => {
           <FormButton
             value="Submit"
             className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-600 ring-indigo-800"
-            type="submit"
+            onClick={handleSubmit}
           />
           <FormButton
             value="Add Row"
             className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
             onClick={handleAddTransaction}
-            type="button"
           />
           <FormButton
             value="Clear"
             onClick={() => handleClear(transactionType)}
             className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
-            type="button"
           />
           <FormButton
             value="Upload Receipt"
             onClick={handleAddTransaction}
             className="w-32 bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
-            type="button"
           />
         </div>
-      </form>
     </>
   );
 };
