@@ -24,3 +24,17 @@ export interface Income extends BaseTransaction {
 }
 
 export type Transaction = CreditDebit | BankTransfer | PersonalTransfer | Income;
+
+export type ValidationErrors<T> = {
+  [Property in keyof T]: string;
+}
+
+export type transactionFields = keyof CreditDebit | keyof BankTransfer | keyof PersonalTransfer | keyof Income;
+
+export enum TransactionType {
+  CREDIT = "Credit",
+  DEBIT = "Debit",
+  BANK_TRANSFER = "Bank Transfer",
+  PERSONAL_TRANSFER = "Personal Transfer",
+  INCOME = "Income",
+}

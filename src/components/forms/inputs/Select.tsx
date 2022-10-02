@@ -1,6 +1,8 @@
-import { Combobox, Transition } from "@headlessui/react";
-import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/24/outline";
-import React, { FC, Fragment, useState } from "react";
+import {Combobox, Transition} from "@headlessui/react";
+import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
+import React, {FC, Fragment, useState} from "react";
+import ErrorMessage from "./ErrorMessage";
+import {isNotBlank} from "../../../utils/validation";
 
 interface SelectProps {
   selected: string;
@@ -8,9 +10,18 @@ interface SelectProps {
   options: string[];
   allowCreate?: boolean;
   title: string;
+  error?: string;
 }
 
-const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, title }) => {
+const Select: FC<SelectProps> = (
+  {
+    selected,
+    setSelected,
+    options,
+    allowCreate,
+    title,
+    error
+  }) => {
   const [query, setQuery] = useState<string>("");
 
   const filteredOptions =
@@ -25,7 +36,9 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, 
       </label>
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative">
-          <div className="relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none">
+          <div
+            className={`relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
+          >
             <Combobox.Input
               onChange={event => setQuery(event.target.value)}
               onClick={() => {
@@ -48,19 +61,20 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, 
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Combobox.Options className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
+              <Combobox.Options
+                className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
                 {filteredOptions.map((category, index) => (
                   <Combobox.Option
                     key={index}
                     value={category}
                     className="relative cursor-default select-none py-2 pl-10 pr-4 rounded-md hover:bg-gray-500 hover:opacity-80"
                   >
-                    {({ selected }) => (
+                    {({selected}) => (
                       <>
                         <span>{category}</span>
                         {selected ? (
                           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            <CheckIcon className="h-5 w-5" aria-hidden="true"/>
                           </span>
                         ) : null}
                       </>
@@ -79,6 +93,7 @@ const Select: FC<SelectProps> = ({ selected, setSelected, options, allowCreate, 
               </Combobox.Options>
             </Transition>
           )}
+          <ErrorMessage message={error}/>
         </div>
       </Combobox>
     </>

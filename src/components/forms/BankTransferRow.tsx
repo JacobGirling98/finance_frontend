@@ -33,6 +33,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
             type="date"
             value={data.date}
             onChange={(value) => handleChange(index, value, "date")}
+            error={""}
           />
         </div>
         <div className="flex justify-center flex-col mx-2">
