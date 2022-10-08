@@ -4,10 +4,9 @@ import Input from "./inputs/Input";
 import Select from "./inputs/Select";
 import {Income, ValidationErrors} from "../../types/NewMoney";
 import DeleteRowButton from "../button/DeleteRowButton";
+import useReferenceData from "../../hooks/useReferenceData";
 
-const categories = ["Food", "Tech", "Gaming"];
 const descriptions = ["Rent", "Game", "Book"];
-const sources = ["Work"]
 
 interface IncomeRowProps {
   data: Income
@@ -28,6 +27,12 @@ const IncomeRow: FC<IncomeRowProps> = (
     errors
   }
 ) => {
+
+  const {
+    categories,
+    sources
+  } = useReferenceData()
+
   return (
     <div className="flex">
       <div className="grid grid-cols-5 gap-4 mx-6 flex-grow">

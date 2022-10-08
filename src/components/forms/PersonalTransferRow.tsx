@@ -4,10 +4,9 @@ import Input from "./inputs/Input";
 import Select from "./inputs/Select";
 import {PersonalTransfer, ValidationErrors} from "../../types/NewMoney";
 import DeleteRowButton from "../button/DeleteRowButton";
+import useReferenceData from "../../hooks/useReferenceData";
 
-const categories = ["Food", "Tech", "Gaming"];
 const descriptions = ["Rent", "Game", "Book"];
-const accounts = ["Current", "Savings"];
 
 interface PersonalTransferRowProps {
   data: PersonalTransfer
@@ -28,6 +27,12 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
     errors
   }
 ) => {
+
+  const {
+    categories,
+    accounts
+  } = useReferenceData()
+
   return (
     <div className="flex">
       <div className="grid grid-cols-6 gap-4 mx-6 flex-grow">

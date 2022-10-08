@@ -5,10 +5,10 @@ import {BankTransfer, ValidationErrors} from "../../types/NewMoney";
 import CurrencyInput from "./inputs/CurrencyInput";
 import NumberInput from "./inputs/NumberInput";
 import DeleteRowButton from "../button/DeleteRowButton";
+import useReferenceData from "../../hooks/useReferenceData";
 
-const categories = ["Food", "Tech", "Gaming"];
+
 const descriptions = ["Rent", "Game", "Book"];
-const recipients = ["Mum and Dad", "Harry", "Adam"]
 
 interface BankTransferRowProps {
   data: BankTransfer
@@ -29,6 +29,12 @@ const BankTransferRow: FC<BankTransferRowProps> = (
     errors
   }
 ) => {
+
+  const {
+    categories,
+    payees
+  } = useReferenceData()
+
   return (
     <div className="flex">
       <div className="grid grid-cols-6 gap-4 mx-6 flex-grow">
@@ -56,7 +62,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
             title="Recipient"
             selected={data.recipient}
             setSelected={(value) => handleChange(index, value, "recipient")}
-            options={recipients}
+            options={payees}
             error={errors.recipient}
           />
         </div>

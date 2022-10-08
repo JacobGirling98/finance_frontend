@@ -5,8 +5,8 @@ import NumberInput from "./inputs/NumberInput";
 import Select from "./inputs/Select";
 import DeleteRowButton from "../button/DeleteRowButton";
 import {CreditDebit, ValidationErrors} from "../../types/NewMoney";
+import useReferenceData from "../../hooks/useReferenceData";
 
-const categories = ["Food", "Tech", "Gaming"];
 const descriptions = ["Rent", "Game", "Book"];
 
 interface CreditDebitRowProps {
@@ -23,6 +23,11 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
     data, index, handleDelete, isLastRow, handleChange, errors
   }
 ) => {
+
+  const {
+    categories
+  } = useReferenceData()
+
   return (
     <div className="flex">
       <div className="grid grid-cols-5 gap-4 mx-6 flex-grow">
