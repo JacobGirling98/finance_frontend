@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useQuery} from "react-query";
+import {Description} from "../types/NewMoney";
 
 const getReferenceData = async (dataType: string) => {
   const response = await axios.get(`http://localhost:9000/reference/${dataType}`)
@@ -39,14 +40,26 @@ const useReferenceData = () => {
     refetchOnMount: false
   })
 
-  const isLoading = categoriesIsLoading!! && accountsIsLoading!! && sourcesIsLoading!! && payeesIsLoading!!
+  const {
+    data: descriptionsData,
+    isLoading: descriptionsIsLoading
+  } = useQuery<Description[]>("getDescriptions", () => getReferenceData("descriptions"), {
+    staleTime: 60000,
+    refetchOnMount: false
+  })
+
+  const uniqueDescriptions = () => Array.from(new Set(descriptionsData?.map(description => description.shortDescription) ?? null).values())
+
+  const isLoading = categoriesIsLoading!! && accountsIsLoading!! && sourcesIsLoading!! && payeesIsLoading!! && descriptionsIsLoading!!
 
   return {
     isLoading,
     categories: categories ?? [],
     accounts: accounts ?? [],
     sources: sources ?? [],
-    payees: payees ?? []
+    payees: payees ?? [],
+    descriptions: descriptionsData ?? [],
+    uniqueDescriptions: uniqueDescriptions()
   }
 }
 

@@ -38,3 +38,8 @@ export enum TransactionType {
   PERSONAL_TRANSFER = "Personal Transfer",
   INCOME = "Income",
 }
+
+export interface Description {
+  fullDescription: string;
+  shortDescription: string;
+}

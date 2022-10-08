@@ -8,8 +8,6 @@ import DeleteRowButton from "../button/DeleteRowButton";
 import useReferenceData from "../../hooks/useReferenceData";
 
 
-const descriptions = ["Rent", "Game", "Book"];
-
 interface BankTransferRowProps {
   data: BankTransfer
   index: number;
@@ -32,7 +30,8 @@ const BankTransferRow: FC<BankTransferRowProps> = (
 
   const {
     categories,
-    payees
+    payees,
+    uniqueDescriptions
   } = useReferenceData()
 
   return (
@@ -86,7 +85,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
             title="Description"
             selected={data.description}
             setSelected={(value) => handleChange(index, value, "description")}
-            options={descriptions}
+            options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
           />
