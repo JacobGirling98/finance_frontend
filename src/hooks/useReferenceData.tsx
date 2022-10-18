@@ -1,9 +1,10 @@
 import axios from "axios";
 import {useQuery} from "react-query";
 import {Description} from "../types/NewMoney";
+import {baseUrl} from "../utils/constants";
 
 const getReferenceData = async (dataType: string) => {
-  const response = await axios.get(`http://localhost:9000/reference/${dataType}`)
+  const response = await axios.get(`${baseUrl}/reference/${dataType}`)
   return response.data
 }
 

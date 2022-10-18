@@ -66,12 +66,14 @@ const NewMoneyPage = () => {
     const errors: ValidationErrors<Transaction>[] = transactions.map(transaction => {
       return validate(transaction, transactionType)
     })
-    if (errors.flatMap(error => Object.entries(error).map(([_, value]) => value !== "")).includes(true)) {
+    if (containsValidationError(errors)) {
       setValidationErrors(errors)
       return
     }
 
   }
+
+  const containsValidationError = (errors: ValidationErrors<Transaction>[]): boolean => errors.flatMap(error => Object.entries(error).map(([_, value]) => value !== "")).includes(true)
 
   const enumFrom = (key: string): TransactionType => {
     switch (key) {
