@@ -1,11 +1,11 @@
 import React, {Fragment, ReactElement, useState} from "react";
 import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
-import CreditDebitRow from "../../components/forms/CreditDebitRow";
+import CreditDebitRow from "../../components/forms/credit-debit/CreditDebitRow";
 import FormButton from "../../components/button/FormButton";
-import BankTransferRow from "../../components/forms/BankTransferRow";
-import PersonalTransferRow from "../../components/forms/PersonalTransferRow";
-import IncomeRow from "../../components/forms/IncomeRow";
+import BankTransferRow from "../../components/forms/bank-transfer/BankTransferRow";
+import PersonalTransferRow from "../../components/forms/personal-transfer/PersonalTransferRow";
+import IncomeRow from "../../components/forms/income/IncomeRow";
 import {
   BankTransfer,
   CreditDebit,

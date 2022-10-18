@@ -38,12 +38,20 @@ const useSubmitTransaction = () => {
       case TransactionType.DEBIT:
         mutateDebit(transactions as CreditDebit[]);
         break;
-      case TransactionType.BANK_TRANSFER
+      case TransactionType.BANK_TRANSFER:
+        mutateBankTransfer(transactions as BankTransfer[]);
+        break;
+      case TransactionType.PERSONAL_TRANSFER:
+        mutatePersonalTransfer(transactions as PersonalTransfer[]);
+        break;
+      case TransactionType.INCOME:
+        mutateIncome(transactions as Income[]);
+        break;
     }
   }
 
   return ({
-    mutateCredit
+    mutate
   })
 }
 

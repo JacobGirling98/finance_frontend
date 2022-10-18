@@ -1,11 +1,11 @@
 import {FC} from "react";
-import CurrencyInput from "./inputs/CurrencyInput";
-import Input from "./inputs/Input";
-import NumberInput from "./inputs/NumberInput";
-import Select from "./inputs/Select";
-import DeleteRowButton from "../button/DeleteRowButton";
-import {CreditDebit, ValidationErrors} from "../../types/NewMoney";
-import useReferenceData from "../../hooks/useReferenceData";
+import CurrencyInput from "../inputs/CurrencyInput";
+import Input from "../inputs/Input";
+import NumberInput from "../inputs/NumberInput";
+import Select from "../inputs/Select";
+import DeleteRowButton from "../../button/DeleteRowButton";
+import {CreditDebit, ValidationErrors} from "../../../types/NewMoney";
+import useReferenceData from "../../../hooks/useReferenceData";
 
 const descriptions = ["Rent", "Game", "Book"];
 
