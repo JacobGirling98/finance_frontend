@@ -4,6 +4,7 @@ import {validateBankTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import BankTransferRow from "./BankTransferRow";
 import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
+import Spinner from "../../../Spinner";
 
 const emptyBankTransfer = (date: string, category: string): BankTransfer => ({
   ...({
@@ -26,7 +27,8 @@ const BankTransferForm: FC = () => {
     deleteRow,
     changeTransaction,
     submitTransactions,
-    onlyOneRow
+    onlyOneRow,
+    isLoading
   } = useFormControl(emptyBankTransfer, emptyBankTransferErrors(), validateBankTransfer, "bank-transfer")
 
   return (
@@ -50,6 +52,7 @@ const BankTransferForm: FC = () => {
           handleClear={clearTransactions}
         />
       </div>
+      <Spinner isOpen={isLoading} />
     </>
   )
 }

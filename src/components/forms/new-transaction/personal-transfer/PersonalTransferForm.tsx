@@ -4,6 +4,7 @@ import {validatePersonalTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import PersonalTransferRow from "./PersonalTransferRow";
 import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
+import Spinner from "../../../Spinner";
 
 const emptyPersonalTransfer = (date: string, category: string): PersonalTransfer => ({
   ...({
@@ -26,7 +27,8 @@ const PersonalTransferForm: FC = () => {
     deleteRow,
     changeTransaction,
     submitTransactions,
-    onlyOneRow
+    onlyOneRow,
+    isLoading
   } = useFormControl(emptyPersonalTransfer, emptyPersonalTransferErrors(), validatePersonalTransfer, "personal-transfer")
 
   return (
@@ -50,6 +52,7 @@ const PersonalTransferForm: FC = () => {
           handleClear={clearTransactions}
         />
       </div>
+      <Spinner isOpen={isLoading} />
     </>
   )
 }

@@ -4,6 +4,7 @@ import {validateIncome} from "../validation";
 import FormButtons from "../FormButtons";
 import IncomeRow from "./IncomeRow";
 import {Income, ValidationErrors} from "../../../../types/NewMoney";
+import Spinner from "../../../Spinner";
 
 const emptyIncome = (date: string, category: string): Income => ({
   ...({
@@ -26,7 +27,8 @@ const IncomeForm: FC = () => {
     deleteRow,
     changeTransaction,
     submitTransactions,
-    onlyOneRow
+    onlyOneRow,
+    isLoading
   } = useFormControl(emptyIncome, emptyIncomeErrors(), validateIncome, "income")
 
   return (
@@ -50,6 +52,7 @@ const IncomeForm: FC = () => {
           handleClear={clearTransactions}
         />
       </div>
+      <Spinner isOpen={isLoading} />
     </>
   )
 }

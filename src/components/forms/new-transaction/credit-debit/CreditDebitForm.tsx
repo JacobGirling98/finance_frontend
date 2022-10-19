@@ -4,6 +4,7 @@ import {validateCreditDebit} from "../validation";
 import CreditDebitRow from "./CreditDebitRow";
 import FormButtons from "../FormButtons";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
+import Spinner from "../../../Spinner";
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"
@@ -34,7 +35,8 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
     deleteRow,
     changeTransaction,
     submitTransactions,
-    onlyOneRow
+    onlyOneRow,
+    isLoading
   } = useFormControl(emptyCreditDebit, emptyCreditDebitErrors(), validateCreditDebit, transactionType)
 
   return (
@@ -58,6 +60,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
           handleClear={clearTransactions}
         />
       </div>
+      <Spinner isOpen={isLoading}/>
     </>
   )
 }

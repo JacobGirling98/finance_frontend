@@ -15,7 +15,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
 
   const resetTransactions = () => setTransactions([emptyTransaction("", "")])
 
-  const {mutate, isSuccess} = useMutation<void, void, T[]>("submitTransactions", async () => {
+  const {mutate, isSuccess, isLoading} = useMutation<void, void, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   })
@@ -77,7 +77,8 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
     deleteRow,
     changeTransaction,
     onlyOneRow,
-    submitTransactions
+    submitTransactions,
+    isLoading
   })
 }
 
