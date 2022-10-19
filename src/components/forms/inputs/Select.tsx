@@ -2,7 +2,7 @@ import {Combobox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
 import React, {FC, Fragment, useState} from "react";
 import ErrorMessage from "./ErrorMessage";
-import {isNotBlank} from "../../../utils/validation";
+import {isNotBlank} from "../new-transaction/validation";
 
 interface SelectProps {
   selected: string;

@@ -1,79 +1,17 @@
 import React, {Fragment, ReactElement, useState} from "react";
 import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
-import CreditDebitRow from "../../components/forms/credit-debit/CreditDebitRow";
-import FormButton from "../../components/button/FormButton";
-import BankTransferRow from "../../components/forms/bank-transfer/BankTransferRow";
-import PersonalTransferRow from "../../components/forms/personal-transfer/PersonalTransferRow";
-import IncomeRow from "../../components/forms/income/IncomeRow";
-import {
-  BankTransfer,
-  CreditDebit,
-  Income,
-  PersonalTransfer,
-  Transaction,
-  transactionFields,
-  TransactionType,
-  ValidationErrors
-} from "../../types/NewMoney";
-import {
-  emptyBankTransfer,
-  emptyBankTransferErrors,
-  emptyCreditDebit,
-  emptyCreditDebitErrors,
-  emptyIncome,
-  emptyIncomeErrors,
-  emptyPersonalTransfer,
-  emptyPersonalTransferErrors
-} from "../../utils/defaults";
-import {validate} from "../../utils/validation";
+import {TransactionType} from "../../types/NewMoney";
+import CreditDebitForm from "../../components/forms/new-transaction/credit-debit/CreditDebitForm";
+import BankTransferForm from "../../components/forms/new-transaction/bank-transfer/BankTransferForm";
+import PersonalTransferForm from "../../components/forms/new-transaction/personal-transfer/PersonalTransferForm";
+import IncomeForm from "../../components/forms/new-transaction/income/IncomeForm";
 
 
 const NewMoneyPage = () => {
   const [transactionType, setTransactionType] = useState<TransactionType>(
     TransactionType.CREDIT
   );
-  const [transactions, setTransactions] = useState<Transaction[]>([emptyCreditDebit()]);
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors<Transaction>[]>([emptyCreditDebitErrors()])
-
-  const handleAddTransaction = () => {
-    setTransactions(state => [...state, emptyTransaction()])
-    setValidationErrors(state => [...state, emptyTransactionErrors()])
-  }
-
-  const handleClear = (type: TransactionType) => {
-    setTransactions([emptyTransaction(type)])
-    setValidationErrors([emptyTransactionErrors(type)])
-  }
-
-  const handleDeleteRow = (index: number) => {
-    setTransactions(state => state.filter((_, i) => i !== index))
-    setValidationErrors(state => state.filter((_, i) => i !== index))
-  }
-
-  const handleTransactionChange = (index: number, value: string | number, field: transactionFields) => {
-    let changedTransactions: Transaction[] = transactions;
-    (changedTransactions[index] as Record<typeof field, typeof value>)[field] = (typeof value === "number" && isNaN(value) ? 0 : value);
-    setTransactions([...changedTransactions]);
-  }
-
-  const handleTransactionTypeChange = (value: TransactionType) => {
-    handleClear(value)
-    setTransactionType(value)
-  }
-
-  const handleSubmit = () => {
-    const errors: ValidationErrors<Transaction>[] = transactions.map(transaction => {
-      return validate(transaction, transactionType)
-    })
-    if (containsValidationError(errors)) {
-      setValidationErrors(errors)
-      return
-    }
-
-  }
-
-  const containsValidationError = (errors: ValidationErrors<Transaction>[]): boolean => errors.flatMap(error => Object.entries(error).map(([_, value]) => value !== "")).includes(true)
 
   const enumFrom = (key: string): TransactionType => {
     switch (key) {
@@ -92,92 +30,20 @@ const NewMoneyPage = () => {
     }
   };
 
-  const emptyTransaction = (type: TransactionType = transactionType): Transaction => {
-    switch (type) {
-      case TransactionType.CREDIT:
-        return emptyCreditDebit();
-      case TransactionType.DEBIT:
-        return emptyCreditDebit();
-      case TransactionType.BANK_TRANSFER:
-        return emptyBankTransfer();
-      case TransactionType.PERSONAL_TRANSFER:
-        return emptyPersonalTransfer();
-      case TransactionType.INCOME:
-        return emptyIncome()
-    }
-  };
-
-  const emptyTransactionErrors = (type: TransactionType = transactionType): ValidationErrors<Transaction> => {
-    switch (type) {
-      case TransactionType.CREDIT:
-        return emptyCreditDebitErrors();
-      case TransactionType.DEBIT:
-        return emptyCreditDebitErrors();
-      case TransactionType.BANK_TRANSFER:
-        return emptyBankTransferErrors();
-      case TransactionType.PERSONAL_TRANSFER:
-        return emptyPersonalTransferErrors();
-      case TransactionType.INCOME:
-        return emptyIncomeErrors()
-    }
-  };
-
-  const renderBody = (index: number): ReactElement => {
+  const renderBody = (): ReactElement => {
     switch (transactionType) {
       case TransactionType.CREDIT:
-        return <CreditDebitRow
-          key={index}
-          data={transactions[index] as CreditDebit}
-          index={index}
-          handleDelete={handleDeleteRow}
-          isLastRow={onlyOneRow}
-          handleChange={handleTransactionChange}
-          errors={validationErrors[index] as ValidationErrors<CreditDebit>}
-        />;
+        return <CreditDebitForm transactionType="credit"/>;
       case TransactionType.DEBIT:
-        return <CreditDebitRow
-          key={index}
-          data={transactions[index] as CreditDebit}
-          index={index}
-          handleDelete={handleDeleteRow}
-          isLastRow={onlyOneRow}
-          handleChange={handleTransactionChange}
-          errors={validationErrors[index] as ValidationErrors<CreditDebit>}
-        />;
+        return <CreditDebitForm transactionType="debit"/>;
       case TransactionType.BANK_TRANSFER:
-        return <BankTransferRow
-          key={index}
-          data={transactions[index] as BankTransfer}
-          index={index}
-          handleDelete={handleDeleteRow}
-          isLastRow={onlyOneRow}
-          handleChange={handleTransactionChange}
-          errors={validationErrors[index] as ValidationErrors<BankTransfer>}
-        />;
+        return <BankTransferForm/>;
       case TransactionType.PERSONAL_TRANSFER:
-        return <PersonalTransferRow
-          key={index}
-          data={transactions[index] as PersonalTransfer}
-          index={index}
-          handleDelete={handleDeleteRow}
-          isLastRow={onlyOneRow}
-          handleChange={handleTransactionChange}
-          errors={validationErrors[index] as ValidationErrors<PersonalTransfer>}
-        />;
+        return <PersonalTransferForm/>;
       case TransactionType.INCOME:
-        return <IncomeRow
-          key={index}
-          data={transactions[index] as Income}
-          index={index}
-          handleDelete={handleDeleteRow}
-          isLastRow={onlyOneRow}
-          handleChange={handleTransactionChange}
-          errors={validationErrors[index] as ValidationErrors<Income>}
-        />
+        return <IncomeForm/>
     }
   };
-
-  const onlyOneRow = transactions.length === 1
 
   return (
     <>
@@ -187,7 +53,7 @@ const NewMoneyPage = () => {
           <span>{` - ${transactionType}`}</span>
         </h1>
         <div className="ml-auto w-72 mx-5">
-          <Listbox value={transactionType} onChange={handleTransactionTypeChange}>
+          <Listbox value={transactionType} onChange={setTransactionType}>
             <div className="relative m-1">
               <Listbox.Button
                 className="relative w-full h-10 cursor-default rounded-lg bg-slate-600 text-left pl-3 shadow-md focus:outline-none text-gray-100">
@@ -235,31 +101,7 @@ const NewMoneyPage = () => {
           </Listbox>
         </div>
       </div>
-      <div>
-        {transactions.map((transaction, index) => renderBody(index))}
-      </div>
-      <div className="flex m-5">
-        <FormButton
-          value="Submit"
-          className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-600 ring-indigo-800"
-          onClick={handleSubmit}
-        />
-        <FormButton
-          value="Add Row"
-          className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
-          onClick={handleAddTransaction}
-        />
-        <FormButton
-          value="Clear"
-          onClick={() => handleClear(transactionType)}
-          className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
-        />
-        <FormButton
-          value="Upload Receipt"
-          onClick={handleAddTransaction}
-          className="w-32 bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
-        />
-      </div>
+      {renderBody()}
     </>
   );
 };

@@ -1,12 +1,4 @@
-import {
-  BankTransfer,
-  CreditDebit,
-  Income,
-  PersonalTransfer,
-  Transaction,
-  TransactionType,
-  ValidationErrors
-} from "../types/NewMoney";
+import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../../../types/NewMoney";
 
 export interface ValidationErrorsWithFlag<T> {
   errors: ValidationErrors<T>;
@@ -55,18 +47,3 @@ export const validateIncome = (transaction: Income): ValidationErrors<Income> =>
   value: validateGreaterThanZero("Value", transaction.value),
   description: validateIsNotBlank("Description", transaction.description)
 })
-
-export const validate = (transaction: Transaction, type: TransactionType): ValidationErrors<Transaction> => {
-  switch (type) {
-    case TransactionType.CREDIT:
-      return validateCreditDebit(transaction as CreditDebit)
-    case TransactionType.DEBIT:
-      return validateCreditDebit(transaction as CreditDebit)
-    case TransactionType.BANK_TRANSFER:
-      return validateBankTransfer(transaction as BankTransfer)
-    case TransactionType.PERSONAL_TRANSFER:
-      return validatePersonalTransfer(transaction as PersonalTransfer)
-    case TransactionType.INCOME:
-      return validateIncome(transaction as Income)
-  }
-}

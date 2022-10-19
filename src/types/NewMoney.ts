@@ -29,7 +29,7 @@ export type ValidationErrors<T> = {
   [Property in keyof T]: string;
 }
 
-export type transactionFields = keyof CreditDebit | keyof BankTransfer | keyof PersonalTransfer | keyof Income;
+export type TransactionFields = keyof CreditDebit | keyof BankTransfer | keyof PersonalTransfer | keyof Income;
 
 export enum TransactionType {
   CREDIT = "Credit",

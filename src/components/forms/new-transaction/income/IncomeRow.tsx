@@ -1,23 +1,23 @@
 import {FC} from "react";
-import Input from "../inputs/Input";
-import Select from "../inputs/Select";
-import {BankTransfer, ValidationErrors} from "../../../types/NewMoney";
-import CurrencyInput from "../inputs/CurrencyInput";
-import NumberInput from "../inputs/NumberInput";
-import DeleteRowButton from "../../button/DeleteRowButton";
-import useReferenceData from "../../../hooks/useReferenceData";
+import CurrencyInput from "../../inputs/CurrencyInput";
+import Input from "../../inputs/Input";
+import Select from "../../inputs/Select";
+import {Income, ValidationErrors} from "../../../../types/NewMoney";
+import DeleteRowButton from "../../../button/DeleteRowButton";
+import useReferenceData from "../../../../hooks/useReferenceData";
 
+const descriptions = ["Rent", "Game", "Book"];
 
-interface BankTransferRowProps {
-  data: BankTransfer
+interface IncomeRowProps {
+  data: Income
   index: number;
   handleDelete: (index: number) => void;
   isLastRow: boolean;
-  handleChange: (index: number, value: string | number, field: keyof BankTransfer) => void
-  errors: ValidationErrors<BankTransfer>
+  handleChange: (index: number, value: string | number, field: keyof Income) => void
+  errors: ValidationErrors<Income>
 }
 
-const BankTransferRow: FC<BankTransferRowProps> = (
+const IncomeRow: FC<IncomeRowProps> = (
   {
     data,
     index,
@@ -30,13 +30,12 @@ const BankTransferRow: FC<BankTransferRowProps> = (
 
   const {
     categories,
-    payees,
-    uniqueDescriptions
+    sources
   } = useReferenceData()
 
   return (
     <div className="flex">
-      <div className="grid grid-cols-6 gap-4 mx-6 flex-grow">
+      <div className="grid grid-cols-5 gap-4 mx-6 flex-grow">
         <div className="flex flex-col mx-2">
           <Input
             title="Date"
@@ -58,11 +57,11 @@ const BankTransferRow: FC<BankTransferRowProps> = (
         </div>
         <div className="flex flex-col mx-2">
           <Select
-            title="Recipient"
-            selected={data.recipient}
-            setSelected={(value) => handleChange(index, value, "recipient")}
-            options={payees}
-            error={errors.recipient}
+            title="Source"
+            selected={data.source}
+            setSelected={(value) => handleChange(index, value, "source")}
+            options={sources}
+            error={errors.source}
           />
         </div>
         <div className="flex flex-col mx-2">
@@ -73,19 +72,11 @@ const BankTransferRow: FC<BankTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <NumberInput
-            key="quantity"
-            value={data.quantity}
-            onChange={(value) => handleChange(index, value, "quantity")}
-            error={errors.quantity}
-          />
-        </div>
-        <div className="flex flex-col mx-2">
           <Select
             title="Description"
             selected={data.description}
             setSelected={(value) => handleChange(index, value, "description")}
-            options={uniqueDescriptions}
+            options={descriptions}
             allowCreate={true}
             error={errors.description}
           />
@@ -98,4 +89,4 @@ const BankTransferRow: FC<BankTransferRowProps> = (
   );
 };
 
-export default BankTransferRow;
+export default IncomeRow;

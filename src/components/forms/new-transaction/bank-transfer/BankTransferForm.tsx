@@ -1,0 +1,45 @@
+import React, {FC} from "react";
+import useFormControl from "../../../../hooks/useFormControl";
+import {emptyBankTransfer, emptyBankTransferErrors} from "../../../../utils/defaults";
+import {validateBankTransfer} from "../validation";
+import FormButtons from "../FormButtons";
+import BankTransferRow from "./BankTransferRow";
+
+const BankTransferForm: FC = () => {
+  const {
+    transactions,
+    validationErrors,
+    addTransaction,
+    clearTransactions,
+    deleteRow,
+    changeTransaction,
+    submitTransactions,
+    onlyOneRow
+  } = useFormControl(emptyBankTransfer(), emptyBankTransferErrors(), validateBankTransfer, "bank-transfer")
+
+  return (
+    <>
+      <div>
+        {transactions.map((transaction, index) => (
+          <BankTransferRow
+            data={transactions[index]}
+            index={index}
+            handleDelete={deleteRow}
+            isLastRow={onlyOneRow}
+            handleChange={changeTransaction}
+            errors={validationErrors[index]}
+          />
+        ))}
+      </div>
+      <div className="flex m-5">
+        <FormButtons
+          handleSubmit={submitTransactions}
+          handleAddTransaction={addTransaction}
+          handleClear={clearTransactions}
+        />
+      </div>
+    </>
+  )
+}
+
+export default BankTransferForm;

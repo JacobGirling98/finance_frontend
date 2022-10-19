@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import ErrorMessage from "./ErrorMessage";
-import {isNotBlank} from "../../../utils/validation";
+import {isNotBlank} from "../new-transaction/validation";
 
 interface NumberInputProps {
   value: number;
