@@ -1,9 +1,21 @@
 import React, {FC} from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {emptyPersonalTransfer, emptyPersonalTransferErrors} from "../../../../utils/defaults";
 import {validatePersonalTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import PersonalTransferRow from "./PersonalTransferRow";
+import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
+
+const emptyPersonalTransfer = (date: string, category: string): PersonalTransfer => ({
+  ...({
+    category, date, description: "", inbound: "", outbound: "", value: 0
+  })
+})
+
+const emptyPersonalTransferErrors = (): ValidationErrors<PersonalTransfer> => ({
+  ...({
+    category: "", date: "", description: "", inbound: "", outbound: "", value: ""
+  })
+})
 
 const PersonalTransferForm: FC = () => {
   const {
@@ -15,7 +27,7 @@ const PersonalTransferForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow
-  } = useFormControl(emptyPersonalTransfer(), emptyPersonalTransferErrors(), validatePersonalTransfer, "personal-transfer")
+  } = useFormControl(emptyPersonalTransfer, emptyPersonalTransferErrors(), validatePersonalTransfer, "personal-transfer")
 
   return (
     <>

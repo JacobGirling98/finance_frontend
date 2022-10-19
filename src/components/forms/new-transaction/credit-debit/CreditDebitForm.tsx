@@ -1,13 +1,25 @@
 import React, {FC} from "react";
-import {emptyCreditDebit, emptyCreditDebitErrors} from "../../../../utils/defaults";
 import useFormControl from "../../../../hooks/useFormControl";
 import {validateCreditDebit} from "../validation";
 import CreditDebitRow from "./CreditDebitRow";
 import FormButtons from "../FormButtons";
+import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"
 }
+
+const emptyCreditDebit = (date: string, category: string): CreditDebit => ({
+  ...({
+    category, date, description: "", quantity: 0, value: 0
+  })
+})
+
+const emptyCreditDebitErrors = (): ValidationErrors<CreditDebit> => ({
+  ...({
+    category: "", date: "", description: "", quantity: "", value: ""
+  })
+})
 
 const CreditDebitForm: FC<CreditDebitFormProps> = (
   {
@@ -23,7 +35,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
     changeTransaction,
     submitTransactions,
     onlyOneRow
-  } = useFormControl(emptyCreditDebit(), emptyCreditDebitErrors(), validateCreditDebit, transactionType)
+  } = useFormControl(emptyCreditDebit, emptyCreditDebitErrors(), validateCreditDebit, transactionType)
 
   return (
     <>

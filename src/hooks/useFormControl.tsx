@@ -1,30 +1,35 @@
 import {useState} from "react";
-import {ValidationErrors} from "../types/NewMoney";
+import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
 import {useMutation} from "react-query";
 import axios from "axios";
 import {baseUrl} from "../utils/constants";
 
-function useFormControl<T>(
-  emptyTransaction: T,
+function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer | Income>(
+  emptyTransaction: (date: string, category: string) => T,
   emptyError: ValidationErrors<T>,
   validate: (transaction: T) => ValidationErrors<T>,
   transactionType: "credit" | "debit" | "bank-transfer" | "personal-transfer" | "income"
 ) {
-  const [transactions, setTransactions] = useState<T[]>([emptyTransaction])
+  const [transactions, setTransactions] = useState<T[]>([emptyTransaction("", "")])
   const [validationErrors, setValidationErrors] = useState<ValidationErrors<T>[]>([emptyError])
 
-  const {mutate} = useMutation<void, void, T[]>("submitTransactions", async () => {
+  const resetTransactions = () => setTransactions([emptyTransaction("", "")])
+
+  const {mutate, isSuccess} = useMutation<void, void, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   })
 
   const addTransaction = () => {
-    setTransactions(state => [...state, emptyTransaction])
+    setTransactions(state => [...state, emptyTransaction(
+      latestDate(state),
+      latestCategory(state)
+    )])
     setValidationErrors(state => [...state, emptyError])
   }
 
   const clearTransactions = () => {
-    setTransactions([emptyTransaction])
+    resetTransactions()
     setValidationErrors([emptyError])
   }
 
@@ -47,9 +52,18 @@ function useFormControl<T>(
     if (containsValidationError(errors)) {
       setValidationErrors(errors)
       return
+    } else {
+      setValidationErrors(transactions.map(() => emptyError))
     }
     mutate(transactions)
+    if (isSuccess) {
+      resetTransactions()
+    }
   }
+
+  const latestDate = (transactions: T[]): string => transactions[transactions.length - 1].date
+
+  const latestCategory = (transactions: T[]): string => transactions[transactions.length - 1].category
 
   const containsValidationError = (errors: ValidationErrors<T>[]): boolean => errors.flatMap(error => Object.entries(error).map(([_, value]) => value !== "")).includes(true)
 

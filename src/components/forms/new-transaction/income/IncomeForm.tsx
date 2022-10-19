@@ -1,9 +1,21 @@
 import React, {FC} from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {emptyIncome, emptyIncomeErrors} from "../../../../utils/defaults";
 import {validateIncome} from "../validation";
 import FormButtons from "../FormButtons";
 import IncomeRow from "./IncomeRow";
+import {Income, ValidationErrors} from "../../../../types/NewMoney";
+
+const emptyIncome = (date: string, category: string): Income => ({
+  ...({
+    category, date, description: "", source: "", value: 0
+  })
+})
+
+const emptyIncomeErrors = (): ValidationErrors<Income> => ({
+  ...({
+    category: "", date: "", description: "", source: "", value: ""
+  })
+})
 
 const IncomeForm: FC = () => {
   const {
@@ -15,7 +27,7 @@ const IncomeForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow
-  } = useFormControl(emptyIncome(), emptyIncomeErrors(), validateIncome, "income")
+  } = useFormControl(emptyIncome, emptyIncomeErrors(), validateIncome, "income")
 
   return (
     <>

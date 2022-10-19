@@ -1,9 +1,21 @@
 import React, {FC} from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {emptyBankTransfer, emptyBankTransferErrors} from "../../../../utils/defaults";
 import {validateBankTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import BankTransferRow from "./BankTransferRow";
+import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
+
+const emptyBankTransfer = (date: string, category: string): BankTransfer => ({
+  ...({
+    category, date, description: "", quantity: 0, recipient: "", value: 0
+  })
+})
+
+const emptyBankTransferErrors = (): ValidationErrors<BankTransfer> => ({
+  ...({
+    category: "", date: "", description: "", quantity: "", recipient: "", value: ""
+  })
+})
 
 const BankTransferForm: FC = () => {
   const {
@@ -15,7 +27,7 @@ const BankTransferForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow
-  } = useFormControl(emptyBankTransfer(), emptyBankTransferErrors(), validateBankTransfer, "bank-transfer")
+  } = useFormControl(emptyBankTransfer, emptyBankTransferErrors(), validateBankTransfer, "bank-transfer")
 
   return (
     <>
