@@ -11,6 +11,7 @@ interface SelectProps {
   allowCreate?: boolean;
   title: string;
   error?: string;
+  onCreate?: (s: string) => void;
 }
 
 const Select: FC<SelectProps> = (
@@ -20,7 +21,8 @@ const Select: FC<SelectProps> = (
     options,
     allowCreate,
     title,
-    error
+    error,
+    onCreate
   }) => {
   const [query, setQuery] = useState<string>("");
 
@@ -54,7 +56,7 @@ const Select: FC<SelectProps> = (
               />
             </Combobox.Button>
           </div>
-          {(filteredOptions.length > 0 || (allowCreate && query.length > 0)) && (
+          {(filteredOptions.length > 0 || (allowCreate && onCreate && query.length > 0)) && (
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -62,8 +64,9 @@ const Select: FC<SelectProps> = (
               leaveTo="opacity-0"
             >
               <Combobox.Options
-                className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
-                {filteredOptions.map((category, index) => (
+                className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
+              >
+                {(query.length === 0 || query.length > 2) && filteredOptions.map((category, index) => (
                   <Combobox.Option
                     key={index}
                     value={category}
@@ -81,11 +84,14 @@ const Select: FC<SelectProps> = (
                     )}
                   </Combobox.Option>
                 ))}
-                {allowCreate && query.length > 0 && (
+                {allowCreate && onCreate && query.length > 0 && (
                   <Combobox.Option
                     key={filteredOptions.length}
                     value={query}
                     className="relative cursor-default select-none py-2 pl-10 pr-4 rounded-md hover:bg-gray-500 hover:opacity-80"
+                    onClick={() => {
+                      onCreate(query)
+                    }}
                   >
                     Create "{query}"
                   </Combobox.Option>

@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
-import {useMutation} from "react-query";
+import {QueryClient, useMutation} from "react-query";
 import axios from "axios";
 import {baseUrl} from "../utils/constants";
+import useReferenceData from "./useReferenceData";
 
 function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer | Income>(
   emptyTransaction: (date: string, category: string) => T,
@@ -13,11 +14,20 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
   const [transactions, setTransactions] = useState<T[]>([emptyTransaction("", "")])
   const [validationErrors, setValidationErrors] = useState<ValidationErrors<T>[]>([emptyError])
 
+  const {postNewDescriptions} = useReferenceData()
+
+  const queryClient = new QueryClient()
+
   const resetTransactions = () => setTransactions([emptyTransaction("", "")])
 
-  const {mutate, isSuccess, isLoading} = useMutation<void, void, T[]>("submitTransactions", async () => {
+  const {mutate, isLoading} = useMutation<void, void, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
+  }, {
+    onSuccess: () => {
+      resetTransactions()
+      queryClient.invalidateQueries("getDescriptions")
+    }
   })
 
   const addTransaction = () => {
@@ -55,10 +65,8 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
     } else {
       setValidationErrors(transactions.map(() => emptyError))
     }
+    postNewDescriptions(transactions.map(t => t.description))
     mutate(transactions)
-    if (isSuccess) {
-      resetTransactions()
-    }
   }
 
   const latestDate = (transactions: T[]): string => transactions[transactions.length - 1].date

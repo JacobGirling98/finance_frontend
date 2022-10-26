@@ -1,7 +1,8 @@
 import axios from "axios";
-import {useQuery} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import {Description} from "../types/NewMoney";
 import {baseUrl} from "../utils/constants";
+import {useNewDescriptionMappingsContext} from "../context/useNewDescriptionMappings";
 
 const getReferenceData = async (dataType: string) => {
   const response = await axios.get(`${baseUrl}/reference/${dataType}`)
@@ -49,9 +50,33 @@ const useReferenceData = () => {
     refetchOnMount: false
   })
 
-  const uniqueDescriptions = () => Array.from(new Set(descriptionsData?.map(description => description.shortDescription) ?? null).values())
+  const {
+    mutate: post
+  } = useMutation<void, void, Description[]>("postDescriptions", async (newDescriptions: Description[]) => {
+    const response = await axios.post(`${baseUrl}/reference/descriptions/multiple`, newDescriptions)
+    return response.data
+  }, {
+    onSuccess: () => {
+      clearDescriptions()
+    }
+  })
+
+  const {
+    addDescription,
+    clearDescriptions,
+    descriptions
+  } = useNewDescriptionMappingsContext()
 
   const isLoading = categoriesIsLoading!! && accountsIsLoading!! && sourcesIsLoading!! && payeesIsLoading!! && descriptionsIsLoading!!
+
+  const combinedDescriptions = descriptionsData?.concat(descriptions) ?? []
+
+  const uniqueDescriptions = () => Array.from(new Set(combinedDescriptions.map(description => description.shortDescription)).values())
+
+  const postNewDescriptions = (descriptionsFromTransactions: string[]) => {
+    const newDescriptions = descriptions.filter(desc => descriptionsFromTransactions.includes(desc.shortDescription))
+    post(newDescriptions)
+  }
 
   return {
     isLoading,
@@ -59,8 +84,10 @@ const useReferenceData = () => {
     accounts: accounts ?? [],
     sources: sources ?? [],
     payees: payees ?? [],
-    descriptions: descriptionsData ?? [],
-    uniqueDescriptions: uniqueDescriptions()
+    descriptions: combinedDescriptions,
+    uniqueDescriptions: uniqueDescriptions(),
+    addNewDescription: addDescription,
+    postNewDescriptions
   }
 }
 

@@ -6,8 +6,6 @@ import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
-const descriptions = ["Rent", "Game", "Book"];
-
 interface PersonalTransferRowProps {
   data: PersonalTransfer
   index: number;
@@ -30,7 +28,8 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
 
   const {
     categories,
-    accounts
+    accounts,
+    uniqueDescriptions
   } = useReferenceData()
 
   return (
@@ -85,7 +84,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
             title="Description"
             selected={data.description}
             setSelected={(value) => handleChange(index, value, "description")}
-            options={descriptions}
+            options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
           />

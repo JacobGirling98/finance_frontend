@@ -6,8 +6,6 @@ import {Income, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
-const descriptions = ["Rent", "Game", "Book"];
-
 interface IncomeRowProps {
   data: Income
   index: number;
@@ -30,7 +28,8 @@ const IncomeRow: FC<IncomeRowProps> = (
 
   const {
     categories,
-    sources
+    sources,
+    uniqueDescriptions
   } = useReferenceData()
 
   return (
@@ -76,7 +75,7 @@ const IncomeRow: FC<IncomeRowProps> = (
             title="Description"
             selected={data.description}
             setSelected={(value) => handleChange(index, value, "description")}
-            options={descriptions}
+            options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
           />

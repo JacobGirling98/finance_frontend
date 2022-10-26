@@ -7,8 +7,6 @@ import DeleteRowButton from "../../../button/DeleteRowButton";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
-const descriptions = ["Rent", "Game", "Book"];
-
 interface CreditDebitRowProps {
   data: CreditDebit
   index: number;
@@ -23,8 +21,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
     data, index, handleDelete, isLastRow, handleChange, errors
   }
 ) => {
-
-  const {categories} = useReferenceData()
+  const {categories, uniqueDescriptions, addNewDescription} = useReferenceData()
 
   return (
     <div className="flex">
@@ -68,9 +65,10 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
             title="Description"
             selected={data.description}
             setSelected={value => handleChange(index, value, "description")}
-            options={descriptions}
+            options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
+            onCreate={addNewDescription}
           />
         </div>
       </div>

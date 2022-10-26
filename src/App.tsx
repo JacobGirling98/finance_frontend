@@ -3,6 +3,8 @@ import {QueryClient, QueryClientProvider} from "react-query";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import useRouter from "./hooks/useRouter";
+import {ReactQueryDevtools} from "react-query/devtools";
+import {NewDescriptionMappingsProvider} from "./context/useNewDescriptionMappings";
 
 const App = () => {
   useEffect(() => {
@@ -21,13 +23,16 @@ const App = () => {
 
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <div className="bg-white dark:bg-gray-800  min-h-screen">
-        <Navbar/>
-        <div>
-          {routing}
+      <NewDescriptionMappingsProvider>
+        <div className="bg-white dark:bg-gray-800  min-h-screen">
+          <Navbar/>
+          <div>
+            {routing}
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
-      </div>
+        <ReactQueryDevtools />
+      </NewDescriptionMappingsProvider>
     </QueryClientProvider>
 
   );
