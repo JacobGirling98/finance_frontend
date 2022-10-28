@@ -1,6 +1,6 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
-import {QueryClient, useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
 import {baseUrl} from "../utils/constants";
 import useReferenceData from "./useReferenceData";
@@ -16,7 +16,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
 
   const {postNewDescriptions} = useReferenceData()
 
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
 
   const resetTransactions = () => setTransactions([emptyTransaction("", "")])
 
@@ -24,9 +24,9 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   }, {
-    onSuccess: () => {
+    onSuccess: async () => {
       resetTransactions()
-      queryClient.invalidateQueries("getDescriptions")
+      queryClient.invalidateQueries(["getDescriptions"])
     }
   })
 

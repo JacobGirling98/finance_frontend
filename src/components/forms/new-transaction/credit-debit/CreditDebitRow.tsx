@@ -43,6 +43,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
             setSelected={value => handleChange(index, value, "category")}
             options={categories}
             error={errors.category}
+            showAllOptions={true}
           />
         </div>
         <div className="flex flex-col mx-2">
@@ -69,6 +70,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
             allowCreate={true}
             error={errors.description}
             onCreate={addNewDescription}
+            showAllOptions={false}
           />
         </div>
       </div>

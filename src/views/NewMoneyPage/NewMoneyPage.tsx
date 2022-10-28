@@ -56,7 +56,8 @@ const NewMoneyPage = () => {
           <Listbox value={transactionType} onChange={setTransactionType}>
             <div className="relative m-1">
               <Listbox.Button
-                className="relative w-full h-10 cursor-default rounded-lg bg-slate-600 text-left pl-3 shadow-md focus:outline-none text-gray-100">
+                className="relative w-full h-10 cursor-default rounded-lg bg-slate-600 text-left pl-3 shadow-md focus:outline-none text-gray-100"
+              >
                 <span className="block truncate">{transactionType}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex pr-1 items-center">
                   <ChevronUpDownIcon className="h-5 w-5"/>

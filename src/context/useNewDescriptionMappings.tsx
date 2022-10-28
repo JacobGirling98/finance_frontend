@@ -1,5 +1,5 @@
 import {Description} from "../types/NewMoney";
-import React, {FC, useContext, useEffect, useState} from "react";
+import React, {FC, useContext, useState} from "react";
 
 interface INewDescriptionMappingsContext {
   descriptions: Description[];
@@ -26,10 +26,6 @@ interface ProviderProps {
 
 export const NewDescriptionMappingsProvider: FC<ProviderProps> = ({children}) => {
   const [descriptions, setDescriptions] = useState<Description[]>([])
-
-  useEffect(() => {
-    console.log(descriptions)
-  }, [descriptions])
 
   const addDescriptionMapping = (description: Description) => {
     setDescriptions(desc => [...desc, description])
