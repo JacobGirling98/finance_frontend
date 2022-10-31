@@ -72,7 +72,7 @@ const Select: FC<SelectProps> = (
               <Combobox.Options
                 className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
               >
-                {filteredOptions().map((category, index) => (
+                {(query.length === 0 || query.length > 2) && filteredOptions().map((category, index) => (
                   <Combobox.Option
                     key={index}
                     value={category}
