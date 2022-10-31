@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import FormButton from "../../button/FormButton";
 
 interface FormButtonsProps {
@@ -12,6 +12,26 @@ const FormButtons: FC<FormButtonsProps> = (
     handleSubmit, handleAddTransaction, handleClear
   }
 ) => {
+
+  useEffect(() => {
+    const keydownAddRow = (event: KeyboardEvent) => {
+      if (event.altKey && event.code === 'KeyN') {
+        handleAddTransaction()
+      }
+    }
+    const keydownClearRows = (event: KeyboardEvent) => {
+      if (event.altKey && event.code === 'KeyC') {
+        handleClear()
+      }
+    }
+    window.addEventListener("keydown", keydownAddRow)
+    window.addEventListener("keydown", keydownClearRows)
+    return () => {
+      window.removeEventListener("keydown", keydownAddRow)
+      window.removeEventListener("keydown", keydownClearRows)
+    }
+  }, [handleAddTransaction, handleClear])
+
   return (
     <>
       <FormButton
