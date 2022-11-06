@@ -75,7 +75,8 @@ const useReferenceData = () => {
 
   const postNewDescriptions = (descriptionsFromTransactions: string[]) => {
     const newDescriptions = descriptions.filter(desc => descriptionsFromTransactions.includes(desc.shortDescription))
-    post(newDescriptions)
+    if (newDescriptions.length > 0)
+      post(newDescriptions)
   }
 
   return {
