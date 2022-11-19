@@ -1,6 +1,6 @@
 import {Combobox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
-import React, {FC, Fragment, useState} from "react";
+import React, {FC, Fragment, useEffect, useState} from "react";
 import ErrorMessage from "./ErrorMessage";
 import {isNotBlank} from "../new-transaction/validation";
 
@@ -35,19 +35,34 @@ const Select: FC<SelectProps> = (
     return query.length < 3 ? [] : search(options);
   };
 
+  const onChange = (value: string) => {
+    if (!options.includes(value) && allowCreate && onCreate) {
+      onCreate(value)
+    }
+    setSelected(value)
+  }
+
+  useEffect(() => {
+    console.log(query)
+  }, [query])
+
   return (
     <>
       <label htmlFor="category" className="text-white mb-1 ml-2">
         {title}
       </label>
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox value={selected} onChange={onChange}>
         <div className="relative">
           <div
             className={`relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
           >
             <Combobox.Button className="w-full h-full">
               <Combobox.Input
-                onChange={event => setQuery(event.target.value)}
+                onChange={event => {
+                  console.log("In here")
+                  console.log(event.target.value)
+                  setQuery(event.target.value)
+                }}
                 onClick={() => {
                   setSelected("");
                   setQuery("");
