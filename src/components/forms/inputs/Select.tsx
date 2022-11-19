@@ -1,6 +1,6 @@
 import {Combobox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
-import React, {FC, Fragment, useEffect, useState} from "react";
+import React, {FC, Fragment, useState} from "react";
 import ErrorMessage from "./ErrorMessage";
 import {isNotBlank} from "../new-transaction/validation";
 
@@ -42,10 +42,6 @@ const Select: FC<SelectProps> = (
     setSelected(value)
   }
 
-  useEffect(() => {
-    console.log(query)
-  }, [query])
-
   return (
     <>
       <label htmlFor="category" className="text-white mb-1 ml-2">
@@ -56,25 +52,21 @@ const Select: FC<SelectProps> = (
           <div
             className={`relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
           >
-            <Combobox.Button className="w-full h-full">
-              <Combobox.Input
-                onChange={event => {
-                  console.log("In here")
-                  console.log(event.target.value)
-                  setQuery(event.target.value)
-                }}
-                onClick={() => {
-                  setSelected("");
-                  setQuery("");
-                }}
-                className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-gray-600 focus:outline-none"
+            <Combobox.Input
+              onChange={event => {
+                setQuery(event.target.value)
+              }}
+              onClick={() => {
+                setSelected("");
+                setQuery("");
+              }}
+              className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-gray-600 focus:outline-none"
+            />
+            <Combobox.Button className={"absolute inset-y-0 right-0 flex pr-1"}>
+              <ChevronUpDownIcon
+                className="h-5 w-5 my-auto text-gray-400"
+                aria-hidden="true"
               />
-              <span className={"absolute inset-y-0 right-0 flex pr-1"}>
-                <ChevronUpDownIcon
-                  className="h-5 w-5 my-auto text-gray-400"
-                  aria-hidden="true"
-                />
-              </span>
             </Combobox.Button>
           </div>
           {(filteredOptions().length > 0 || (allowCreate && onCreate && query.length > 0)) && (
@@ -100,8 +92,8 @@ const Select: FC<SelectProps> = (
                         <span>{category}</span>
                         {selected ? (
                           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
-                            <CheckIcon className="h-5 w-5" aria-hidden="true"/>
-                          </span>
+                              <CheckIcon className="h-5 w-5" aria-hidden="true"/>
+                            </span>
                         ) : null}
                       </>
                     )}
