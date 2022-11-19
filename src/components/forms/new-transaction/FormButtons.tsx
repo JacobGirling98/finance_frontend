@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from "react";
-import FormButton from "../../button/FormButton";
+import Button from "../../button/Button";
 
 interface FormButtonsProps {
   handleSubmit: () => void;
@@ -34,25 +34,22 @@ const FormButtons: FC<FormButtonsProps> = (
 
   return (
     <>
-      <FormButton
+      <Button
         value="Submit"
-        className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-600 ring-indigo-800"
         onClick={handleSubmit}
       />
-      <FormButton
+      <Button
         value="Add Row"
-        className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
         onClick={handleAddTransaction}
       />
-      <FormButton
+      <Button
         value="Clear"
         onClick={handleClear}
-        className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
       />
-      <FormButton
+      <Button
         value="Upload Receipt"
         onClick={handleAddTransaction}
-        className="w-32 bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-500 ring-indigo-800"
+        className="w-32"
       />
     </>
   )

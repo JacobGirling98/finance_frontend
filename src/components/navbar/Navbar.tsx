@@ -4,6 +4,7 @@ import {useMutation} from "react-query";
 import axios from "axios";
 import {baseUrl} from "../../utils/constants";
 import Spinner from "../Spinner";
+import Button from "../button/Button";
 
 const Navbar = () => {
 
@@ -21,12 +22,7 @@ const Navbar = () => {
           <NavButtons
             className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out text-gray-300 hover:bg-gray-700 hover:text-white"/>
           <div className="flex items-center ml-auto">
-            <button
-              className="px-2 bg-indigo-700 rounded-md text-base font-medium text-white h-full w-28 hover:bg-indigo-600 active:bg-indigo-500 transition duration-150 ease-in-out"
-              onClick={() => mutate()}
-            >
-              <span>Sync</span>
-            </button>
+            <Button value="Sync" onClick={mutate} className="px-2 font-medium w-28"/>
           </div>
         </div>
       </nav>
