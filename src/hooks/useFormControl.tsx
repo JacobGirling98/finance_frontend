@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
 import {useMutation, useQueryClient} from "react-query";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {baseUrl} from "../utils/constants";
 import useReferenceData from "./useReferenceData";
+import {useModal} from "../context/useModal";
 
 function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer | Income>(
   emptyTransaction: (date: string, category: string) => T,
@@ -15,18 +16,23 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
   const [validationErrors, setValidationErrors] = useState<ValidationErrors<T>[]>([emptyError])
 
   const {postNewDescriptions} = useReferenceData()
+  const {toggleSuccessModal, toggleErrorModal} = useModal()
 
   const queryClient = useQueryClient()
 
   const resetTransactions = () => setTransactions([emptyTransaction("", "")])
 
-  const {mutate, isLoading} = useMutation<void, void, T[]>("submitTransactions", async () => {
+  const {mutate, isLoading} = useMutation<number, AxiosError, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   }, {
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       resetTransactions()
+      toggleSuccessModal(`Successfully added ${data} transactions!`)
       queryClient.invalidateQueries(["getDescriptions"])
+    },
+    onError: (error) => {
+      toggleErrorModal(error.message)
     }
   })
 

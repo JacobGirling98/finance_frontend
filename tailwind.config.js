@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: "jit",
   purge: [
@@ -22,8 +23,17 @@ module.exports = {
           dark: {
             main: colors.white
           }
+        },
+        text: {
+          primary: {
+            dark: {
+              main: colors.gray[500],
+              hover: colors.gray[400],
+              active: colors.gray[300]
+            }
+          }
         }
-      }
+      },
     },
   },
   plugins: [],

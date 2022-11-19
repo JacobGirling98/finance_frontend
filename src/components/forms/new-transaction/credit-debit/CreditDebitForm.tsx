@@ -4,7 +4,7 @@ import {validateCreditDebit} from "../validation";
 import CreditDebitRow from "./CreditDebitRow";
 import FormButtons from "../FormButtons";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
-import Spinner from "../../../Spinner";
+import Spinner from "../../../utils/Spinner";
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"

@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
-import {QueryClient, QueryClientProvider} from "react-query";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import useRouter from "./hooks/useRouter";
 import {ReactQueryDevtools} from "react-query/devtools";
-import {NewDescriptionMappingsProvider} from "./context/useNewDescriptionMappings";
+import Providers from "./Providers";
+import Modal from "./components/utils/Modal";
 
 const App = () => {
   useEffect(() => {
@@ -22,19 +22,17 @@ const App = () => {
   const routing = useRouter();
 
   return (
-    <QueryClientProvider client={new QueryClient()}>
-      <NewDescriptionMappingsProvider>
-        <div className="bg-white dark:bg-gray-800  min-h-screen">
-          <Navbar/>
-          <div>
-            {routing}
-          </div>
-          <Footer/>
+    <Providers>
+      <div className="bg-white dark:bg-gray-800  min-h-screen">
+        <Navbar/>
+        <div>
+          {routing}
         </div>
-        <ReactQueryDevtools />
-      </NewDescriptionMappingsProvider>
-    </QueryClientProvider>
-
+        <Modal />
+        <Footer/>
+      </div>
+      <ReactQueryDevtools/>
+    </Providers>
   );
 };
 

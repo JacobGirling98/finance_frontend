@@ -4,7 +4,7 @@ import {validateBankTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import BankTransferRow from "./BankTransferRow";
 import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
-import Spinner from "../../../Spinner";
+import Spinner from "../../../utils/Spinner";
 
 const emptyBankTransfer = (date: string, category: string): BankTransfer => ({
   ...({

@@ -4,7 +4,7 @@ import {validatePersonalTransfer} from "../validation";
 import FormButtons from "../FormButtons";
 import PersonalTransferRow from "./PersonalTransferRow";
 import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
-import Spinner from "../../../Spinner";
+import Spinner from "../../../utils/Spinner";
 
 const emptyPersonalTransfer = (date: string, category: string): PersonalTransfer => ({
   ...({

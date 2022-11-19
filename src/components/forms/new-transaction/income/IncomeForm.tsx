@@ -4,7 +4,7 @@ import {validateIncome} from "../validation";
 import FormButtons from "../FormButtons";
 import IncomeRow from "./IncomeRow";
 import {Income, ValidationErrors} from "../../../../types/NewMoney";
-import Spinner from "../../../Spinner";
+import Spinner from "../../../utils/Spinner";
 
 const emptyIncome = (date: string, category: string): Income => ({
   ...({
