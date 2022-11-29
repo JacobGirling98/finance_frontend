@@ -10,7 +10,6 @@ import ExitButton from "../../../button/ExitButton";
 import Button from "../../../button/Button";
 import TextArea from "../../../inputs/TextArea";
 import Input from "../../../inputs/Input";
-import moment from "moment";
 import useReferenceData from "../../../../hooks/useReferenceData";
 import {
   flagNewDescriptions,
@@ -19,6 +18,7 @@ import {
   receiptTransactionToCreditDebit
 } from "./upload-receipt";
 import NewDescriptionMapping from "./NewDescriptionMapping";
+import {today} from "../../../../utils/constants";
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"
@@ -43,7 +43,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
 ) => {
   const [receiptModalIsOpen, setReceiptModalIsOpen] = useState(false)
   const [receiptModalContent, setReceiptModalContent] = useState("")
-  const [receiptDate, setReceiptDate] = useState(moment().format("yyyy-MM-DD"))
+  const [receiptDate, setReceiptDate] = useState(today)
   const [receiptModalStage, setReceiptModalStage] = useState(0)
   const [receiptTransactions, setReceiptTransactions] = useState<ReceiptTransaction[]>([])
 

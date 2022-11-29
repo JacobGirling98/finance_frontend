@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
 import {useMutation, useQueryClient} from "react-query";
 import axios, {AxiosError} from "axios";
-import {baseUrl} from "../utils/constants";
+import {baseUrl, today} from "../utils/constants";
 import useReferenceData from "./useReferenceData";
 import {useModal} from "../context/useModal";
 
@@ -12,7 +12,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
   validate: (transaction: T) => ValidationErrors<T>,
   transactionType: "credit" | "debit" | "bank-transfer" | "personal-transfer" | "income"
 ) {
-  const [transactions, setTransactions] = useState<T[]>([emptyTransaction("", "")])
+  const [transactions, setTransactions] = useState<T[]>([emptyTransaction(today, "")])
   const [validationErrors, setValidationErrors] = useState<ValidationErrors<T>[]>([emptyError])
 
   const {postNewDescriptions} = useReferenceData()
@@ -20,7 +20,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
 
   const queryClient = useQueryClient()
 
-  const resetTransactions = () => setTransactions([emptyTransaction("", "")])
+  const resetTransactions = () => setTransactions([emptyTransaction(today, "")])
 
   const {mutate, isLoading} = useMutation<number, AxiosError, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)

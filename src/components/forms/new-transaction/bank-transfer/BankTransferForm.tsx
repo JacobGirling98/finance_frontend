@@ -54,7 +54,7 @@ const BankTransferForm: FC = () => {
           transactionType="bank-transfer"
         />
       </div>
-      <Spinner isOpen={isLoading} />
+      <Spinner isOpen={isLoading}/>
     </>
   )
 }
