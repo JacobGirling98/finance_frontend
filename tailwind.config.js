@@ -16,12 +16,18 @@ module.exports = {
             main: colors.indigo[700],
             hover: colors.indigo[600],
             active: colors.indigo[500],
-            ring: colors.indigo[800]
+            ring: colors.indigo[800],
+            disabled: colors.gray[700]
           }
         },
         secondary: {
           dark: {
-            main: colors.white
+            main: colors.gray[100]
+          }
+        },
+        background: {
+          dark: {
+            main: colors.gray[900]
           }
         },
         text: {
@@ -31,6 +37,11 @@ module.exports = {
               hover: colors.gray[400],
               active: colors.gray[300]
             }
+          }
+        },
+        input: {
+          primary: {
+            dark: colors.gray[600]
           }
         }
       },

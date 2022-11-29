@@ -1,10 +1,11 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {FC, Fragment} from "react";
 import {useModal} from "../../context/useModal";
-import {CheckCircleIcon, XMarkIcon, ExclamationCircleIcon} from "@heroicons/react/24/solid";
+import {CheckCircleIcon, ExclamationCircleIcon} from "@heroicons/react/24/solid";
+import ExitButton from "../button/ExitButton";
 
 
-const Modal: FC = () => {
+const ResultModal: FC = () => {
   const {isOpen, setIsOpen, body, isSuccess} = useModal()
 
   const renderIcon = () => {
@@ -30,14 +31,8 @@ const Modal: FC = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className="w-full max-w-md transform overflow-hidden rounded-2xl px-6 pt-2 pb-4 text-left align-middle shadow-xl transition-all bg-gray-900">
-                  <button
-                    className="fixed right-3 text-text-primary-dark-main hover:text-text-primary-dark-hover active:text-text-primary-dark-active"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <XMarkIcon className="h-6 w-6"
-                    />
-                  </button>
+                  className="w-full max-w-md transform overflow-hidden rounded-2xl px-6 pt-2 pb-4 text-left align-middle shadow-xl transition-all bg-background-dark-main">
+                  <ExitButton onClick={() => setIsOpen(false)} className="fixed right-3"/>
                   {renderIcon()}
                   <div className="mt-1 flex justify-center">
                     <p className="text-sm text-gray-500">
@@ -54,4 +49,4 @@ const Modal: FC = () => {
   )
 }
 
-export default Modal;
+export default ResultModal;

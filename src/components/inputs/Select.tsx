@@ -2,7 +2,7 @@ import {Combobox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
 import React, {FC, Fragment, useState} from "react";
 import ErrorMessage from "./ErrorMessage";
-import {isNotBlank} from "../new-transaction/validation";
+import {isNotBlank} from "../forms/new-transaction/validation";
 
 interface SelectProps {
   selected: string;
@@ -48,7 +48,7 @@ const Select: FC<SelectProps> = (
         {title}
       </label>
       <Combobox value={selected} onChange={onChange}>
-        <div className="relative">
+        <div className="relative overflow-visible">
           <div
             className={`relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
           >
@@ -77,7 +77,7 @@ const Select: FC<SelectProps> = (
               leaveTo="opacity-0"
             >
               <Combobox.Options
-                className="absolute mt-1 z-10 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
+                className="absolute mt-1 z-12 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
               >
                 {filteredOptions().map((category, index) => (
                   <Combobox.Option

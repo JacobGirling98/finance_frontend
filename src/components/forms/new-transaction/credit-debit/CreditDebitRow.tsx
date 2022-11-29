@@ -1,8 +1,8 @@
-import {FC} from "react";
-import CurrencyInput from "../../inputs/CurrencyInput";
-import Input from "../../inputs/Input";
-import NumberInput from "../../inputs/NumberInput";
-import Select from "../../inputs/Select";
+import {FC, useEffect, useRef} from "react";
+import CurrencyInput from "../../../inputs/CurrencyInput";
+import Input from "../../../inputs/Input";
+import NumberInput from "../../../inputs/NumberInput";
+import Select from "../../../inputs/Select";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -13,15 +13,28 @@ interface CreditDebitRowProps {
   handleDelete: (index: number) => void;
   isLastRow: boolean;
   handleChange: (index: number, value: string | number, field: keyof CreditDebit) => void;
-  errors: ValidationErrors<CreditDebit>
+  errors: ValidationErrors<CreditDebit>;
+  focusValueInput?: boolean;
 }
 
 const CreditDebitRow: FC<CreditDebitRowProps> = (
   {
-    data, index, handleDelete, isLastRow, handleChange, errors
+    data,
+    index,
+    handleDelete,
+    isLastRow,
+    handleChange,
+    errors,
+    focusValueInput = false
   }
 ) => {
   const {categories, uniqueDescriptions, addNewDescription} = useReferenceData()
+
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   return (
     <div className="flex">
@@ -51,6 +64,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
             value={data.value}
             handleValueChange={value => handleChange(index, value, "value")}
             error={errors.value}
+            ref={valueInputRef}
           />
         </div>
         <div className="flex flex-col mx-2">

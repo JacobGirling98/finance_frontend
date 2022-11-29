@@ -15,7 +15,7 @@ const DeleteRowButton: FC<DeleteRowButtonProps> = (
   return (
     <button onClick={() => handleDelete(index)} className="group" disabled={disabled}>
       <TrashIcon
-        className="h-8 w-8 text-gray-400 group-disabled:text-gray-700 hover:text-gray-300 active:text-gray-200 hover:transition active:transition duration-150 ease-in-out"
+        className="h-8 w-8 text-gray-400 group-disabled:text-primary-dark-disabled hover:text-gray-300 active:text-gray-200 hover:transition active:transition duration-150 ease-in-out"
       />
     </button>
   )

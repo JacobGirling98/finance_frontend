@@ -1,9 +1,9 @@
-import {FC} from "react";
-import Input from "../../inputs/Input";
-import Select from "../../inputs/Select";
+import {FC, useEffect, useRef} from "react";
+import Input from "../../../inputs/Input";
+import Select from "../../../inputs/Select";
 import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
-import CurrencyInput from "../../inputs/CurrencyInput";
-import NumberInput from "../../inputs/NumberInput";
+import CurrencyInput from "../../../inputs/CurrencyInput";
+import NumberInput from "../../../inputs/NumberInput";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
@@ -14,7 +14,8 @@ interface BankTransferRowProps {
   handleDelete: (index: number) => void;
   isLastRow: boolean;
   handleChange: (index: number, value: string | number, field: keyof BankTransfer) => void
-  errors: ValidationErrors<BankTransfer>
+  errors: ValidationErrors<BankTransfer>;
+  focusValueInput?: boolean;
 }
 
 const BankTransferRow: FC<BankTransferRowProps> = (
@@ -24,14 +25,22 @@ const BankTransferRow: FC<BankTransferRowProps> = (
     handleDelete,
     isLastRow,
     handleChange,
-    errors
+    errors,
+    focusValueInput = false
   }
 ) => {
+
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   const {
     categories,
     payees,
-    uniqueDescriptions
+    uniqueDescriptions,
+    addNewDescription
   } = useReferenceData()
 
   return (
@@ -70,6 +79,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
+            ref={valueInputRef}
           />
         </div>
         <div className="flex flex-col mx-2">
@@ -84,10 +94,12 @@ const BankTransferRow: FC<BankTransferRowProps> = (
           <Select
             title="Description"
             selected={data.description}
-            setSelected={(value) => handleChange(index, value, "description")}
+            setSelected={value => handleChange(index, value, "description")}
             options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
+            onCreate={addNewDescription}
+            showAllOptions={false}
           />
         </div>
       </div>

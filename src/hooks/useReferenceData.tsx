@@ -63,8 +63,9 @@ const useReferenceData = () => {
 
   const {
     addDescription,
+    addDescriptionMapping,
     clearDescriptions,
-    descriptions
+    descriptions,
   } = useNewDescriptionMappingsContext()
 
   const isLoading = categoriesIsLoading!! && accountsIsLoading!! && sourcesIsLoading!! && payeesIsLoading!! && descriptionsIsLoading!!
@@ -79,6 +80,8 @@ const useReferenceData = () => {
       post(newDescriptions)
   }
 
+  const shortDescriptionFrom = (fullDescription: string): string => combinedDescriptions.find(desc => desc.fullDescription === fullDescription)?.shortDescription ?? ""
+
   return {
     isLoading,
     categories: categories ?? [],
@@ -88,7 +91,9 @@ const useReferenceData = () => {
     descriptions: combinedDescriptions,
     uniqueDescriptions: uniqueDescriptions(),
     addNewDescription: addDescription,
-    postNewDescriptions
+    addNewDescriptionMapping: addDescriptionMapping,
+    postNewDescriptions,
+    shortDescriptionFrom
   }
 }
 

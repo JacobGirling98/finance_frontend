@@ -42,6 +42,7 @@ const PersonalTransferForm: FC = () => {
             isLastRow={onlyOneRow}
             handleChange={changeTransaction}
             errors={validationErrors[index]}
+            focusValueInput={transactions.length > 1}
           />
         ))}
       </div>
@@ -50,6 +51,7 @@ const PersonalTransferForm: FC = () => {
           handleSubmit={submitTransactions}
           handleAddTransaction={addTransaction}
           handleClear={clearTransactions}
+          transactionType="personal-transfer"
         />
       </div>
       <Spinner isOpen={isLoading} />

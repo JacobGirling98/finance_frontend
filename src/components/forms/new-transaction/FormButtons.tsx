@@ -5,11 +5,17 @@ interface FormButtonsProps {
   handleSubmit: () => void;
   handleAddTransaction: () => void;
   handleClear: () => void;
+  handleUploadReceipt?: () => void;
+  transactionType: "credit" | "debit" | "bank-transfer" | "personal-transfer" | "income"
 }
 
 const FormButtons: FC<FormButtonsProps> = (
   {
-    handleSubmit, handleAddTransaction, handleClear
+    handleSubmit,
+    handleAddTransaction,
+    handleClear,
+    handleUploadReceipt,
+    transactionType
   }
 ) => {
 
@@ -48,8 +54,9 @@ const FormButtons: FC<FormButtonsProps> = (
       />
       <Button
         value="Upload Receipt"
-        onClick={handleAddTransaction}
+        onClick={handleUploadReceipt}
         className="w-32"
+        disabled={!(transactionType === "credit" || transactionType === "debit")}
       />
     </>
   )

@@ -1,7 +1,7 @@
-import {FC} from "react";
-import CurrencyInput from "../../inputs/CurrencyInput";
-import Input from "../../inputs/Input";
-import Select from "../../inputs/Select";
+import {FC, useEffect, useRef} from "react";
+import CurrencyInput from "../../../inputs/CurrencyInput";
+import Input from "../../../inputs/Input";
+import Select from "../../../inputs/Select";
 import {Income, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -12,7 +12,8 @@ interface IncomeRowProps {
   handleDelete: (index: number) => void;
   isLastRow: boolean;
   handleChange: (index: number, value: string | number, field: keyof Income) => void
-  errors: ValidationErrors<Income>
+  errors: ValidationErrors<Income>;
+  focusValueInput?: boolean
 }
 
 const IncomeRow: FC<IncomeRowProps> = (
@@ -22,14 +23,22 @@ const IncomeRow: FC<IncomeRowProps> = (
     handleDelete,
     isLastRow,
     handleChange,
-    errors
+    errors,
+    focusValueInput = false
   }
 ) => {
+
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   const {
     categories,
     sources,
-    uniqueDescriptions
+    uniqueDescriptions,
+    addNewDescription
   } = useReferenceData()
 
   return (
@@ -68,16 +77,19 @@ const IncomeRow: FC<IncomeRowProps> = (
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
+            ref={valueInputRef}
           />
         </div>
         <div className="flex flex-col mx-2">
           <Select
             title="Description"
             selected={data.description}
-            setSelected={(value) => handleChange(index, value, "description")}
+            setSelected={value => handleChange(index, value, "description")}
             options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
+            onCreate={addNewDescription}
+            showAllOptions={false}
           />
         </div>
       </div>

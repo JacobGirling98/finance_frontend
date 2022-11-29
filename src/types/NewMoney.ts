@@ -43,3 +43,10 @@ export interface Description {
   fullDescription: string;
   shortDescription: string;
 }
+
+export interface ReceiptTransaction {
+  quantity: number;
+  description: string;
+  value: number;
+  isNewDescription?: boolean
+}

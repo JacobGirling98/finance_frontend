@@ -25,11 +25,13 @@ export const NewDescriptionMappingsProvider: FC<ProviderProps> = ({children}) =>
   const [descriptions, setDescriptions] = useState<Description[]>([])
 
   const addDescriptionMapping = (description: Description) => {
-    setDescriptions(desc => [...desc, description])
+    if (description.fullDescription !== "" && description.shortDescription !== "")
+      setDescriptions(desc => [...desc, description])
   }
 
   const addDescription = (description: string) => {
-    setDescriptions(desc => [...desc, {shortDescription: description, fullDescription: description}])
+    if (description !== "")
+      setDescriptions(desc => [...desc, {shortDescription: description, fullDescription: description}])
   }
 
   const clearDescriptions = () => {

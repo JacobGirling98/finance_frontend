@@ -1,7 +1,7 @@
-import {FC} from "react";
-import CurrencyInput from "../../inputs/CurrencyInput";
-import Input from "../../inputs/Input";
-import Select from "../../inputs/Select";
+import {FC, useEffect, useRef} from "react";
+import CurrencyInput from "../../../inputs/CurrencyInput";
+import Input from "../../../inputs/Input";
+import Select from "../../../inputs/Select";
 import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -12,7 +12,8 @@ interface PersonalTransferRowProps {
   handleDelete: (index: number) => void;
   isLastRow: boolean;
   handleChange: (index: number, value: string | number, field: keyof PersonalTransfer) => void
-  errors: ValidationErrors<PersonalTransfer>
+  errors: ValidationErrors<PersonalTransfer>;
+  focusValueInput?: boolean
 }
 
 const PersonalTransferRow: FC<PersonalTransferRowProps> = (
@@ -22,14 +23,22 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
     handleDelete,
     isLastRow,
     handleChange,
-    errors
+    errors,
+    focusValueInput = false
   }
 ) => {
+
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   const {
     categories,
     accounts,
-    uniqueDescriptions
+    uniqueDescriptions,
+    addNewDescription
   } = useReferenceData()
 
   return (
@@ -77,16 +86,19 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
+            ref={valueInputRef}
           />
         </div>
         <div className="flex flex-col mx-2">
           <Select
             title="Description"
             selected={data.description}
-            setSelected={(value) => handleChange(index, value, "description")}
+            setSelected={value => handleChange(index, value, "description")}
             options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
+            onCreate={addNewDescription}
+            showAllOptions={false}
           />
         </div>
       </div>

@@ -19,7 +19,6 @@ export const validateCreditDebit = (transaction: CreditDebit): ValidationErrors<
   value: validateGreaterThanZero("Value", transaction.value),
   quantity: validateGreaterThanZero("Quantity", transaction.quantity),
   description: validateIsNotBlank("Description", transaction.description)
-
 })
 
 export const validateBankTransfer = (transaction: BankTransfer): ValidationErrors<BankTransfer> => ({

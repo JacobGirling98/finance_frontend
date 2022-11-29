@@ -75,6 +75,11 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
     mutate(transactions)
   }
 
+  const overrideTransactions = (transactions: T[]) => {
+    setTransactions(transactions)
+    setValidationErrors(transactions.map(() => emptyError))
+  }
+
   const latestDate = (transactions: T[]): string => transactions[transactions.length - 1].date
 
   const latestCategory = (transactions: T[]): string => transactions[transactions.length - 1].category
@@ -92,6 +97,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
     changeTransaction,
     onlyOneRow,
     submitTransactions,
+    overrideTransactions,
     isLoading
   })
 }

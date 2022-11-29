@@ -4,7 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import useRouter from "./hooks/useRouter";
 import {ReactQueryDevtools} from "react-query/devtools";
 import Providers from "./Providers";
-import Modal from "./components/utils/Modal";
+import ResultModal from "./components/utils/Modal";
 
 const App = () => {
   useEffect(() => {
@@ -28,7 +28,7 @@ const App = () => {
         <div>
           {routing}
         </div>
-        <Modal />
+        <ResultModal />
         <Footer/>
       </div>
       <ReactQueryDevtools/>
