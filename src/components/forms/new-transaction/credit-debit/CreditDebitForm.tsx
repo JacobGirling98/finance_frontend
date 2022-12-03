@@ -73,6 +73,14 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
     setReceiptTransactions(flaggedTransactions)
   }
 
+  const handleClose = () => {
+    setReceiptModalIsOpen(false)
+    setReceiptDate(today)
+    setReceiptTransactions([])
+    setReceiptModalContent("")
+    setReceiptModalStage(0)
+  }
+
   const finishReceiptUpload = () => {
     setReceiptModalIsOpen(false)
     setReceiptTransactions(prevState => prevState.map(transaction => ({
@@ -121,12 +129,12 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
 
   useEffect(() => {
     if (!areNewTransactions && receiptTransactions.length > 0) {
-      setReceiptModalIsOpen(false)
       overrideTransactions(receiptTransactions.map(transaction => receiptTransactionToCreditDebit(
         transaction,
         "Food",
         receiptDate
       )))
+      setReceiptModalIsOpen(false)
     }
   }, [receiptTransactions, areNewTransactions])
 
@@ -156,7 +164,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
         />
       </div>
       <Spinner isOpen={isLoading}/>
-      <Transition appear show={receiptModalIsOpen} as={Fragment}>
+      <Transition appear show={receiptModalIsOpen} as={Fragment} afterLeave={handleClose}>
         <Dialog as="div" className="relative z-10" onClose={() => setReceiptModalIsOpen(false)}>
           <Transition.Child
             as={Fragment}
@@ -181,7 +189,8 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className="w-full max-w-md transform overflow-visible rounded-2xl bg-background-dark-main p-6 text-left align-middle shadow-xl transition-all">
+                  className="w-full max-w-md transform overflow-visible rounded-2xl bg-background-dark-main p-6 text-left align-middle shadow-xl transition-all"
+                >
                   <ExitButton onClick={() => setReceiptModalIsOpen(false)} className="fixed right-3"/>
                   <Dialog.Title
                     as="h3"

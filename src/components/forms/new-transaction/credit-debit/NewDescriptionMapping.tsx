@@ -71,7 +71,9 @@ const NewDescriptionMapping: FC<NewDescriptionMappingProps> = (
       {newDescriptions.length > 0 && (
         <>
           <div className="flex justify-center">
-            {newDescriptions[index].description.fullDescription}
+            <div className="text-gray-100 my-2 overflow-auto flex-wrap">
+              {newDescriptions[index].description.fullDescription}
+            </div>
           </div>
           <Select
             title="Description"
