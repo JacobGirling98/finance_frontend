@@ -14,6 +14,7 @@ import useReferenceData from "../../../../hooks/useReferenceData";
 import {
   flagNewDescriptions,
   formatSainsburysTransactions,
+  formatWaitroseTransactions,
   parseSainsburysTransaction,
   receiptTransactionToCreditDebit
 } from "./upload-receipt";
@@ -67,10 +68,17 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
     shortDescriptionFrom
   } = useReferenceData()
 
-  const handleUploadSainsburysReceipt = () => {
-    const transactions = formatSainsburysTransactions(receiptModalContent).map(transaction => parseSainsburysTransaction(transaction))
+  const processReceiptTransactions = (transactions: ReceiptTransaction[]) => {
     const flaggedTransactions = flagNewDescriptions(descriptions, transactions)
     setReceiptTransactions(flaggedTransactions)
+  }
+
+  const handleUploadSainsburysReceipt = () => {
+    processReceiptTransactions(formatSainsburysTransactions(receiptModalContent).map(transaction => parseSainsburysTransaction(transaction)));
+  }
+
+  const handleUploadWaitroseReceipt = () => {
+    processReceiptTransactions(formatWaitroseTransactions(receiptModalContent))
   }
 
   const handleClose = () => {
@@ -113,7 +121,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
           <TextArea onChange={(content) => setReceiptModalContent(content)}/>
         </div>
         <div className="mt-4 flex justify-center">
-          <Button value="Upload Waitrose" className="w-40"/>
+          <Button value="Upload Waitrose" className="w-40" onClick={handleUploadWaitroseReceipt}/>
           <Button value="Upload Sainsbury's" className="w-40" onClick={handleUploadSainsburysReceipt}/>
           <Button value="Back" onClick={() => setReceiptModalStage(0)}/>
         </div>
