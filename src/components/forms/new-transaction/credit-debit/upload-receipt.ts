@@ -9,7 +9,16 @@ export const parseSainsburysTransaction = (transaction: string): ReceiptTransact
   }
 }
 
-export const formatTransactions = (transactions: string): string[] => {
+export const parseWaitroseTransaction = (transaction: string): ReceiptTransaction => {
+  const stringContents = transaction.split("\n")
+  return {
+    quantity: parseInt(stringContents[stringContents.indexOf("Qty:") + 1].split("Cost")[0]),
+    description: stringContents[stringContents.indexOf("Product Name") + 1],
+    value: parseFloat(stringContents[stringContents.findIndex(element => element.includes("Cost")) + 1].replace(/£/g, ""))
+  }
+}
+
+export const formatSainsburysTransactions = (transactions: string): string[] => {
   const lines = transactions.split("\n")
   const formattedLines = []
   for (let i = 0; i < lines.length; i++) {
@@ -25,6 +34,13 @@ export const formatTransactions = (transactions: string): string[] => {
     formattedLines.push(transaction)
   }
   return formattedLines
+}
+
+export const formatWaitroseTransactions = (transactions: string): ReceiptTransaction[] => {
+  const splitTransactions = transactions.split("Product Image\n")
+  return splitTransactions
+    .filter(transaction => transaction.split("\n").length > 2)
+    .map(transaction => parseWaitroseTransaction(transaction))
 }
 
 export const flagNewDescriptions = (existingDescriptions: Description[], transactions: ReceiptTransaction[]): ReceiptTransaction[] => {

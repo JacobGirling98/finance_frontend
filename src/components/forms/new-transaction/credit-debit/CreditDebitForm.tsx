@@ -13,7 +13,7 @@ import Input from "../../../inputs/Input";
 import useReferenceData from "../../../../hooks/useReferenceData";
 import {
   flagNewDescriptions,
-  formatTransactions,
+  formatSainsburysTransactions,
   parseSainsburysTransaction,
   receiptTransactionToCreditDebit
 } from "./upload-receipt";
@@ -68,7 +68,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
   } = useReferenceData()
 
   const handleUploadSainsburysReceipt = () => {
-    const transactions = formatTransactions(receiptModalContent).map(transaction => parseSainsburysTransaction(transaction))
+    const transactions = formatSainsburysTransactions(receiptModalContent).map(transaction => parseSainsburysTransaction(transaction))
     const flaggedTransactions = flagNewDescriptions(descriptions, transactions)
     setReceiptTransactions(flaggedTransactions)
   }

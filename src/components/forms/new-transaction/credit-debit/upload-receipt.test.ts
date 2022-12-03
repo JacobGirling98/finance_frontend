@@ -1,7 +1,9 @@
 import {
   flagNewDescriptions,
-  formatTransactions,
+  formatSainsburysTransactions,
+  formatWaitroseTransactions,
   parseSainsburysTransaction,
+  parseWaitroseTransaction,
   receiptTransactionToCreditDebit
 } from "./upload-receipt";
 import {Description} from "../../../../types/NewMoney";
@@ -32,7 +34,7 @@ describe("can format multiple transactions", () => {
       "250ml £2.00\n" +
       "1 Sainsbury's Woodland Free Range Medium Eggs x12 £2.05"
 
-    expect(formatTransactions(content)).toEqual([
+    expect(formatSainsburysTransactions(content)).toEqual([
       "1 Sainsbury's Pure Orange Juice 4x1L £3.50",
       "1 Dove Men+Care Clean Comfort Anti-Perspirant Deodorant Aerosol 250ml £2.00",
       "1 Sainsbury's Woodland Free Range Medium Eggs x12 £2.05"
@@ -46,7 +48,7 @@ describe("can format multiple transactions", () => {
       "£2.00\n" +
       "1 Sainsbury's Woodland Free Range Medium Eggs x12 £2.05"
 
-    expect(formatTransactions(content)).toEqual([
+    expect(formatSainsburysTransactions(content)).toEqual([
       "1 Sainsbury's Pure Orange Juice 4x1L £3.50",
       "1 Dove Men+Care Clean Comfort Anti-Perspirant Deodorant Aerosol 250ml £2.00",
       "1 Sainsbury's Woodland Free Range Medium Eggs x12 £2.05"
@@ -111,3 +113,179 @@ test("convert a receipt transaction to a regular transaction", () => {
     category: "Food"
   })
 });
+
+describe("can split Waitrose transaction to separate components", () => {
+  test("with single item", () => {
+    expect(parseWaitroseTransaction("McVitie's Jaffa Cakes\n" +
+      "Product Name\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Size\n" +
+      "30s\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£2.00")).toEqual({
+      quantity: 1,
+      description: "McVitie's Jaffa Cakes",
+      value: 2.00
+    })
+  });
+
+  test("with multiple items", () => {
+    expect(parseWaitroseTransaction("McVitie's Jaffa Cakes\n" +
+      "Product Name\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Size\n" +
+      "30s\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "4Cost:\n" +
+      "£8.00")).toEqual({
+      quantity: 4,
+      description: "McVitie's Jaffa Cakes",
+      value: 8.00
+    })
+  });
+})
+
+describe("can parse multiple waitrose transactions", () => {
+  test("without category", () => {
+    const transactions = "Pringles Original Crisps\n" +
+      "Product Name\n" +
+      "Pringles Original Crisps\n" +
+      "Product Size\n" +
+      "200g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "2Cost:\n" +
+      "£4.00\n" +
+      "Product Image\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Name\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Size\n" +
+      "30s\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£2.00\n" +
+      "Product Image\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Name\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Size\n" +
+      "500g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£1.60"
+
+    expect(formatWaitroseTransactions(transactions)).toEqual([
+      {quantity: 2, description: "Pringles Original Crisps", value: 4.00},
+      {quantity: 1, description: "McVitie's Jaffa Cakes", value: 2.00},
+      {quantity: 1, description: "Waitrose Duchy Wholewheat Penne Pasta", value: 1.60}
+    ])
+  })
+
+  test("with category", () => {
+    const transactions = "Food Cupboard\n" +
+      "Product Image\n" +
+      "Pringles Original Crisps\n" +
+      "Product Name\n" +
+      "Pringles Original Crisps\n" +
+      "Product Size\n" +
+      "200g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "2Cost:\n" +
+      "£4.00\n" +
+      "Product Image\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Name\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Size\n" +
+      "30s\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£2.00\n" +
+      "Product Image\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Name\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Size\n" +
+      "500g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£1.60"
+    expect(formatWaitroseTransactions(transactions)).toEqual([
+      {quantity: 2, description: "Pringles Original Crisps", value: 4.00},
+      {quantity: 1, description: "McVitie's Jaffa Cakes", value: 2.00},
+      {quantity: 1, description: "Waitrose Duchy Wholewheat Penne Pasta", value: 1.60}
+    ])
+  })
+
+  test("with multiple categories", () => {
+    const transactions = "Bakery\n" +
+      "Product Image\n" +
+      "Fitzgeralds 2 Sourdough Baguettes\n" +
+      "Product Name\n" +
+      "Fitzgeralds 2 Sourdough Baguettes\n" +
+      "Product Size\n" +
+      "250g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£2.00\n" +
+      "Food Cupboard\n" +
+      "Product Image\n" +
+      "Pringles Original Crisps\n" +
+      "Product Name\n" +
+      "Pringles Original Crisps\n" +
+      "Product Size\n" +
+      "200g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "2Cost:\n" +
+      "£4.00\n" +
+      "Product Image\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Name\n" +
+      "McVitie's Jaffa Cakes\n" +
+      "Product Size\n" +
+      "30s\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£2.00\n" +
+      "Product Image\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Name\n" +
+      "Waitrose Duchy Wholewheat Penne Pasta\n" +
+      "Product Size\n" +
+      "500g\n" +
+      "Offer\n" +
+      "Quantity\n" +
+      "Qty:\n" +
+      "1Cost:\n" +
+      "£1.60"
+    expect(formatWaitroseTransactions(transactions)).toEqual([
+      {quantity: 1, description: "Fitzgeralds 2 Sourdough Baguettes", value: 2.00},
+      {quantity: 2, description: "Pringles Original Crisps", value: 4.00},
+      {quantity: 1, description: "McVitie's Jaffa Cakes", value: 2.00},
+      {quantity: 1, description: "Waitrose Duchy Wholewheat Penne Pasta", value: 1.60}
+    ])
+  })
+})
