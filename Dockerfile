@@ -8,7 +8,7 @@ RUN npm i react-scripts@3.4.1 -g --silent
 COPY . ./
 RUN npm run build
 
-FROM nginx:stable-alpine
+FROM arm64v8/nginx:stable-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 3000
