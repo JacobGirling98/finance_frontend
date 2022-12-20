@@ -5,18 +5,13 @@ import useRouter from "./hooks/useRouter";
 import {ReactQueryDevtools} from "react-query/devtools";
 import Providers from "./Providers";
 import ResultModal from "./components/utils/Modal";
+import {userIsInDarkMode} from "./utils/dark-mode";
+
+
 
 const App = () => {
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    userIsInDarkMode() ? document.documentElement.classList.add("dark") : document.documentElement.classList.remove("dark")
   }, []);
 
   const routing = useRouter();
