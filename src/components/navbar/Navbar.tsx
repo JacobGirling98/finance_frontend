@@ -12,7 +12,10 @@ const Navbar = () => {
 
   const {toggleSuccessModal, toggleErrorModal} = useModal()
 
-  const {mutate, isLoading} = useMutation<void, AxiosError, void>("gitSync", async () => await axios.post(`${baseUrl}/git/sync`, {}), {
+  const {
+    mutate,
+    isLoading
+  } = useMutation<void, AxiosError, void>("gitSync", async () => await axios.post(`${baseUrl}/git/sync`, {}), {
     onSuccess: () => {
       toggleSuccessModal("Successfully synced data")
     },
@@ -24,16 +27,17 @@ const Navbar = () => {
   return (
     <>
       <Spinner isOpen={isLoading} muteBackground={true}/>
-      <nav className="bg-cyan-100 dark:bg-gray-800">
+      <nav className="bg-bg-light dark:bg-bg-dark">
         <div className="flex py-2 mx-2">
-          <div className="flex text-gray-300 font-bold text-xl pl-2 pr-8 items-center">
+          <div className="flex text-text-light dark:text-text-dark font-bold text-xl pl-2 pr-8 items-center">
             <p className="pr-2">My Finances</p>
             <BanknotesIcon className="block h-6 w-6" aria-hidden={true}/>
           </div>
           <NavButtons
-            className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out text-gray-300 hover:bg-gray-700 hover:text-white"/>
+            className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out text-text-light dark:text-text-dark hover:bg-input-light dark:hover:bg-input-dark hover:text-text-light dark:hover:text-text-dark"
+          />
           <div className="flex items-center ml-auto mr-5">
-            <DarkModeSwitch />
+            <DarkModeSwitch/>
           </div>
           <div className="flex items-center">
             <Button value="Sync" onClick={mutate} className="px-2 font-medium w-28"/>

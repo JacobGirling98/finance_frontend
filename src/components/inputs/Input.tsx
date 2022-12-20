@@ -26,7 +26,7 @@ const Input: FC<InputProps> = (
         type={type}
         id={`${type}`}
         name={`${type}`}
-        className={`rounded-md h-10 px-2 shadow-lg bg-gray-600 text-gray-100 focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""} ${className}`}
+        className={`rounded-md h-10 px-2 shadow-lg bg-input-light dark:bg-input-dark text-text-light dark:text-text-dark focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""} ${className}`}
         value={value}
         onChange={(event) => onChange(event.target.value)}
       />

@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <Providers>
-      <div className="flex flex-col bg-white dark:bg-gray-800 min-h-screen">
+      <div className="flex flex-col bg-bg-light dark:bg-bg-dark min-h-screen">
         <Navbar/>
         <div className="flex-grow">
           {routing}

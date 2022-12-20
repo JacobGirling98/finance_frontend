@@ -44,13 +44,13 @@ const Select: FC<SelectProps> = (
 
   return (
     <>
-      <label htmlFor="category" className="text-white mb-1 ml-2">
+      <label htmlFor="category" className="text-text-light dark:text-text-dark mb-1 ml-2">
         {title}
       </label>
       <Combobox value={selected} onChange={onChange}>
         <div className="relative overflow-visible">
           <div
-            className={`relative w-full h-10 text-gray-100 cursor-default overflow-hidden rounded-md bg-gray-600 text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
+            className={`relative w-full h-10 text-text-light dark:text-text-dark cursor-default overflow-hidden rounded-md bg-input-light dark:bg-input-dark text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
           >
             <Combobox.Input
               onChange={event => {
@@ -60,11 +60,11 @@ const Select: FC<SelectProps> = (
                 setSelected("");
                 setQuery("");
               }}
-              className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-gray-600 focus:outline-none"
+              className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-input-light dark:bg-input-dark focus:outline-none"
             />
             <Combobox.Button className={"absolute inset-y-0 right-0 flex pr-1"}>
               <ChevronUpDownIcon
-                className="h-5 w-5 my-auto text-gray-400"
+                className="h-5 w-5 my-auto text-text-strong-light dark:text-text-strong-dark"
                 aria-hidden="true"
               />
             </Combobox.Button>
@@ -77,21 +77,21 @@ const Select: FC<SelectProps> = (
               leaveTo="opacity-0"
             >
               <Combobox.Options
-                className="absolute mt-1 z-12 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
+                className="absolute mt-1 z-12 max-h-60 bg-mark-light dark:bg-mark-dark bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-text-light dark:text-text-dark"
               >
                 {filteredOptions().map((category, index) => (
                   <Combobox.Option
                     key={index}
                     value={category}
                     className={({active}) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-gray-500 opacity-80" : ""}`
+                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-special-light dark:bg-special-dark opacity-80" : ""}`
                     }
                   >
                     {({selected}) => (
                       <>
                         <span>{category}</span>
                         {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-text-strong-light dark:text-text-strong-dark">
                               <CheckIcon className="h-5 w-5" aria-hidden="true"/>
                             </span>
                         ) : null}
@@ -104,7 +104,7 @@ const Select: FC<SelectProps> = (
                     key={filteredOptions.length}
                     value={query}
                     className={({active}) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-gray-500 opacity-80" : ""}`
+                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-special-light dark:bg-special-dark opacity-80" : ""}`
                     }
                     onClick={() => {
                       onCreate(query)

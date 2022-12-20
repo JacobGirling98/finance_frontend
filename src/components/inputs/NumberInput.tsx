@@ -30,14 +30,14 @@ const NumberInput: FC<NumberInputProps> = (
 
   return (
     <>
-      <label htmlFor="price" className="text-white mb-1 ml-2">
+      <label htmlFor="price" className="text-text-light dark:text-text-dark mb-1 ml-2">
         Quantity
       </label>
       <input
         type="string"
         id="price"
         name="price"
-        className={`rounded-md h-10 px-2 shadow-lg bg-gray-600 text-gray-100 focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
+        className={`rounded-md h-10 px-2 shadow-lg bg-input-light dark:bg-input-dark text-text-light dark:text-text-dark focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
         value={innerValue}
         onChange={handleChange}
       />
