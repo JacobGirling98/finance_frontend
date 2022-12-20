@@ -17,7 +17,7 @@ const Footer = () => {
   })
 
   return (
-    <footer className="absolute block bottom-0 left-0 bg-gray-300 dark:bg-slate-700 min-w-full">
+    <footer className="bottom-0 left-0 bg-gray-300 dark:bg-slate-700 min-w-full">
       {date && (
         <div className="flex justify-end text-black dark:text-slate-300 px-2">
           <p>Last Login: {date.toDateString()}</p>

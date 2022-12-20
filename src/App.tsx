@@ -23,12 +23,12 @@ const App = () => {
 
   return (
     <Providers>
-      <div className="bg-white dark:bg-gray-800  min-h-screen">
+      <div className="flex flex-col bg-white dark:bg-gray-800 min-h-screen">
         <Navbar/>
-        <div>
+        <div className="flex-grow">
           {routing}
         </div>
-        <ResultModal />
+        <ResultModal/>
         <Footer/>
       </div>
       <ReactQueryDevtools/>
