@@ -1,5 +1,12 @@
 import React, {useState} from "react";
-import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
+import {
+  BankTransfer,
+  CreditDebit,
+  Income,
+  PersonalTransfer,
+  TransactionConfirmation,
+  ValidationErrors
+} from "../types/NewMoney";
 import {useMutation, useQueryClient} from "react-query";
 import axios, {AxiosError} from "axios";
 import {baseUrl, today} from "../utils/constants";
@@ -22,13 +29,13 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
 
   const resetTransactions = () => setTransactions([emptyTransaction(today, "")])
 
-  const {mutate, isLoading} = useMutation<number, AxiosError, T[]>("submitTransactions", async () => {
+  const {mutate, isLoading} = useMutation<TransactionConfirmation, AxiosError, T[]>("submitTransactions", async () => {
     const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   }, {
     onSuccess: async (data) => {
       resetTransactions()
-      toggleSuccessModal(`Successfully added ${data} transactions!`)
+      toggleSuccessModal(`Added ${data.transactionCount} transactions worth £${data.value.toFixed(2)}`)
       queryClient.invalidateQueries(["getDescriptions"])
     },
     onError: (error) => {

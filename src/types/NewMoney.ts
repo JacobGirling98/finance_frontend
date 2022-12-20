@@ -50,3 +50,8 @@ export interface ReceiptTransaction {
   value: number;
   isNewDescription?: boolean
 }
+
+export interface TransactionConfirmation {
+  transactionCount: number;
+  value: number;
+}
