@@ -23,6 +23,10 @@ module.exports = {
           active: {
             light: colors.slate[300],
             dark: colors.slate[600]
+          },
+          highlight: {
+            light: colors.slate[50],
+            dark: colors.slate[900]
           }
         },
         text: {
