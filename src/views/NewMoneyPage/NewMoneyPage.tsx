@@ -48,7 +48,7 @@ const NewMoneyPage = () => {
   return (
     <>
       <div className="flex">
-        <h1 className="mx-5 my-1 text-4xl text-text-soft-light text- dark:text-text-soft-dark">
+        <h1 className="mx-5 my-2 text-4xl text-text-soft-light text- dark:text-text-soft-dark font-light">
           <span className="italic">Add Transaction</span>
           <span> - </span>
           <span className="text-special-light">{transactionType}</span>

@@ -18,7 +18,7 @@ const Input: FC<InputProps> = (
   return (
     <>
       {title && (
-        <label htmlFor={`${type}`} className="text-white mb-1 ml-2">
+        <label htmlFor={`${type}`} className="text-text-light dark:text-text-dark mb-1 ml-2">
           {title}
         </label>
       )}
