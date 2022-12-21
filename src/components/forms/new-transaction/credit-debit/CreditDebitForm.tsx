@@ -144,6 +144,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
       )))
       setReceiptModalIsOpen(false)
     }
+    // eslint-disable-next-line
   }, [receiptTransactions, areNewTransactions])
 
   return (

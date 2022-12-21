@@ -27,14 +27,17 @@ const Navbar = () => {
   return (
     <>
       <Spinner isOpen={isLoading} muteBackground={true}/>
-      <nav className="bg-bg-light dark:bg-bg-dark">
+      <nav>
         <div className="flex py-2 mx-2">
           <div className="flex text-text-light dark:text-text-dark font-bold text-xl pl-2 pr-8 items-center">
             <p className="pr-2">My Finances</p>
             <BanknotesIcon className="block h-6 w-6" aria-hidden={true}/>
           </div>
           <NavButtons
-            className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out text-text-light dark:text-text-dark hover:bg-input-light dark:hover:bg-input-dark hover:text-text-light dark:hover:text-text-dark"
+            className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out
+            text-text-light dark:text-text-dark
+            hover:bg-bg-hover-light dark:hover:bg-bg-hover-dark
+            active:bg-bg-active-light dark:active:bg-bg-active-dark"
           />
           <div className="flex items-center ml-auto mr-5">
             <DarkModeSwitch/>

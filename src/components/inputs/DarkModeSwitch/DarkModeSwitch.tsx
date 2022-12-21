@@ -18,7 +18,7 @@ const DarkModeSwitch: FC = () => {
       <Switch
         checked={enabled}
         onChange={setEnabled}
-        className={`bg-transparent border border-outline-light dark:border-outline-dark relative inline-flex h-6 w-11 items-center rounded-full`}
+        className={`bg-transparent border border-special-hover-light dark:border-special-hover-dark relative inline-flex h-6 w-11 items-center rounded-full`}
       >
         <span
             className={`${

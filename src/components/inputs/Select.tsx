@@ -50,7 +50,10 @@ const Select: FC<SelectProps> = (
       <Combobox value={selected} onChange={onChange}>
         <div className="relative overflow-visible">
           <div
-            className={`relative w-full h-10 text-text-light dark:text-text-dark cursor-default overflow-hidden rounded-md bg-input-light dark:bg-input-dark text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-red-600" : ""}`}
+            className={`relative w-full h-10 cursor-default overflow-hidden rounded-md 
+              text-text-light dark:text-text-dark
+              bg-input-light dark:bg-input-dark
+              text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-error-light dark:border-error-dark" : ""}`}
           >
             <Combobox.Input
               onChange={event => {
@@ -91,7 +94,8 @@ const Select: FC<SelectProps> = (
                       <>
                         <span>{category}</span>
                         {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-text-strong-light dark:text-text-strong-dark">
+                          <span
+                            className="absolute inset-y-0 left-0 flex items-center pl-3 text-text-strong-light dark:text-text-strong-dark">
                               <CheckIcon className="h-5 w-5" aria-hidden="true"/>
                             </span>
                         ) : null}

@@ -11,92 +11,69 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          dark: {
-            main: colors.indigo[700],
-            hover: colors.indigo[600],
-            active: colors.indigo[500],
-            ring: colors.indigo[800],
-            disabled: colors.gray[700]
-          }
-        },
-        secondary: {
-          dark: {
-            main: colors.gray[100]
-          }
-        },
-        background: {
-          dark: {
-            main: colors.gray[900]
-          }
-        },
         bg: {
-          light: "#ffffff",
-          dark: "#202020"
+          light: colors.slate[100],
+          dark: colors.slate[800],
+          hover: {
+            light: colors.slate[200],
+            dark: colors.slate[700]
+          },
+          active: {
+            light: colors.slate[300],
+            dark: colors.slate[600]
+          }
         },
         text: {
-          light: "#273040",
-          dark: "#dddfe4"
-        },
-        'text-soft': {
-          light: "#444a56",
-          dark: "#b9bbc1"
-        },
-        'text-strong': {
-          light: "#4a4a4a",
-          dark: "#bbbbbb"
-        },
-        subtle: {
-          light: "#f8f9fd",
-          dark: "#222429"
-        },
-        border: {
-          light: "#e0e7f6",
-          dark: "#2a313d"
-        },
-        shadow: {
-          light: "#b0c0dd",
-          dark: "#000000"
+          light: colors.gray[800],
+          dark: colors.gray[100],
+          soft: {
+            light: colors.gray[700],
+            dark: colors.gray[50]
+          },
+          strong: {
+            light: colors.gray[900],
+            dark: colors.gray[200]
+          }
         },
         input: {
-          light: "#ffffff",
-          dark: "#1c1c1c"
+          light: colors.white,
+          dark: colors.gray[600]
         },
-        outline: {
-          light: "#bebbe5",
-          dark: "#9c98d7"
-        },
-        mark: {
+        transparent: {
           light: "#7a71de14",
           dark: "#8882ce14"
         },
+        disabled: {
+          light: colors.gray[400],
+          dark: colors.gray[700]
+        },
         special: {
-          light: "#7a71de",
-          dark: "#8882ce"
+          light: colors.indigo[500],
+          dark: colors.indigo[600],
+          text: {
+            light: colors.slate[50],
+            dark: colors.slate[100]
+          },
+          shadow: {
+            light: colors.indigo[900],
+            dark: colors.slate[900]
+          },
+          hover: {
+            light: colors.indigo[400],
+            dark: colors.indigo[500]
+          },
+          active: {
+            light: colors.indigo[300],
+            dark: colors.indigo[400]
+          },
+          disabled: {
+            light: colors.indigo[600],
+            dark: colors.indigo[700]
+          }
         },
-        "special-bg": {
-          light: "#7e76df",
-          dark: "#5e56b6"
-        },
-        "special-text": {
-          light: "#ffffff",
-          dark: "#dfdfe4"
-        },
-        "special-shadow": {
-          light: "#585773",
-          dark: "#1e1d29"
-        },
-        "special-mark": {
-          light: "#ffffff14",
-          dark: "#dfdfe414"
-        },
-        light: {
-          light: "#f3f3fc",
-          dark: "#d3d1ed"
-        },
-        dark: {
-          light: "#45426c",
-          dark: "#343347"
+        error: {
+          light: colors.red[600],
+          dark: colors.red[500]
         }
       },
     },
