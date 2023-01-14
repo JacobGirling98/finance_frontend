@@ -12,7 +12,7 @@ const TextArea: FC<TextAreaProps> = (
   return (
     <>
       <textarea
-        className={`rounded-md p-2 bg-input-primary-dark w-full text-secondary-dark-main focus:outline-none shadow-lg`}
+        className={`rounded-md p-2 bg-input-light dark:bg-input-dark w-full text-text-light dark:text-text-dark focus:outline-none shadow-lg`}
         placeholder="Enter receipt contents here..."
         onChange={(e) => onChange(e.target.value)}
       />

@@ -14,7 +14,7 @@ const ExitButton: FC<ExitButtonProps> = (
 ) => {
   return (
     <button
-      className={`text-text-primary-dark-main hover:text-text-primary-dark-hover active:text-text-primary-dark-active ${className}`}
+      className={`text-text-light dark:text-text-dark hover:text-subtle-light dark:hover:text-subtle-dark active:text-mark-light dark:active:text-mark-dark ${className}`}
       onClick={onClick}
     >
       <XMarkIcon className="h-6 w-6"/>

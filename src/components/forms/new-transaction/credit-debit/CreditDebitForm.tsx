@@ -144,6 +144,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
       )))
       setReceiptModalIsOpen(false)
     }
+    // eslint-disable-next-line
   }, [receiptTransactions, areNewTransactions])
 
   return (
@@ -197,12 +198,12 @@ const CreditDebitForm: FC<CreditDebitFormProps> = (
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className="w-full max-w-md transform overflow-visible rounded-2xl bg-background-dark-main p-6 text-left align-middle shadow-xl transition-all"
+                  className="w-full max-w-md transform overflow-visible rounded-2xl bg-bg-light dark:bg-bg-dark p-6 text-left align-middle shadow-xl transition-all"
                 >
                   <ExitButton onClick={() => setReceiptModalIsOpen(false)} className="fixed right-3"/>
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-white"
+                    className="text-lg font-medium leading-6 text-text-light dark:text-text-dark"
                   >
                     Upload Receipt
                   </Dialog.Title>

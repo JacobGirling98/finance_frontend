@@ -1,11 +1,11 @@
-import {FC, useEffect, useRef} from "react";
+import React, {FC, useEffect, useRef} from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
-import Input from "../../../inputs/Input";
 import NumberInput from "../../../inputs/NumberInput";
 import Select from "../../../inputs/Select";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
 import useReferenceData from "../../../../hooks/useReferenceData";
+import Input from "../../../inputs/Input";
 
 interface CreditDebitRowProps {
   data: CreditDebit

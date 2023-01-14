@@ -48,18 +48,22 @@ const NewMoneyPage = () => {
   return (
     <>
       <div className="flex">
-        <h1 className="text-white mx-5 my-1 text- text-4xl">
+        <h1 className="mx-5 my-2 text-4xl text-text-soft-light text- dark:text-text-soft-dark font-light">
           <span className="italic">Add Transaction</span>
-          <span>{` - ${transactionType}`}</span>
+          <span> - </span>
+          <span className="text-special-light">{transactionType}</span>
         </h1>
-        <div className="ml-auto w-72 mx-5">
+        <div className="mx-5 ml-auto w-72">
           <Listbox value={transactionType} onChange={setTransactionType}>
             <div className="relative m-1">
               <Listbox.Button
-                className="relative w-full h-10 cursor-default rounded-lg bg-slate-600 text-left pl-3 shadow-md focus:outline-none text-gray-100"
+                className="relative w-full h-10 cursor-default rounded-lg
+                  bg-input-light dark:bg-input-dark
+                  text-text-light dark:text-text-dark
+                  text-left pl-3 shadow-lg focus:outline-none "
               >
                 <span className="block truncate">{transactionType}</span>
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex pr-1 items-center">
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1">
                   <ChevronUpDownIcon className="h-5 w-5"/>
                 </span>
               </Listbox.Button>
@@ -70,20 +74,27 @@ const NewMoneyPage = () => {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options
-                  className="absolute mt-1 max-h-60 bg-gray-900 bg-opacity-80 backdrop-blur-md w-full z-10 rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white">
+                  className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-opacity-80 p-1 text-base
+                  bg-transparent-light dark:bg-transparent-dark 
+                  text-text-light dark:text-text-dark
+                  focus:outline-none shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-md">
                   {Object.entries(TransactionType).map(
                     ([key, value], index) => (
                       <Listbox.Option
                         key={index}
                         value={enumFrom(key)}
                         className={() =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md hover:bg-gray-500 hover:opacity-80`
+                          `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
+                          hover:bg-special-light dark:hover-bg-special-dark 
+                          hover:text-special-text-light dark:hover:text-special-text-dark
+                          hover:opacity-80`
                         }
                       >
                         {({selected}) => (
                           <>
                             {selected ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
+                              <span
+                                className="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"

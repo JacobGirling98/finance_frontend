@@ -10,7 +10,7 @@ const ErrorMessage: FC<ErrorMessageProps> = (
   return (
     <>
       {message && (
-        <div className="py-1 pl-2 text-red-300">
+        <div className="py-1 pl-2 text-error-light dark:text-error-dark">
           <p>{message}</p>
         </div>
       )}

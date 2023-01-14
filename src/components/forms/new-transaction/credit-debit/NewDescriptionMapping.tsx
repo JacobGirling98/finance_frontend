@@ -71,7 +71,7 @@ const NewDescriptionMapping: FC<NewDescriptionMappingProps> = (
       {newDescriptions.length > 0 && (
         <>
           <div className="flex justify-center">
-            <div className="text-gray-100 my-2 overflow-auto flex-wrap">
+            <div className="text-text-light dark:text-text-dark my-2 overflow-auto flex-wrap">
               {newDescriptions[index].description.fullDescription}
             </div>
           </div>

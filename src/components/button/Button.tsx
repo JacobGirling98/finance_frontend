@@ -17,7 +17,13 @@ const Button: FC<FormButtonProps> = (
 ) => {
   return (
     <button
-      className={`rounded-md h-10 w-24 text-base text-secondary-dark-main transition duration-150 ease-in-out mx-1 bg-primary-dark-main hover:bg-primary-dark-hover active:bg-primary-dark-active disabled:bg-primary-dark-disabled ${className}`}
+      className={`rounded-md h-10 w-24 text-base
+        text-special-text-light dark:text-special-text-dark
+        bg-special-light dark:bg-special-dark
+        hover:bg-special-hover-light dark:hover:bg-special-hover-dark
+        active:bg-special-active-light dark:active:bg-special-active-dark
+        disabled:bg-disabled-light dark:disabled:bg-disabled-dark
+        transition duration-150 ease-in-out mx-1  ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
