@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {useQuery} from "react-query";
 import axios from "axios";
-import {baseUrl} from "../../utils/constants";
+import {BASE_URL} from "../../utils/constants";
 
 const Footer = () => {
 
  const [date, setDate] = useState<Date>()
 
   useQuery<string>("getLastLogin", async () => {
-    const response = await axios.get(`${baseUrl}/last-login`)
+    const response = await axios.get(`${BASE_URL}/last-login`)
     return response.data
   }, {
     onSuccess: login => {

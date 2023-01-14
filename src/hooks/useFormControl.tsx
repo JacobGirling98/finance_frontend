@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {BankTransfer, CreditDebit, Income, PersonalTransfer, ValidationErrors} from "../types/NewMoney";
 import {useMutation, useQueryClient} from "react-query";
 import axios, {AxiosError} from "axios";
-import {baseUrl, today} from "../utils/constants";
+import {BASE_URL, today} from "../utils/constants";
 import useReferenceData from "./useReferenceData";
 import {useModal} from "../context/useModal";
 
@@ -23,7 +23,7 @@ function useFormControl<T extends CreditDebit | BankTransfer | PersonalTransfer 
   const resetTransactions = () => setTransactions([emptyTransaction(today, "")])
 
   const {mutate, isLoading} = useMutation<number, AxiosError, T[]>("submitTransactions", async () => {
-    const response = await axios.post(`${baseUrl}/transaction/multiple/${transactionType}`, transactions)
+    const response = await axios.post(`${BASE_URL}/transaction/multiple/${transactionType}`, transactions)
     return response.data
   }, {
     onSuccess: async (data) => {

@@ -2,7 +2,7 @@ import {BanknotesIcon} from "@heroicons/react/24/outline";
 import NavButtons from "../../navigation/NavButtons";
 import {useMutation} from "react-query";
 import axios, {AxiosError} from "axios";
-import {baseUrl} from "../../utils/constants";
+import {BASE_URL} from "../../utils/constants";
 import Spinner from "../utils/Spinner";
 import Button from "../button/Button";
 import {useModal} from "../../context/useModal";
@@ -11,7 +11,10 @@ const Navbar = () => {
 
   const {toggleSuccessModal, toggleErrorModal} = useModal()
 
-  const {mutate, isLoading} = useMutation<void, AxiosError, void>("gitSync", async () => await axios.post(`${baseUrl}/git/sync`, {}), {
+  const {
+    mutate,
+    isLoading
+  } = useMutation<void, AxiosError, void>("gitSync", async () => await axios.post(`${BASE_URL}/git/sync`, {sync: true}), {
     onSuccess: () => {
       toggleSuccessModal("Successfully synced data")
     },

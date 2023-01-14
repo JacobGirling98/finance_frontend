@@ -1,11 +1,11 @@
 import axios from "axios";
 import {useMutation, useQuery} from "react-query";
 import {Description} from "../types/NewMoney";
-import {baseUrl} from "../utils/constants";
+import {BASE_URL} from "../utils/constants";
 import {useNewDescriptionMappingsContext} from "../context/useNewDescriptionMappings";
 
 const getReferenceData = async (dataType: string) => {
-  const response = await axios.get(`${baseUrl}/reference/${dataType}`)
+  const response = await axios.get(`${BASE_URL}/reference/${dataType}`)
   return response.data
 }
 
@@ -53,7 +53,7 @@ const useReferenceData = () => {
   const {
     mutate: post
   } = useMutation<void, void, Description[]>("postDescriptions", async (newDescriptions: Description[]) => {
-    const response = await axios.post(`${baseUrl}/reference/descriptions/multiple`, newDescriptions)
+    const response = await axios.post(`${BASE_URL}/reference/descriptions/multiple`, newDescriptions)
     return response.data
   }, {
     onSuccess: () => {
