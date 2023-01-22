@@ -80,14 +80,18 @@ const Select: FC<SelectProps> = (
               leaveTo="opacity-0"
             >
               <Combobox.Options
-                className="absolute mt-1 z-12 max-h-60 bg-mark-light dark:bg-mark-dark bg-opacity-80 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-text-light dark:text-text-dark"
+                className="absolute mt-1 z-20 max-h-60 bg-opacity-80
+                 bg-transparent-light dark:bg-transparent-dark
+                 text-text-light dark:text-text-dark
+                 backdrop-blur-md w-full rounded-md overflow-auto p-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {filteredOptions().map((category, index) => (
                   <Combobox.Option
                     key={index}
                     value={category}
                     className={({active}) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-special-light dark:bg-special-dark opacity-80" : ""}`
+                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
+                      ${active ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark" : ""}`
                     }
                   >
                     {({selected}) => (
@@ -95,7 +99,7 @@ const Select: FC<SelectProps> = (
                         <span>{category}</span>
                         {selected ? (
                           <span
-                            className="absolute inset-y-0 left-0 flex items-center pl-3 text-text-strong-light dark:text-text-strong-dark">
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3`}>
                               <CheckIcon className="h-5 w-5" aria-hidden="true"/>
                             </span>
                         ) : null}
