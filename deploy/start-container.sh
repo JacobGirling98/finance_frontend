@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 container_name="finance-frontend"
 finance_dir=/home/jacobg/Programming/finance
 

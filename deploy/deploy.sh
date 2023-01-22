@@ -2,6 +2,8 @@
 
 image_name="finance-frontend"
 
+./start-docker.sh
+
 docker build -t $image_name ../.
 docker save $image_name | gzip -c > frontend.tar.gz
 
