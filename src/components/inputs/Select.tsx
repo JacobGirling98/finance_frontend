@@ -42,6 +42,9 @@ const Select: FC<SelectProps> = (
     setSelected(value)
   }
 
+  const optionStyling = (active: boolean): string => `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
+                      ${active ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark" : ""}`
+
   return (
     <>
       <label htmlFor="category" className="text-text-light dark:text-text-dark mb-1 ml-2">
@@ -89,10 +92,7 @@ const Select: FC<SelectProps> = (
                   <Combobox.Option
                     key={index}
                     value={category}
-                    className={({active}) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
-                      ${active ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark" : ""}`
-                    }
+                    className={({active}) => optionStyling(active)}
                   >
                     {({selected}) => (
                       <>
@@ -111,9 +111,7 @@ const Select: FC<SelectProps> = (
                   <Combobox.Option
                     key={filteredOptions.length}
                     value={query}
-                    className={({active}) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md ${active ? "bg-special-light dark:bg-special-dark opacity-80" : ""}`
-                    }
+                    className={({active}) => optionStyling(active)}
                     onClick={() => {
                       onCreate(query)
                     }}

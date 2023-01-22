@@ -19,7 +19,7 @@ const ResultModal: FC = () => {
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" onClose={() => setIsOpen(false)}>
-          <div className="fixed left-0 right-0 top-8 overflow-y-auto opacity-95">
+          <div className="fixed left-0 right-0 top-8 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
@@ -31,11 +31,11 @@ const ResultModal: FC = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className="w-full max-w-md transform overflow-hidden rounded-2xl px-6 pt-2 pb-4 text-left align-middle shadow-xl transition-all bg-background-dark-main">
+                  className="w-full max-w-md px-6 pt-2 pb-4 rounded-2xl bg-bg-hover-light dark:bg-bg-hover-dark shadow-xl text-left align-middle  transition-all  z-50 transform overflow-hidden">
                   <ExitButton onClick={() => setIsOpen(false)} className="fixed right-3"/>
                   {renderIcon()}
                   <div className="mt-1 flex justify-center">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-text-light dark:text-text-dark">
                       {body}
                     </p>
                   </div>
