@@ -6,6 +6,7 @@ import CreditDebitForm from "../../components/forms/new-transaction/credit-debit
 import BankTransferForm from "../../components/forms/new-transaction/bank-transfer/BankTransferForm";
 import PersonalTransferForm from "../../components/forms/new-transaction/personal-transfer/PersonalTransferForm";
 import IncomeForm from "../../components/forms/new-transaction/income/IncomeForm";
+import PageTitle from "../../components/utils/PageTitle";
 
 
 const NewMoneyPage = () => {
@@ -48,11 +49,12 @@ const NewMoneyPage = () => {
   return (
     <>
       <div className="flex">
-        <h1 className="mx-5 my-2 text-4xl text-text-soft-light text- dark:text-text-soft-dark font-light">
-          <span className="italic">Add Transaction</span>
-          <span> - </span>
-          <span className="text-special-light">{transactionType}</span>
-        </h1>
+        <PageTitle title="Add Transaction">
+          <>
+            <span> - </span>
+            <span className="text-special-light">{transactionType}</span>
+          </>
+        </PageTitle>
         <div className="mx-5 ml-auto w-72">
           <Listbox value={transactionType} onChange={setTransactionType}>
             <div className="relative m-1">
