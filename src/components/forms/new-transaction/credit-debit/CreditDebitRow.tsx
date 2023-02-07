@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useRef} from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import NumberInput from "../../../inputs/NumberInput";
-import Select from "../../../inputs/Select";
+import TypeableSelect from "../../../inputs/TypeableSelect";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import {CreditDebit, ValidationErrors} from "../../../../types/NewMoney";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -50,7 +50,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Category"
             selected={data.category}
             setSelected={value => handleChange(index, value, "category")}
@@ -76,7 +76,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Description"
             selected={data.description}
             setSelected={value => handleChange(index, value, "description")}

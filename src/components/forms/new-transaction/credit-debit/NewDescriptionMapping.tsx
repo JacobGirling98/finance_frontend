@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import Select from "../../../inputs/Select";
+import TypeableSelect from "../../../inputs/TypeableSelect";
 import {Description, ReceiptTransaction} from "../../../../types/NewMoney";
 import Button from "../../../button/Button";
 
@@ -75,7 +75,7 @@ const NewDescriptionMapping: FC<NewDescriptionMappingProps> = (
               {newDescriptions[index].description.fullDescription}
             </div>
           </div>
-          <Select
+          <TypeableSelect
             title="Description"
             selected={newDescriptions[index].description.shortDescription}
             setSelected={handleNewDescription}

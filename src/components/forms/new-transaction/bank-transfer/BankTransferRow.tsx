@@ -1,6 +1,6 @@
 import {FC, useEffect, useRef} from "react";
 import Input from "../../../inputs/Input";
-import Select from "../../../inputs/Select";
+import TypeableSelect from "../../../inputs/TypeableSelect";
 import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import NumberInput from "../../../inputs/NumberInput";
@@ -57,7 +57,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
@@ -66,7 +66,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Recipient"
             selected={data.recipient}
             setSelected={(value) => handleChange(index, value, "recipient")}
@@ -91,7 +91,7 @@ const BankTransferRow: FC<BankTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Description"
             selected={data.description}
             setSelected={value => handleChange(index, value, "description")}

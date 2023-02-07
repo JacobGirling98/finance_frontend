@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef} from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import Input from "../../../inputs/Input";
-import Select from "../../../inputs/Select";
+import TypeableSelect from "../../../inputs/TypeableSelect";
 import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -55,7 +55,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
@@ -64,7 +64,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Outbound"
             selected={data.outbound}
             setSelected={(value) => handleChange(index, value, "outbound")}
@@ -73,7 +73,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Inbound"
             selected={data.inbound}
             setSelected={(value) => handleChange(index, value, "inbound")}
@@ -90,7 +90,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Description"
             selected={data.description}
             setSelected={value => handleChange(index, value, "description")}

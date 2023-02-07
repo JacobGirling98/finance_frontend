@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef} from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import Input from "../../../inputs/Input";
-import Select from "../../../inputs/Select";
+import TypeableSelect from "../../../inputs/TypeableSelect";
 import {Income, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
@@ -55,7 +55,7 @@ const IncomeRow: FC<IncomeRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
@@ -64,7 +64,7 @@ const IncomeRow: FC<IncomeRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Source"
             selected={data.source}
             setSelected={(value) => handleChange(index, value, "source")}
@@ -81,7 +81,7 @@ const IncomeRow: FC<IncomeRowProps> = (
           />
         </div>
         <div className="flex flex-col mx-2">
-          <Select
+          <TypeableSelect
             title="Description"
             selected={data.description}
             setSelected={value => handleChange(index, value, "description")}
