@@ -1,6 +1,6 @@
 import React, {Dispatch, FC} from "react";
 import Select from "./Select";
-import {TransactionType} from "../../types/NewMoney";
+import {TransactionType} from "../../../types/NewMoney";
 
 interface TransactionTypeSelectProps {
   value: TransactionType;

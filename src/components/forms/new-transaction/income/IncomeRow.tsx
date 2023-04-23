@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef} from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import Input from "../../../inputs/Input";
-import TypeableSelect from "../../../inputs/TypeableSelect";
+import TypeableSelect from "../../../inputs/select/TypeableSelect";
 import {Income, ValidationErrors} from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";

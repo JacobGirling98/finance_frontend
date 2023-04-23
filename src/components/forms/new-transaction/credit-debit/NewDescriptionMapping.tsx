@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import TypeableSelect from "../../../inputs/TypeableSelect";
+import TypeableSelect from "../../../inputs/select/TypeableSelect";
 import {Description, ReceiptTransaction} from "../../../../types/NewMoney";
 import Button from "../../../button/Button";
 
