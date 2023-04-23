@@ -45,7 +45,9 @@ const StandingOrdersPage: FC = () => {
   return (
     <>
       {data && (
-        <Table data={data} columns={columns}/>
+        <div className="p-2 flex justify-center">
+          <Table data={data} columns={columns}/>
+        </div>
       )}
     </>
   );
