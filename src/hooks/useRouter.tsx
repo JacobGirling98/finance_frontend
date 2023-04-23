@@ -1,5 +1,6 @@
 import { useRoutes } from "react-router-dom";
 import NewMoneyPage from "../views/NewMoneyPage/NewMoneyPage";
+import StandingOrdersPage from "../views/StandingOrdersPage";
 
 interface NavType {
   name: string;
@@ -25,7 +26,7 @@ export const navigation: NavType[] = [
     name: "Standing Orders",
     path: "/standing",
     current: false,
-    element: <p>Standing</p>,
+    element: <StandingOrdersPage />,
   },
 ];
 
