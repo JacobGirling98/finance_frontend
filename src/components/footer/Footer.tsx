@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {useQuery} from "react-query";
 import axios from "axios";
 import {BASE_URL} from "../../utils/constants";
+import {useQuery} from "react-query";
 
 const Footer = () => {
 
