@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react";
-import {initialize, mswDecorator} from "msw-storybook-addon";
+import { initialize, mswDecorator } from "msw-storybook-addon";
 
-initialize()
+initialize();
 
 export const decorators = [mswDecorator];
 

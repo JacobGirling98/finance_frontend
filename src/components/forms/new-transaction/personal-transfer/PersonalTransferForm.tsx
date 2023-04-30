@@ -1,22 +1,35 @@
-import React, {FC} from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {validatePersonalTransfer} from "../validation";
+import { validatePersonalTransfer } from "../validation";
 import FormButtons from "../FormButtons";
 import PersonalTransferRow from "./PersonalTransferRow";
-import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
+import { PersonalTransfer, ValidationErrors } from "../../../../types/NewMoney";
 import Spinner from "../../../utils/Spinner";
+import { FC } from "react";
 
-const emptyPersonalTransfer = (date: string, category: string): PersonalTransfer => ({
-  ...({
-    category, date, description: "", inbound: "", outbound: "", value: 0
-  })
-})
+const emptyPersonalTransfer = (
+  date: string,
+  category: string
+): PersonalTransfer => ({
+  ...{
+    category,
+    date,
+    description: "",
+    inbound: "",
+    outbound: "",
+    value: 0,
+  },
+});
 
 const emptyPersonalTransferErrors = (): ValidationErrors<PersonalTransfer> => ({
-  ...({
-    category: "", date: "", description: "", inbound: "", outbound: "", value: ""
-  })
-})
+  ...{
+    category: "",
+    date: "",
+    description: "",
+    inbound: "",
+    outbound: "",
+    value: "",
+  },
+});
 
 const PersonalTransferForm: FC = () => {
   const {
@@ -28,13 +41,18 @@ const PersonalTransferForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow,
-    isLoading
-  } = useFormControl(emptyPersonalTransfer, emptyPersonalTransferErrors(), validatePersonalTransfer, "personal-transfer")
+    isLoading,
+  } = useFormControl(
+    emptyPersonalTransfer,
+    emptyPersonalTransferErrors(),
+    validatePersonalTransfer,
+    "personal-transfer"
+  );
 
   return (
     <>
       <div>
-        {transactions.map((transaction, index) => (
+        {transactions.map((_transaction, index) => (
           <PersonalTransferRow
             data={transactions[index]}
             index={index}
@@ -56,7 +74,7 @@ const PersonalTransferForm: FC = () => {
       </div>
       <Spinner isOpen={isLoading} />
     </>
-  )
-}
+  );
+};
 
 export default PersonalTransferForm;

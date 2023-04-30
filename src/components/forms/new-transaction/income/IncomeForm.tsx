@@ -1,22 +1,30 @@
-import React, {FC} from "react";
+import { FC } from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {validateIncome} from "../validation";
+import { validateIncome } from "../validation";
 import FormButtons from "../FormButtons";
 import IncomeRow from "./IncomeRow";
-import {Income, ValidationErrors} from "../../../../types/NewMoney";
+import { Income, ValidationErrors } from "../../../../types/NewMoney";
 import Spinner from "../../../utils/Spinner";
 
 const emptyIncome = (date: string, category: string): Income => ({
-  ...({
-    category, date, description: "", source: "", value: 0
-  })
-})
+  ...{
+    category,
+    date,
+    description: "",
+    source: "",
+    value: 0,
+  },
+});
 
 const emptyIncomeErrors = (): ValidationErrors<Income> => ({
-  ...({
-    category: "", date: "", description: "", source: "", value: ""
-  })
-})
+  ...{
+    category: "",
+    date: "",
+    description: "",
+    source: "",
+    value: "",
+  },
+});
 
 const IncomeForm: FC = () => {
   const {
@@ -28,13 +36,18 @@ const IncomeForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow,
-    isLoading
-  } = useFormControl(emptyIncome, emptyIncomeErrors(), validateIncome, "income")
+    isLoading,
+  } = useFormControl(
+    emptyIncome,
+    emptyIncomeErrors(),
+    validateIncome,
+    "income"
+  );
 
   return (
     <>
       <div>
-        {transactions.map((transaction, index) => (
+        {transactions.map((_transaction, index) => (
           <IncomeRow
             data={transactions[index]}
             index={index}
@@ -56,7 +69,7 @@ const IncomeForm: FC = () => {
       </div>
       <Spinner isOpen={isLoading} />
     </>
-  )
-}
+  );
+};
 
 export default IncomeForm;

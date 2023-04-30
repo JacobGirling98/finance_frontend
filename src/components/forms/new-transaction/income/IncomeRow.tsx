@@ -1,45 +1,42 @@
-import {FC, useEffect, useRef} from "react";
+import { FC, useEffect, useRef } from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import Input from "../../../inputs/Input";
 import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import {Income, ValidationErrors} from "../../../../types/NewMoney";
+import { Income, ValidationErrors } from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
 interface IncomeRowProps {
-  data: Income
+  data: Income;
   index: number;
   handleDelete: (index: number) => void;
   isLastRow: boolean;
-  handleChange: (index: number, value: string | number, field: keyof Income) => void
+  handleChange: (
+    index: number,
+    value: string | number,
+    field: keyof Income
+  ) => void;
   errors: ValidationErrors<Income>;
-  focusValueInput?: boolean
+  focusValueInput?: boolean;
 }
 
-const IncomeRow: FC<IncomeRowProps> = (
-  {
-    data,
-    index,
-    handleDelete,
-    isLastRow,
-    handleChange,
-    errors,
-    focusValueInput = false
-  }
-) => {
-
-  const valueInputRef = useRef<null | HTMLInputElement>(null)
+const IncomeRow: FC<IncomeRowProps> = ({
+  data,
+  index,
+  handleDelete,
+  isLastRow,
+  handleChange,
+  errors,
+  focusValueInput = false,
+}) => {
+  const valueInputRef = useRef<null | HTMLInputElement>(null);
 
   useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus()
-  }, [focusValueInput])
+    if (focusValueInput) valueInputRef.current?.focus();
+  }, [focusValueInput]);
 
-  const {
-    categories,
-    sources,
-    uniqueDescriptions,
-    addNewDescription
-  } = useReferenceData()
+  const { categories, sources, uniqueDescriptions, addNewDescription } =
+    useReferenceData();
 
   return (
     <div className="flex">
@@ -84,7 +81,7 @@ const IncomeRow: FC<IncomeRowProps> = (
           <TypeableSelect
             title="Description"
             selected={data.description}
-            setSelected={value => handleChange(index, value, "description")}
+            setSelected={(value) => handleChange(index, value, "description")}
             options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
@@ -94,7 +91,11 @@ const IncomeRow: FC<IncomeRowProps> = (
         </div>
       </div>
       <div className="mt-8 ml-auto mr-6">
-        <DeleteRowButton index={index} handleDelete={handleDelete} disabled={isLastRow}/>
+        <DeleteRowButton
+          index={index}
+          handleDelete={handleDelete}
+          disabled={isLastRow}
+        />
       </div>
     </div>
   );

@@ -1,16 +1,12 @@
-import React, {FC} from "react";
+import { FC } from "react";
 
 interface HeadlineCardProps {
   title: string;
   value: number;
 }
 
-const HeadlineCard: FC<HeadlineCardProps> = (
-  {
-    title, value
-  }
-) => {
-  const format = (value: number): string => value.toLocaleString()
+const HeadlineCard: FC<HeadlineCardProps> = ({ title, value }) => {
+  const format = (value: number): string => value.toLocaleString();
 
   return (
     <div className="border rounded-xl flex w-full shadow-md">
@@ -23,7 +19,7 @@ const HeadlineCard: FC<HeadlineCardProps> = (
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default HeadlineCard;

@@ -1,20 +1,18 @@
-import React, {FC} from "react";
+import { FC } from "react";
 
 interface FormButtonProps {
   value: string;
   className?: string;
   onClick?: () => void;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
-const Button: FC<FormButtonProps> = (
-  {
-    value,
-    className,
-    onClick,
-    disabled = false
-  }
-) => {
+const Button: FC<FormButtonProps> = ({
+  value,
+  className,
+  onClick,
+  disabled = false,
+}) => {
   return (
     <button
       className={`rounded-md h-10 w-24 text-base

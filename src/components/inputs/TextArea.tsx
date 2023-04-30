@@ -1,14 +1,10 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 interface TextAreaProps {
   onChange: (content: string) => void;
 }
 
-const TextArea: FC<TextAreaProps> = (
-  {
-    onChange
-  }
-) => {
+const TextArea: FC<TextAreaProps> = ({ onChange }) => {
   return (
     <>
       <textarea
@@ -17,7 +13,7 @@ const TextArea: FC<TextAreaProps> = (
         onChange={(e) => onChange(e.target.value)}
       />
     </>
-  )
-}
+  );
+};
 
 export default TextArea;

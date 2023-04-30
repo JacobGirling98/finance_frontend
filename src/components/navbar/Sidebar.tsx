@@ -1,16 +1,16 @@
-import React, {FC, useState} from "react";
-import {Bars3Icon} from "@heroicons/react/24/solid"
-import {Transition} from "@headlessui/react";
+import { FC, useState } from "react";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { Transition } from "@headlessui/react";
 import NavButtons from "../../navigation/NavButtons";
 
 const Sidebar: FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <button onClick={() => setIsOpen(isOpen => !isOpen)}>
+      <button onClick={() => setIsOpen((isOpen) => !isOpen)}>
         <div className="h-6 w-6 my-auto ml-2 mr-4 text-text-light dark:text-text-dark">
-          <Bars3Icon/>
+          <Bars3Icon />
         </div>
       </button>
 
@@ -25,9 +25,12 @@ const Sidebar: FC = () => {
           leaveTo="-translate-x-full"
         >
           <div className="w-52 bg-bg-highlight-dark z-50 h-screen flex flex-col">
-            <button onClick={() => setIsOpen(isOpen => !isOpen)} className="mb-8">
+            <button
+              onClick={() => setIsOpen((isOpen) => !isOpen)}
+              className="mb-8"
+            >
               <div className="h-6 w-6 py-2 ml-4 mt-2 text-text-light dark:text-text-dark">
-                <Bars3Icon/>
+                <Bars3Icon />
               </div>
             </button>
             <div className="ml-2">
@@ -37,7 +40,7 @@ const Sidebar: FC = () => {
         </Transition>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

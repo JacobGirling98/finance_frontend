@@ -1,11 +1,11 @@
-import {FC} from "react";
-import {Link} from "react-router-dom";
-import {navigation} from "../hooks/useRouter";
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import { navigation } from "../hooks/useRouter";
 
 const NavButtons: FC = () => {
   return (
     <>
-      {navigation.map(item => (
+      {navigation.map((item) => (
         <Link to={item.path} className="mx-1 rounded-md" key={item.name}>
           <button
             key={item.name}

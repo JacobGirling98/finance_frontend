@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Table from "../components/table/Table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { StandingOrder } from "../types/StandingOrders";
@@ -46,7 +46,7 @@ const StandingOrdersPage: FC = () => {
     <>
       {data && (
         <div className="p-2 flex justify-center">
-          <Table data={data} columns={columns}/>
+          <Table data={data} columns={columns} />
         </div>
       )}
     </>

@@ -1,22 +1,32 @@
-import React, {FC} from "react";
+import { FC } from "react";
 import useFormControl from "../../../../hooks/useFormControl";
-import {validateBankTransfer} from "../validation";
+import { validateBankTransfer } from "../validation";
 import FormButtons from "../FormButtons";
 import BankTransferRow from "./BankTransferRow";
-import {BankTransfer, ValidationErrors} from "../../../../types/NewMoney";
+import { BankTransfer, ValidationErrors } from "../../../../types/NewMoney";
 import Spinner from "../../../utils/Spinner";
 
 const emptyBankTransfer = (date: string, category: string): BankTransfer => ({
-  ...({
-    category, date, description: "", quantity: 0, recipient: "", value: 0
-  })
-})
+  ...{
+    category,
+    date,
+    description: "",
+    quantity: 0,
+    recipient: "",
+    value: 0,
+  },
+});
 
 const emptyBankTransferErrors = (): ValidationErrors<BankTransfer> => ({
-  ...({
-    category: "", date: "", description: "", quantity: "", recipient: "", value: ""
-  })
-})
+  ...{
+    category: "",
+    date: "",
+    description: "",
+    quantity: "",
+    recipient: "",
+    value: "",
+  },
+});
 
 const BankTransferForm: FC = () => {
   const {
@@ -28,13 +38,18 @@ const BankTransferForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow,
-    isLoading
-  } = useFormControl(emptyBankTransfer, emptyBankTransferErrors(), validateBankTransfer, "bank-transfer")
+    isLoading,
+  } = useFormControl(
+    emptyBankTransfer,
+    emptyBankTransferErrors(),
+    validateBankTransfer,
+    "bank-transfer"
+  );
 
   return (
     <>
       <div>
-        {transactions.map((transaction, index) => (
+        {transactions.map((_transaction, index) => (
           <BankTransferRow
             data={transactions[index]}
             index={index}
@@ -54,9 +69,9 @@ const BankTransferForm: FC = () => {
           transactionType="bank-transfer"
         />
       </div>
-      <Spinner isOpen={isLoading}/>
+      <Spinner isOpen={isLoading} />
     </>
-  )
-}
+  );
+};
 
 export default BankTransferForm;

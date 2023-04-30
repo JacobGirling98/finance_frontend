@@ -1,45 +1,42 @@
-import {FC, useEffect, useRef} from "react";
+import { FC, useEffect, useRef } from "react";
 import CurrencyInput from "../../../inputs/CurrencyInput";
 import Input from "../../../inputs/Input";
 import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import {PersonalTransfer, ValidationErrors} from "../../../../types/NewMoney";
+import { PersonalTransfer, ValidationErrors } from "../../../../types/NewMoney";
 import DeleteRowButton from "../../../button/DeleteRowButton";
 import useReferenceData from "../../../../hooks/useReferenceData";
 
 interface PersonalTransferRowProps {
-  data: PersonalTransfer
+  data: PersonalTransfer;
   index: number;
   handleDelete: (index: number) => void;
   isLastRow: boolean;
-  handleChange: (index: number, value: string | number, field: keyof PersonalTransfer) => void
+  handleChange: (
+    index: number,
+    value: string | number,
+    field: keyof PersonalTransfer
+  ) => void;
   errors: ValidationErrors<PersonalTransfer>;
-  focusValueInput?: boolean
+  focusValueInput?: boolean;
 }
 
-const PersonalTransferRow: FC<PersonalTransferRowProps> = (
-  {
-    data,
-    index,
-    handleDelete,
-    isLastRow,
-    handleChange,
-    errors,
-    focusValueInput = false
-  }
-) => {
-
-  const valueInputRef = useRef<null | HTMLInputElement>(null)
+const PersonalTransferRow: FC<PersonalTransferRowProps> = ({
+  data,
+  index,
+  handleDelete,
+  isLastRow,
+  handleChange,
+  errors,
+  focusValueInput = false,
+}) => {
+  const valueInputRef = useRef<null | HTMLInputElement>(null);
 
   useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus()
-  }, [focusValueInput])
+    if (focusValueInput) valueInputRef.current?.focus();
+  }, [focusValueInput]);
 
-  const {
-    categories,
-    accounts,
-    uniqueDescriptions,
-    addNewDescription
-  } = useReferenceData()
+  const { categories, accounts, uniqueDescriptions, addNewDescription } =
+    useReferenceData();
 
   return (
     <div className="flex">
@@ -93,7 +90,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
           <TypeableSelect
             title="Description"
             selected={data.description}
-            setSelected={value => handleChange(index, value, "description")}
+            setSelected={(value) => handleChange(index, value, "description")}
             options={uniqueDescriptions}
             allowCreate={true}
             error={errors.description}
@@ -103,7 +100,11 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = (
         </div>
       </div>
       <div className="mt-8 ml-auto mr-6">
-        <DeleteRowButton index={index} handleDelete={handleDelete} disabled={isLastRow}/>
+        <DeleteRowButton
+          index={index}
+          handleDelete={handleDelete}
+          disabled={isLastRow}
+        />
       </div>
     </div>
   );

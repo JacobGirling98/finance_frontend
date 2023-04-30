@@ -1,10 +1,10 @@
-import React, {FC, useState} from "react";
+import { FC, useState } from "react";
 import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import {Description, ReceiptTransaction} from "../../../../types/NewMoney";
+import { Description, ReceiptTransaction } from "../../../../types/NewMoney";
 import Button from "../../../button/Button";
 
 interface NewDescriptionMappingProps {
-  transactions: ReceiptTransaction[],
+  transactions: ReceiptTransaction[];
   options: string[];
   onCreate: (s: Description) => void;
   finishReceiptUpload: () => void;
@@ -16,55 +16,69 @@ interface DescriptionsAndIndices {
   index: number;
 }
 
-const NewDescriptionMapping: FC<NewDescriptionMappingProps> = (
-  {
-    transactions, options, onCreate, finishReceiptUpload, addNewDescriptionMapping
-  }
-) => {
+const NewDescriptionMapping: FC<NewDescriptionMappingProps> = ({
+  transactions,
+  options,
+  onCreate,
+  finishReceiptUpload,
+  addNewDescriptionMapping,
+}) => {
   const indicesRequired = transactions
-    .map((transaction, index) => ({transaction, index}))
-    .filter(transaction => transaction.transaction.isNewDescription)
-    .map(transaction => transaction.index)
+    .map((transaction, index) => ({ transaction, index }))
+    .filter((transaction) => transaction.transaction.isNewDescription)
+    .map((transaction) => transaction.index);
 
-  const [newDescriptions, setNewDescriptions] = useState<DescriptionsAndIndices[]>(indicesRequired.map(index => ({
-    index,
-    description: {
-      fullDescription: transactions[index].description,
-      shortDescription: ""
-    }
-  })))
-  const [index, setIndex] = useState<number>(0)
+  const [newDescriptions, setNewDescriptions] = useState<
+    DescriptionsAndIndices[]
+  >(
+    indicesRequired.map((index) => ({
+      index,
+      description: {
+        fullDescription: transactions[index].description,
+        shortDescription: "",
+      },
+    }))
+  );
+  const [index, setIndex] = useState<number>(0);
 
   const handleCreate = (shortDescription: string) => {
     const newDescription: Description = {
       fullDescription: transactions[index].description,
-      shortDescription: shortDescription
-    }
-    onCreate(newDescription)
-  }
+      shortDescription: shortDescription,
+    };
+    onCreate(newDescription);
+  };
 
   const handleNewDescription = (description: string) => {
     const newDescription: Description = {
       ...newDescriptions[index].description,
-      shortDescription: description
-    }
-    setNewDescriptions(prevState => prevState.map((desc, stateIndex) =>
-      stateIndex === index ? {
-        ...desc,
-        description: newDescription
-      } : desc))
-    addNewDescriptionMapping(newDescription)
-  }
+      shortDescription: description,
+    };
+    setNewDescriptions((prevState) =>
+      prevState.map((desc, stateIndex) =>
+        stateIndex === index
+          ? {
+              ...desc,
+              description: newDescription,
+            }
+          : desc
+      )
+    );
+    addNewDescriptionMapping(newDescription);
+  };
 
   const handleNext = () => {
-    if (newDescriptions.filter(desc => desc.description.shortDescription === "").length === 0) {
-      finishReceiptUpload()
+    if (
+      newDescriptions.filter((desc) => desc.description.shortDescription === "")
+        .length === 0
+    ) {
+      finishReceiptUpload();
     } else {
-      setIndex(prevState => prevState + 1)
+      setIndex((prevState) => prevState + 1);
     }
-  }
+  };
 
-  const isLastNewDescription = index === newDescriptions.length - 1
+  const isLastNewDescription = index === newDescriptions.length - 1;
 
   return (
     <>
@@ -87,19 +101,21 @@ const NewDescriptionMapping: FC<NewDescriptionMappingProps> = (
           <div className="flex justify-center mt-4">
             <Button
               value="Back"
-              onClick={() => setIndex(prevState => prevState - 1)}
+              onClick={() => setIndex((prevState) => prevState - 1)}
               disabled={index === 0}
             />
             <Button
               value={isLastNewDescription ? "Finish" : "Next"}
               onClick={handleNext}
-              disabled={newDescriptions[index].description.shortDescription === ""}
+              disabled={
+                newDescriptions[index].description.shortDescription === ""
+              }
             />
           </div>
         </>
       )}
     </>
-  )
-}
+  );
+};
 
 export default NewDescriptionMapping;

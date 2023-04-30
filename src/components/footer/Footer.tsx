@@ -1,20 +1,23 @@
-import React, {useState} from 'react';
+import { useState } from "react";
 import axios from "axios";
-import {BASE_URL} from "../../utils/constants";
-import {useQuery} from "react-query";
+import { BASE_URL } from "../../utils/constants";
+import { useQuery } from "react-query";
 
 const Footer = () => {
+  const [date, setDate] = useState<Date>();
 
- const [date, setDate] = useState<Date>()
-
-  useQuery<string>("getLastLogin", async () => {
-    const response = await axios.get(`${BASE_URL}/last-login`)
-    return response.data
-  }, {
-    onSuccess: login => {
-      setDate(new Date(login))
+  useQuery<string>(
+    "getLastLogin",
+    async () => {
+      const response = await axios.get(`${BASE_URL}/last-login`);
+      return response.data;
+    },
+    {
+      onSuccess: (login) => {
+        setDate(new Date(login));
+      },
     }
-  })
+  );
 
   return (
     <footer className="bottom-0 left-0 bg-bg-hover-light dark:bg-bg-hover-dark min-w-full">
@@ -24,7 +27,7 @@ const Footer = () => {
         </div>
       )}
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,24 +1,22 @@
-import React, {FC} from "react";
-import {NewDescriptionMappingsProvider} from "./context/useNewDescriptionMappings";
-import {ModalProvider} from "./context/useModal";
-import {QueryClient, QueryClientProvider} from "react-query";
+import { FC } from "react";
+import { NewDescriptionMappingsProvider } from "./context/useNewDescriptionMappings";
+import { ModalProvider } from "./context/useModal";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export interface ProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const Providers: FC<ProviderProps> = ({children}) => {
+const Providers: FC<ProviderProps> = ({ children }) => {
   return (
     <>
       <QueryClientProvider client={new QueryClient()}>
         <NewDescriptionMappingsProvider>
-          <ModalProvider>
-            {children}
-          </ModalProvider>
+          <ModalProvider>{children}</ModalProvider>
         </NewDescriptionMappingsProvider>
       </QueryClientProvider>
     </>
-  )
-}
+  );
+};
 
 export default Providers;

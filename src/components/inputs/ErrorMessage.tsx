@@ -1,12 +1,10 @@
-import React, {FC} from "react";
+import { FC } from "react";
 
 interface ErrorMessageProps {
   message?: string;
 }
 
-const ErrorMessage: FC<ErrorMessageProps> = (
-  {message}
-) => {
+const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
   return (
     <>
       {message && (
@@ -15,7 +13,7 @@ const ErrorMessage: FC<ErrorMessageProps> = (
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default ErrorMessage;

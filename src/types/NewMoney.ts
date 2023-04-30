@@ -23,13 +23,21 @@ export interface Income extends BaseTransaction {
   source: string;
 }
 
-export type Transaction = CreditDebit | BankTransfer | PersonalTransfer | Income;
+export type Transaction =
+  | CreditDebit
+  | BankTransfer
+  | PersonalTransfer
+  | Income;
 
 export type ValidationErrors<T> = {
   [Property in keyof T]: string;
-}
+};
 
-export type TransactionFields = keyof CreditDebit | keyof BankTransfer | keyof PersonalTransfer | keyof Income;
+export type TransactionFields =
+  | keyof CreditDebit
+  | keyof BankTransfer
+  | keyof PersonalTransfer
+  | keyof Income;
 
 export enum TransactionType {
   CREDIT = "Credit",
@@ -48,7 +56,7 @@ export interface ReceiptTransaction {
   quantity: number;
   description: string;
   value: number;
-  isNewDescription?: boolean
+  isNewDescription?: boolean;
 }
 
 export interface TransactionConfirmation {

@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import {TrashIcon} from "@heroicons/react/24/solid";
+import { FC } from "react";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 interface DeleteRowButtonProps {
   index: number;
@@ -7,13 +7,17 @@ interface DeleteRowButtonProps {
   disabled: boolean;
 }
 
-const DeleteRowButton: FC<DeleteRowButtonProps> = (
-  {
-    index, handleDelete, disabled
-  }
-) => {
+const DeleteRowButton: FC<DeleteRowButtonProps> = ({
+  index,
+  handleDelete,
+  disabled,
+}) => {
   return (
-    <button onClick={() => handleDelete(index)} className="group" disabled={disabled}>
+    <button
+      onClick={() => handleDelete(index)}
+      className="group"
+      disabled={disabled}
+    >
       <TrashIcon
         className="h-8 w-8
           text-gray-500
@@ -23,7 +27,7 @@ const DeleteRowButton: FC<DeleteRowButtonProps> = (
           hover:transition active:transition duration-150 ease-in-out"
       />
     </button>
-  )
-}
+  );
+};
 
 export default DeleteRowButton;

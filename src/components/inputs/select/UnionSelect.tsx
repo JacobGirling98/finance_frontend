@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import Select from "./Select";
 
 interface UnionSelectProps<T> {
@@ -7,7 +6,12 @@ interface UnionSelectProps<T> {
   onChange: (s: T) => void;
 }
 
-const UnionSelect = <T extends any>({ value, options, onChange }: UnionSelectProps<T>) =>
-  <Select value={value} onChange={(v) => onChange(v as T)} options={options as string[]}/>
+const UnionSelect = <T,>({ value, options, onChange }: UnionSelectProps<T>) => (
+  <Select
+    value={value}
+    onChange={(v) => onChange(v as T)}
+    options={options as string[]}
+  />
+);
 
-export default UnionSelect
+export default UnionSelect;

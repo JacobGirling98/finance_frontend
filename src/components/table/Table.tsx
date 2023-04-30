@@ -1,18 +1,15 @@
 import {
   ColumnDef,
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   RowData,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TransactionType } from "../../types/NewMoney";
+import { useEffect, useState } from "react";
 
-import standingOrders from "../../standing-orders.json";
-import { StandingOrder } from "../../types/StandingOrders";
 
 declare module "@tanstack/react-table" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
   }
@@ -46,6 +43,7 @@ const defaultColumn = <T extends object>(): Partial<ColumnDef<T>> => ({
 
 interface TableProps<T> {
   data: T[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<T, any>[];
 }
 
@@ -58,7 +56,7 @@ const Table = <T extends object>({ data, columns }: TableProps<T>) => {
     debugTable: true,
     meta: {
       updateData: (rowIndex, columnId, value) => {
-        console.log(rowIndex, columnId, value)
+        console.log(rowIndex, columnId, value);
       },
     },
   });

@@ -1,8 +1,8 @@
-import {Combobox, Transition} from "@headlessui/react";
-import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/outline";
-import React, {FC, Fragment, useState} from "react";
+import { Combobox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { FC, Fragment, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
-import {isNotBlank} from "../../forms/new-transaction/validation";
+import { isNotBlank } from "../../forms/new-transaction/validation";
 
 interface SelectProps {
   selected: string;
@@ -12,23 +12,25 @@ interface SelectProps {
   title: string;
   error?: string;
   onCreate?: (s: string) => void;
-  showAllOptions?: boolean
+  showAllOptions?: boolean;
 }
 
-const TypeableSelect: FC<SelectProps> = (
-  {
-    selected,
-    setSelected,
-    options,
-    allowCreate,
-    title,
-    error,
-    onCreate,
-    showAllOptions = true
-  }) => {
+const TypeableSelect: FC<SelectProps> = ({
+  selected,
+  setSelected,
+  options,
+  allowCreate,
+  title,
+  error,
+  onCreate,
+  showAllOptions = true,
+}) => {
   const [query, setQuery] = useState<string>("");
 
-  const search = (values: string[]): string[] => values.filter(option => option.toLowerCase().includes(query.toLowerCase()))
+  const search = (values: string[]): string[] =>
+    values.filter((option) =>
+      option.toLowerCase().includes(query.toLowerCase())
+    );
 
   const filteredOptions = () => {
     if (showAllOptions) return search(options);
@@ -37,17 +39,26 @@ const TypeableSelect: FC<SelectProps> = (
 
   const onChange = (value: string) => {
     if (!options.includes(value) && allowCreate && onCreate) {
-      onCreate(value)
+      onCreate(value);
     }
-    setSelected(value)
-  }
+    setSelected(value);
+  };
 
-  const optionStyling = (active: boolean): string => `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
-                      ${active ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark" : ""}`
+  const optionStyling = (
+    active: boolean
+  ): string => `relative cursor-default select-none py-2 pl-10 pr-4 rounded-md 
+                      ${
+                        active
+                          ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark"
+                          : ""
+                      }`;
 
   return (
     <>
-      <label htmlFor="category" className="text-text-light dark:text-text-dark mb-1 ml-2">
+      <label
+        htmlFor="category"
+        className="text-text-light dark:text-text-dark mb-1 ml-2"
+      >
         {title}
       </label>
       <Combobox value={selected} onChange={onChange}>
@@ -56,11 +67,15 @@ const TypeableSelect: FC<SelectProps> = (
             className={`relative w-full h-10 cursor-default overflow-hidden rounded-md 
               text-text-light dark:text-text-dark
               bg-input-light dark:bg-input-dark
-              text-left shadow-lg focus:outline-none ${isNotBlank(error) ? "border border-error-light dark:border-error-dark" : ""}`}
+              text-left shadow-lg focus:outline-none ${
+                isNotBlank(error)
+                  ? "border border-error-light dark:border-error-dark"
+                  : ""
+              }`}
           >
             <Combobox.Input
-              onChange={event => {
-                setQuery(event.target.value)
+              onChange={(event) => {
+                setQuery(event.target.value);
               }}
               onClick={() => {
                 setSelected("");
@@ -75,7 +90,8 @@ const TypeableSelect: FC<SelectProps> = (
               />
             </Combobox.Button>
           </div>
-          {(filteredOptions().length > 0 || (allowCreate && onCreate && query.length > 0)) && (
+          {(filteredOptions().length > 0 ||
+            (allowCreate && onCreate && query.length > 0)) && (
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -92,16 +108,17 @@ const TypeableSelect: FC<SelectProps> = (
                   <Combobox.Option
                     key={index}
                     value={category}
-                    className={({active}) => optionStyling(active)}
+                    className={({ active }) => optionStyling(active)}
                   >
-                    {({selected}) => (
+                    {({ selected }) => (
                       <>
                         <span>{category}</span>
                         {selected ? (
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3`}>
-                              <CheckIcon className="h-5 w-5" aria-hidden="true"/>
-                            </span>
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3`}
+                          >
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
                         ) : null}
                       </>
                     )}
@@ -111,9 +128,9 @@ const TypeableSelect: FC<SelectProps> = (
                   <Combobox.Option
                     key={filteredOptions.length}
                     value={query}
-                    className={({active}) => optionStyling(active)}
+                    className={({ active }) => optionStyling(active)}
                     onClick={() => {
-                      onCreate(query)
+                      onCreate(query);
                     }}
                   >
                     Create "{query}"
@@ -122,7 +139,7 @@ const TypeableSelect: FC<SelectProps> = (
               </Combobox.Options>
             </Transition>
           )}
-          <ErrorMessage message={error}/>
+          <ErrorMessage message={error} />
         </div>
       </Combobox>
     </>
