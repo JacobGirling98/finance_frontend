@@ -1,24 +1,24 @@
-import { FC, useEffect, useRef } from "react";
-import Input from "../../../inputs/Input";
-import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import { BankTransfer, ValidationErrors } from "../../../../types/NewMoney";
-import CurrencyInput from "../../../inputs/CurrencyInput";
-import NumberInput from "../../../inputs/NumberInput";
-import DeleteRowButton from "../../../button/DeleteRowButton";
-import useReferenceData from "../../../../hooks/useReferenceData";
+import { FC, useEffect, useRef } from "react"
+import Input from "../../../inputs/Input"
+import TypeableSelect from "../../../inputs/select/TypeableSelect"
+import { BankTransfer, ValidationErrors } from "../../../../types/NewMoney"
+import CurrencyInput from "../../../inputs/CurrencyInput"
+import NumberInput from "../../../inputs/NumberInput"
+import DeleteRowButton from "../../../button/DeleteRowButton"
+import useReferenceData from "../../../../hooks/useReferenceData"
 
 interface BankTransferRowProps {
-  data: BankTransfer;
-  index: number;
-  handleDelete: (index: number) => void;
-  isLastRow: boolean;
+  data: BankTransfer
+  index: number
+  handleDelete: (index: number) => void
+  isLastRow: boolean
   handleChange: (
     index: number,
     value: string | number,
     field: keyof BankTransfer
-  ) => void;
-  errors: ValidationErrors<BankTransfer>;
-  focusValueInput?: boolean;
+  ) => void
+  errors: ValidationErrors<BankTransfer>
+  focusValueInput?: boolean
 }
 
 const BankTransferRow: FC<BankTransferRowProps> = ({
@@ -30,14 +30,14 @@ const BankTransferRow: FC<BankTransferRowProps> = ({
   errors,
   focusValueInput = false,
 }) => {
-  const valueInputRef = useRef<null | HTMLInputElement>(null);
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
 
   useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus();
-  }, [focusValueInput]);
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   const { categories, payees, uniqueDescriptions, addNewDescription } =
-    useReferenceData();
+    useReferenceData()
 
   return (
     <div className="flex">
@@ -72,6 +72,7 @@ const BankTransferRow: FC<BankTransferRowProps> = ({
         </div>
         <div className="flex flex-col mx-2">
           <CurrencyInput
+            title="Value"
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
@@ -107,7 +108,7 @@ const BankTransferRow: FC<BankTransferRowProps> = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BankTransferRow;
+export default BankTransferRow

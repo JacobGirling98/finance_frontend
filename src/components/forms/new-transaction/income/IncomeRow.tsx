@@ -1,23 +1,23 @@
-import { FC, useEffect, useRef } from "react";
-import CurrencyInput from "../../../inputs/CurrencyInput";
-import Input from "../../../inputs/Input";
-import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import { Income, ValidationErrors } from "../../../../types/NewMoney";
-import DeleteRowButton from "../../../button/DeleteRowButton";
-import useReferenceData from "../../../../hooks/useReferenceData";
+import { FC, useEffect, useRef } from "react"
+import CurrencyInput from "../../../inputs/CurrencyInput"
+import Input from "../../../inputs/Input"
+import TypeableSelect from "../../../inputs/select/TypeableSelect"
+import { Income, ValidationErrors } from "../../../../types/NewMoney"
+import DeleteRowButton from "../../../button/DeleteRowButton"
+import useReferenceData from "../../../../hooks/useReferenceData"
 
 interface IncomeRowProps {
-  data: Income;
-  index: number;
-  handleDelete: (index: number) => void;
-  isLastRow: boolean;
+  data: Income
+  index: number
+  handleDelete: (index: number) => void
+  isLastRow: boolean
   handleChange: (
     index: number,
     value: string | number,
     field: keyof Income
-  ) => void;
-  errors: ValidationErrors<Income>;
-  focusValueInput?: boolean;
+  ) => void
+  errors: ValidationErrors<Income>
+  focusValueInput?: boolean
 }
 
 const IncomeRow: FC<IncomeRowProps> = ({
@@ -29,14 +29,14 @@ const IncomeRow: FC<IncomeRowProps> = ({
   errors,
   focusValueInput = false,
 }) => {
-  const valueInputRef = useRef<null | HTMLInputElement>(null);
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
 
   useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus();
-  }, [focusValueInput]);
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   const { categories, sources, uniqueDescriptions, addNewDescription } =
-    useReferenceData();
+    useReferenceData()
 
   return (
     <div className="flex">
@@ -71,6 +71,7 @@ const IncomeRow: FC<IncomeRowProps> = ({
         </div>
         <div className="flex flex-col mx-2">
           <CurrencyInput
+            title="Value"
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
@@ -98,7 +99,7 @@ const IncomeRow: FC<IncomeRowProps> = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default IncomeRow;
+export default IncomeRow

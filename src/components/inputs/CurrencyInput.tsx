@@ -1,44 +1,47 @@
-import { useEffect, useState } from "react";
-import ErrorMessage from "./ErrorMessage";
-import { isNotBlank } from "../forms/new-transaction/validation";
-import React from "react";
+import { useEffect, useState } from "react"
+import ErrorMessage from "./ErrorMessage"
+import { isNotBlank } from "../forms/new-transaction/validation"
+import React from "react"
 
 interface CurrencyInputProps {
-  value: number;
-  handleValueChange: (value: number) => void;
-  error?: string;
+  title?: string
+  value: number
+  handleValueChange: (value: number) => void
+  error?: string
 }
 
 const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
-  ({ value, handleValueChange, error }, ref) => {
-    const [innerValue, setInnerValue] = useState<string>("");
+  ({ value, handleValueChange, error, title }, ref) => {
+    const [innerValue, setInnerValue] = useState<string>("")
 
     useEffect(() => {
-      setInnerValue(value === 0 ? "" : value.toString());
-    }, [value]);
+      setInnerValue(value === 0 ? "" : value.toString())
+    }, [value])
 
-    const decimalValidator = /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/;
+    const decimalValidator = /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-      const changedValue = e.currentTarget.value;
+      const changedValue = e.currentTarget.value
       if (
         (changedValue.split(".").length === 1 ||
           changedValue.split(".")[1].length <= 2) &&
         (decimalValidator.test(changedValue) || changedValue === "")
       ) {
-        setInnerValue(changedValue);
-        handleValueChange(parseFloat(changedValue));
+        setInnerValue(changedValue)
+        handleValueChange(parseFloat(changedValue))
       }
-    };
+    }
 
     return (
       <>
-        <label
-          htmlFor="price"
-          className="text-text-light dark:text-text-dark mb-1 ml-2"
-        >
-          Value
-        </label>
+        {title && (
+          <label
+            htmlFor="price"
+            className="text-text-light dark:text-text-dark mb-1 ml-2"
+          >
+            {title}
+          </label>
+        )}
         <div
           className={`relative rounded-md shadow-lg ${
             isNotBlank(error) ? "border border-red-600" : ""
@@ -60,8 +63,8 @@ const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
         </div>
         <ErrorMessage message={error} />
       </>
-    );
+    )
   }
-);
+)
 
-export default CurrencyInput;
+export default CurrencyInput

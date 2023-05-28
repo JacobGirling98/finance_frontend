@@ -1,18 +1,18 @@
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { FC, Fragment, useState } from "react";
-import ErrorMessage from "../ErrorMessage";
-import { isNotBlank } from "../../forms/new-transaction/validation";
+import { Combobox, Transition } from "@headlessui/react"
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline"
+import { FC, Fragment, useState } from "react"
+import ErrorMessage from "../ErrorMessage"
+import { isNotBlank } from "../../forms/new-transaction/validation"
 
 interface SelectProps {
-  selected: string;
-  setSelected: (s: string) => void;
-  options: string[];
-  allowCreate?: boolean;
-  title: string;
-  error?: string;
-  onCreate?: (s: string) => void;
-  showAllOptions?: boolean;
+  selected: string
+  setSelected: (s: string) => void
+  options: string[]
+  allowCreate?: boolean
+  title?: string
+  error?: string
+  onCreate?: (s: string) => void
+  showAllOptions?: boolean
 }
 
 const TypeableSelect: FC<SelectProps> = ({
@@ -25,24 +25,24 @@ const TypeableSelect: FC<SelectProps> = ({
   onCreate,
   showAllOptions = true,
 }) => {
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>("")
 
   const search = (values: string[]): string[] =>
     values.filter((option) =>
       option.toLowerCase().includes(query.toLowerCase())
-    );
+    )
 
   const filteredOptions = () => {
-    if (showAllOptions) return search(options);
-    return query.length < 3 ? [] : search(options);
-  };
+    if (showAllOptions) return search(options)
+    return query.length < 3 ? [] : search(options)
+  }
 
   const onChange = (value: string) => {
     if (!options.includes(value) && allowCreate && onCreate) {
-      onCreate(value);
+      onCreate(value)
     }
-    setSelected(value);
-  };
+    setSelected(value)
+  }
 
   const optionStyling = (
     active: boolean
@@ -51,16 +51,18 @@ const TypeableSelect: FC<SelectProps> = ({
                         active
                           ? "bg-special-light dark:bg-special-dark opacity-80 text-special-text-light dark:text-special-text-dark"
                           : ""
-                      }`;
+                      }`
 
   return (
     <>
-      <label
-        htmlFor="category"
-        className="text-text-light dark:text-text-dark mb-1 ml-2"
-      >
-        {title}
-      </label>
+      {title && (
+        <label
+          htmlFor="category"
+          className="text-text-light dark:text-text-dark mb-1 ml-2"
+        >
+          {title}
+        </label>
+      )}
       <Combobox value={selected} onChange={onChange}>
         <div className="relative overflow-visible">
           <div
@@ -75,11 +77,11 @@ const TypeableSelect: FC<SelectProps> = ({
           >
             <Combobox.Input
               onChange={(event) => {
-                setQuery(event.target.value);
+                setQuery(event.target.value)
               }}
               onClick={() => {
-                setSelected("");
-                setQuery("");
+                setSelected("")
+                setQuery("")
               }}
               className="w-full rounded-md h-full border-none py-2 pl-3 pr-10 leading-5 bg-input-light dark:bg-input-dark focus:outline-none"
             />
@@ -130,7 +132,7 @@ const TypeableSelect: FC<SelectProps> = ({
                     value={query}
                     className={({ active }) => optionStyling(active)}
                     onClick={() => {
-                      onCreate(query);
+                      onCreate(query)
                     }}
                   >
                     Create "{query}"
@@ -143,7 +145,7 @@ const TypeableSelect: FC<SelectProps> = ({
         </div>
       </Combobox>
     </>
-  );
-};
+  )
+}
 
-export default TypeableSelect;
+export default TypeableSelect

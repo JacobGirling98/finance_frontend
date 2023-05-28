@@ -1,24 +1,24 @@
-import { FC, useEffect, useRef } from "react";
-import CurrencyInput from "../../../inputs/CurrencyInput";
-import NumberInput from "../../../inputs/NumberInput";
-import TypeableSelect from "../../../inputs/select/TypeableSelect";
-import DeleteRowButton from "../../../button/DeleteRowButton";
-import { CreditDebit, ValidationErrors } from "../../../../types/NewMoney";
-import useReferenceData from "../../../../hooks/useReferenceData";
-import Input from "../../../inputs/Input";
+import { FC, useEffect, useRef } from "react"
+import CurrencyInput from "../../../inputs/CurrencyInput"
+import NumberInput from "../../../inputs/NumberInput"
+import TypeableSelect from "../../../inputs/select/TypeableSelect"
+import DeleteRowButton from "../../../button/DeleteRowButton"
+import { CreditDebit, ValidationErrors } from "../../../../types/NewMoney"
+import useReferenceData from "../../../../hooks/useReferenceData"
+import Input from "../../../inputs/Input"
 
 interface CreditDebitRowProps {
-  data: CreditDebit;
-  index: number;
-  handleDelete: (index: number) => void;
-  isLastRow: boolean;
+  data: CreditDebit
+  index: number
+  handleDelete: (index: number) => void
+  isLastRow: boolean
   handleChange: (
     index: number,
     value: string | number,
     field: keyof CreditDebit
-  ) => void;
-  errors: ValidationErrors<CreditDebit>;
-  focusValueInput?: boolean;
+  ) => void
+  errors: ValidationErrors<CreditDebit>
+  focusValueInput?: boolean
 }
 
 const CreditDebitRow: FC<CreditDebitRowProps> = ({
@@ -31,13 +31,13 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
   focusValueInput = false,
 }) => {
   const { categories, uniqueDescriptions, addNewDescription } =
-    useReferenceData();
+    useReferenceData()
 
-  const valueInputRef = useRef<null | HTMLInputElement>(null);
+  const valueInputRef = useRef<null | HTMLInputElement>(null)
 
   useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus();
-  }, [focusValueInput]);
+    if (focusValueInput) valueInputRef.current?.focus()
+  }, [focusValueInput])
 
   return (
     <div className="flex">
@@ -64,6 +64,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
         </div>
         <div className="flex flex-col mx-2">
           <CurrencyInput
+            title="Value"
             value={data.value}
             handleValueChange={(value) => handleChange(index, value, "value")}
             error={errors.value}
@@ -99,7 +100,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreditDebitRow;
+export default CreditDebitRow

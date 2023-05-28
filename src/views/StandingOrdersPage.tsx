@@ -6,6 +6,7 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
 import Dialog from "../components/utils/Dialog"
+import AddStandingOrder from "../components/forms/standing-order/AddStandingOrder"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(true)
@@ -57,13 +58,13 @@ const StandingOrdersPage: FC = () => {
         onClose={addDialogOnClose}
         title="Add a standing order"
       >
-        <p>Hello</p>
+        <AddStandingOrder />
       </Dialog>
-      {/* {data && (
+      {data && (
         <div className="p-2 flex justify-center">
           <Table data={data} columns={columns} />
         </div>
-      )} */}
+      )}
     </>
   )
 }
