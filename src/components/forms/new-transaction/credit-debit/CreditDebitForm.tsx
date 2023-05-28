@@ -1,32 +1,32 @@
-import { FC, Fragment, useEffect, useState } from "react";
-import useFormControl from "../../../../hooks/useFormControl";
-import { validateCreditDebit } from "../validation";
-import CreditDebitRow from "./CreditDebitRow";
-import FormButtons from "../FormButtons";
+import { FC, Fragment, useEffect, useState } from "react"
+import useFormControl from "../../../../hooks/useFormControl"
+import { validateCreditDebit } from "../validation"
+import CreditDebitRow from "./CreditDebitRow"
+import FormButtons from "../FormButtons"
 import {
   CreditDebit,
   ReceiptTransaction,
   ValidationErrors,
-} from "../../../../types/NewMoney";
-import Spinner from "../../../utils/Spinner";
-import { Dialog, Transition } from "@headlessui/react";
-import ExitButton from "../../../button/ExitButton";
-import Button from "../../../button/Button";
-import TextArea from "../../../inputs/TextArea";
-import Input from "../../../inputs/Input";
-import useReferenceData from "../../../../hooks/useReferenceData";
+} from "../../../../types/NewMoney"
+import Spinner from "../../../utils/Spinner"
+import ExitButton from "../../../button/ExitButton"
+import Button from "../../../button/Button"
+import TextArea from "../../../inputs/TextArea"
+import Input from "../../../inputs/Input"
+import useReferenceData from "../../../../hooks/useReferenceData"
 import {
   flagNewDescriptions,
   formatSainsburysTransactions,
   formatWaitroseTransactions,
   parseSainsburysTransaction,
   receiptTransactionToCreditDebit,
-} from "./upload-receipt";
-import NewDescriptionMapping from "./NewDescriptionMapping";
-import { today } from "../../../../utils/constants";
+} from "./upload-receipt"
+import NewDescriptionMapping from "./NewDescriptionMapping"
+import { today } from "../../../../utils/constants"
+import Dialog from "../../../utils/Dialog"
 
 interface CreditDebitFormProps {
-  transactionType: "credit" | "debit";
+  transactionType: "credit" | "debit"
 }
 
 const emptyCreditDebit = (date: string, category: string): CreditDebit => ({
@@ -37,7 +37,7 @@ const emptyCreditDebit = (date: string, category: string): CreditDebit => ({
     quantity: 0,
     value: 0,
   },
-});
+})
 
 const emptyCreditDebitErrors = (): ValidationErrors<CreditDebit> => ({
   ...{
@@ -47,16 +47,16 @@ const emptyCreditDebitErrors = (): ValidationErrors<CreditDebit> => ({
     quantity: "",
     value: "",
   },
-});
+})
 
 const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
-  const [receiptModalIsOpen, setReceiptModalIsOpen] = useState(false);
-  const [receiptModalContent, setReceiptModalContent] = useState("");
-  const [receiptDate, setReceiptDate] = useState(today);
-  const [receiptModalStage, setReceiptModalStage] = useState(0);
+  const [receiptModalIsOpen, setReceiptModalIsOpen] = useState(false)
+  const [receiptModalContent, setReceiptModalContent] = useState("")
+  const [receiptDate, setReceiptDate] = useState(today)
+  const [receiptModalStage, setReceiptModalStage] = useState(0)
   const [receiptTransactions, setReceiptTransactions] = useState<
     ReceiptTransaction[]
-  >([]);
+  >([])
 
   const {
     transactions,
@@ -74,50 +74,50 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
     emptyCreditDebitErrors(),
     validateCreditDebit,
     transactionType
-  );
+  )
 
   const {
     descriptions,
     uniqueDescriptions,
     addNewDescriptionMapping,
     shortDescriptionFrom,
-  } = useReferenceData();
+  } = useReferenceData()
 
   const processReceiptTransactions = (transactions: ReceiptTransaction[]) => {
-    const flaggedTransactions = flagNewDescriptions(descriptions, transactions);
-    setReceiptTransactions(flaggedTransactions);
-  };
+    const flaggedTransactions = flagNewDescriptions(descriptions, transactions)
+    setReceiptTransactions(flaggedTransactions)
+  }
 
   const handleUploadSainsburysReceipt = () => {
     processReceiptTransactions(
       formatSainsburysTransactions(receiptModalContent).map((transaction) =>
         parseSainsburysTransaction(transaction)
       )
-    );
-  };
+    )
+  }
 
   const handleUploadWaitroseReceipt = () => {
-    processReceiptTransactions(formatWaitroseTransactions(receiptModalContent));
-  };
+    processReceiptTransactions(formatWaitroseTransactions(receiptModalContent))
+  }
 
   const handleClose = () => {
-    setReceiptModalIsOpen(false);
-    setReceiptDate(today);
-    setReceiptTransactions([]);
-    setReceiptModalContent("");
-    setReceiptModalStage(0);
-  };
+    setReceiptModalIsOpen(false)
+    setReceiptDate(today)
+    setReceiptTransactions([])
+    setReceiptModalContent("")
+    setReceiptModalStage(0)
+  }
 
   const finishReceiptUpload = () => {
-    setReceiptModalIsOpen(false);
+    setReceiptModalIsOpen(false)
     setReceiptTransactions((prevState) =>
       prevState.map((transaction) => ({
         ...transaction,
         description: shortDescriptionFrom(transaction.description),
         isNewDescription: false,
       }))
-    );
-  };
+    )
+  }
 
   const firstReceiptModal = () => (
     <>
@@ -137,7 +137,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
         />
       </div>
     </>
-  );
+  )
 
   const secondReceiptModal = () => (
     <>
@@ -158,13 +158,13 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
         <Button value="Back" onClick={() => setReceiptModalStage(0)} />
       </div>
     </>
-  );
+  )
 
-  const receiptModalComponents = [firstReceiptModal(), secondReceiptModal()];
+  const receiptModalComponents = [firstReceiptModal(), secondReceiptModal()]
 
   const areNewTransactions =
     receiptTransactions.filter((transaction) => transaction.isNewDescription)
-      .length > 0;
+      .length > 0
 
   useEffect(() => {
     if (!areNewTransactions && receiptTransactions.length > 0) {
@@ -172,11 +172,24 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
         receiptTransactions.map((transaction) =>
           receiptTransactionToCreditDebit(transaction, "Food", receiptDate)
         )
-      );
-      setReceiptModalIsOpen(false);
+      )
+      setReceiptModalIsOpen(false)
     }
     // eslint-disable-next-line
-  }, [receiptTransactions, areNewTransactions]);
+  }, [receiptTransactions, areNewTransactions])
+
+  const dialogBody = () =>
+    areNewTransactions ? (
+      <NewDescriptionMapping
+        onCreate={addNewDescriptionMapping}
+        options={uniqueDescriptions}
+        transactions={receiptTransactions}
+        finishReceiptUpload={finishReceiptUpload}
+        addNewDescriptionMapping={addNewDescriptionMapping}
+      />
+    ) : (
+      receiptModalComponents[receiptModalStage]
+    )
 
   return (
     <>
@@ -204,69 +217,16 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
         />
       </div>
       <Spinner isOpen={isLoading} />
-      <Transition
-        appear
-        show={receiptModalIsOpen}
-        as={Fragment}
-        afterLeave={handleClose}
+      <Dialog
+        open={receiptModalIsOpen}
+        setOpen={setReceiptModalIsOpen}
+        onClose={handleClose}
+        title={"Upload Receipt"}
       >
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setReceiptModalIsOpen(false)}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-visible rounded-2xl bg-bg-light dark:bg-bg-dark p-6 text-left align-middle shadow-xl transition-all">
-                  <ExitButton
-                    onClick={() => setReceiptModalIsOpen(false)}
-                    className="fixed right-3"
-                  />
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-text-light dark:text-text-dark"
-                  >
-                    Upload Receipt
-                  </Dialog.Title>
-                  {areNewTransactions ? (
-                    <NewDescriptionMapping
-                      onCreate={addNewDescriptionMapping}
-                      options={uniqueDescriptions}
-                      transactions={receiptTransactions}
-                      finishReceiptUpload={finishReceiptUpload}
-                      addNewDescriptionMapping={addNewDescriptionMapping}
-                    />
-                  ) : (
-                    receiptModalComponents[receiptModalStage]
-                  )}
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+        {dialogBody()}
+      </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default CreditDebitForm;
+export default CreditDebitForm

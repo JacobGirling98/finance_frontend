@@ -1,18 +1,25 @@
-import { FC } from "react";
-import Table from "../components/table/Table";
-import { createColumnHelper } from "@tanstack/react-table";
-import { StandingOrder } from "../types/StandingOrders";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { FC, useState } from "react"
+import Table from "../components/table/Table"
+import { createColumnHelper } from "@tanstack/react-table"
+import { StandingOrder } from "../types/StandingOrders"
+import { useQuery } from "react-query"
+import axios from "axios"
+import { BASE_URL } from "../utils/constants"
+import Dialog from "../components/utils/Dialog"
 
 const StandingOrdersPage: FC = () => {
-  const { data } = useQuery<StandingOrder[]>("standingOrders", async () => {
-    const response = await axios.get(`${BASE_URL}/standing-orders`);
-    return response.data;
-  });
+  const [addDialogOpen, setAddDialogOpen] = useState(true)
 
-  const columnHelper = createColumnHelper<StandingOrder>();
+  const addDialogOnClose = () => {
+    setAddDialogOpen(false)
+  }
+
+  const { data } = useQuery<StandingOrder[]>("standingOrders", async () => {
+    const response = await axios.get(`${BASE_URL}/standing-orders`)
+    return response.data
+  })
+
+  const columnHelper = createColumnHelper<StandingOrder>()
 
   const columns = [
     columnHelper.accessor("nextDate", {
@@ -40,17 +47,25 @@ const StandingOrdersPage: FC = () => {
     columnHelper.accessor("quantity", {
       header: () => <span>Quantity</span>,
     }),
-  ];
+  ]
 
   return (
     <>
-      {data && (
+      <Dialog
+        open={addDialogOpen}
+        setOpen={setAddDialogOpen}
+        onClose={addDialogOnClose}
+        title="Add a standing order"
+      >
+        <p>Hello</p>
+      </Dialog>
+      {/* {data && (
         <div className="p-2 flex justify-center">
           <Table data={data} columns={columns} />
         </div>
-      )}
+      )} */}
     </>
-  );
-};
+  )
+}
 
-export default StandingOrdersPage;
+export default StandingOrdersPage
