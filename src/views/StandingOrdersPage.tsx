@@ -7,6 +7,7 @@ import axios from "axios"
 import { BASE_URL } from "../utils/constants"
 import Dialog from "../components/utils/Dialog"
 import AddStandingOrder from "../components/forms/standing-order/AddStandingOrder"
+import { Entity } from "../types/Api"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(true)
@@ -15,37 +16,37 @@ const StandingOrdersPage: FC = () => {
     setAddDialogOpen(false)
   }
 
-  const { data } = useQuery<StandingOrder[]>("standingOrders", async () => {
+  const { data } = useQuery<Entity<StandingOrder>[]>("standingOrders", async () => {
     const response = await axios.get(`${BASE_URL}/standing-orders`)
     return response.data
   })
 
-  const columnHelper = createColumnHelper<StandingOrder>()
+  const columnHelper = createColumnHelper<Entity<StandingOrder>>()
 
   const columns = [
-    columnHelper.accessor("nextDate", {
+    columnHelper.accessor("domain.nextDate", {
       header: () => <span>Next Date</span>,
     }),
-    columnHelper.accessor("value", {
+    columnHelper.accessor("domain.value", {
       header: () => <span>Value</span>,
     }),
-    columnHelper.accessor("frequency", {
+    columnHelper.accessor("domain.frequency", {
       header: () => <span>Frequency</span>,
     }),
-    columnHelper.accessor("outgoing", {
+    columnHelper.accessor("domain.outgoing", {
       cell: (x) => x.getValue().toString(),
       header: () => <span>Outgoing</span>,
     }),
-    columnHelper.accessor("transactionType", {
+    columnHelper.accessor("domain.transactionType", {
       header: () => <span>Transaction Type</span>,
     }),
-    columnHelper.accessor("description", {
+    columnHelper.accessor("domain.description", {
       header: () => <span>Description</span>,
     }),
-    columnHelper.accessor("category", {
+    columnHelper.accessor("domain.category", {
       header: () => <span>Category</span>,
     }),
-    columnHelper.accessor("quantity", {
+    columnHelper.accessor("domain.quantity", {
       header: () => <span>Quantity</span>,
     }),
   ]

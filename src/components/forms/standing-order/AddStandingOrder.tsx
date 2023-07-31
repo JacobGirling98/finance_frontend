@@ -15,37 +15,7 @@ const AddStandingOrder = () => {
 
   return (
     <div className="p-2">
-      <div className="flex">
-        <p>Date</p>
-        <Input type={"date"} value={date} onChange={setDate} />
-      </div>
-      <div className="flex">
-        <p>Frequency</p>
-        <div className="w-full">
-          <Select
-            value={frequency}
-            onChange={setFrequency}
-            options={["Monthly", "Weekly"]}
-          />
-        </div>
-      </div>
-      <div className="flex">
-        <p>Category</p>
-        <div className="w-full">
-          <TypeableSelect
-            selected={category}
-            setSelected={setCategory}
-            options={categories.map(c => c.domain)}
-            showAllOptions={true}
-          />
-        </div>
-      </div>
-      <div className="flex">
-        <p>Value</p>
-        <div className="w-full">
-          <CurrencyInput value={value} handleValueChange={setValue} />
-        </div>
-      </div>
+      
     </div>
   )
 }

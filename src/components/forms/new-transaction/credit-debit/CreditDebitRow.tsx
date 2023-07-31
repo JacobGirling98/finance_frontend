@@ -6,6 +6,7 @@ import DeleteRowButton from "../../../button/DeleteRowButton"
 import { CreditDebit, ValidationErrors } from "../../../../types/NewMoney"
 import useReferenceData from "../../../../hooks/useReferenceData"
 import Input from "../../../inputs/Input"
+import CreditDebitInputs from "./CreditDebitInputs"
 
 interface CreditDebitRowProps {
   data: CreditDebit
@@ -30,67 +31,20 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
   errors,
   focusValueInput = false,
 }) => {
-  const { categories, uniqueDescriptions, addNewDescription } =
-    useReferenceData()
-
-  const valueInputRef = useRef<null | HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (focusValueInput) valueInputRef.current?.focus()
-  }, [focusValueInput])
+  const handleChangeWrapper = (
+    value: string | number,
+    field: keyof CreditDebit
+  ) => handleChange(index, value, field)
 
   return (
     <div className="flex">
       <div className="grid grid-cols-5 gap-4 mx-6 flex-grow">
-        <div className="flex flex-col mx-2">
-          <Input
-            title="Date"
-            key="date"
-            type="date"
-            value={data.date}
-            onChange={(value) => handleChange(index, value, "date")}
-            error={errors.date}
-          />
-        </div>
-        <div className="flex flex-col mx-2">
-          <TypeableSelect
-            title="Category"
-            selected={data.category}
-            setSelected={(value) => handleChange(index, value, "category")}
-            options={categories.map(cat => cat.domain)}
-            error={errors.category}
-            showAllOptions={true}
-          />
-        </div>
-        <div className="flex flex-col mx-2">
-          <CurrencyInput
-            title="Value"
-            value={data.value}
-            handleValueChange={(value) => handleChange(index, value, "value")}
-            error={errors.value}
-            ref={valueInputRef}
-          />
-        </div>
-        <div className="flex flex-col mx-2">
-          <NumberInput
-            key="quantity"
-            value={data.quantity}
-            onChange={(value) => handleChange(index, value, "quantity")}
-            error={errors.quantity}
-          />
-        </div>
-        <div className="flex flex-col mx-2">
-          <TypeableSelect
-            title="Description"
-            selected={data.description}
-            setSelected={(value) => handleChange(index, value, "description")}
-            options={uniqueDescriptions}
-            allowCreate={true}
-            error={errors.description}
-            onCreate={addNewDescription}
-            showAllOptions={false}
-          />
-        </div>
+        <CreditDebitInputs
+          data={data}
+          handleChange={handleChangeWrapper}
+          errors={errors}
+          focusValueInput={focusValueInput}
+        />
       </div>
       <div className="mt-8 ml-auto mr-6">
         <DeleteRowButton
