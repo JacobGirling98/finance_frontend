@@ -57,7 +57,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
-            options={categories}
+            options={categories.map(cat => cat.domain)}
             error={errors.category}
             showAllOptions={true}
           />

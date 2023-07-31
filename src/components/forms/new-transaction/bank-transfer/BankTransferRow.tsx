@@ -57,7 +57,7 @@ const BankTransferRow: FC<BankTransferRowProps> = ({
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
-            options={categories}
+            options={categories.map(cat => cat.domain)}
             error={errors.category}
           />
         </div>
@@ -66,7 +66,7 @@ const BankTransferRow: FC<BankTransferRowProps> = ({
             title="Recipient"
             selected={data.recipient}
             setSelected={(value) => handleChange(index, value, "recipient")}
-            options={payees}
+            options={payees.map(p => p.domain)}
             error={errors.recipient}
           />
         </div>

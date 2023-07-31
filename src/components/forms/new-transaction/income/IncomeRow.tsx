@@ -56,7 +56,7 @@ const IncomeRow: FC<IncomeRowProps> = ({
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
-            options={categories}
+            options={categories.map(c => c.domain)}
             error={errors.category}
           />
         </div>
@@ -65,7 +65,7 @@ const IncomeRow: FC<IncomeRowProps> = ({
             title="Source"
             selected={data.source}
             setSelected={(value) => handleChange(index, value, "source")}
-            options={sources}
+            options={sources.map(s => s.domain)}
             error={errors.source}
           />
         </div>

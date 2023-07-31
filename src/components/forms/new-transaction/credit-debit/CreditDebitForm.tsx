@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import useFormControl from "../../../../hooks/useFormControl"
 import { validateCreditDebit } from "../validation"
 import CreditDebitRow from "./CreditDebitRow"
@@ -9,7 +9,6 @@ import {
   ValidationErrors,
 } from "../../../../types/NewMoney"
 import Spinner from "../../../utils/Spinner"
-import ExitButton from "../../../button/ExitButton"
 import Button from "../../../button/Button"
 import TextArea from "../../../inputs/TextArea"
 import Input from "../../../inputs/Input"

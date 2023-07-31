@@ -1,3 +1,4 @@
+import { Entity } from "../../../../types/Api";
 import {
   CreditDebit,
   Description,
@@ -41,6 +42,7 @@ export const formatSainsburysTransactions = (
   const formattedLines = [];
   for (let i = 0; i < lines.length; i++) {
     let transaction = lines[i];
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       const splitLine = lines[i].split(" ");
       if (splitLine[splitLine.length - 1].includes("£")) {
@@ -64,11 +66,11 @@ export const formatWaitroseTransactions = (
 };
 
 export const flagNewDescriptions = (
-  existingDescriptions: Description[],
+  existingDescriptions: Entity<Description>[],
   transactions: ReceiptTransaction[]
 ): ReceiptTransaction[] => {
   const fullDescriptions = existingDescriptions.map(
-    (desc) => desc.fullDescription
+    (desc) => desc.domain.fullDescription
   );
   return transactions.map((transaction) => ({
     ...transaction,

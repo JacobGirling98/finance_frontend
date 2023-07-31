@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Description } from "../types/NewMoney";
-import { FC, useContext, useState } from "react";
-import { ProviderProps } from "../Providers";
-import React from "react";
+import { Description } from "../types/NewMoney"
+import { FC, useContext, useState } from "react"
+import { ProviderProps } from "../Providers"
+import React from "react"
+import { Entity } from "../types/Api"
 
 interface INewDescriptionMappingsContext {
-  descriptions: Description[];
-  addDescriptionMapping: (description: Description) => void;
-  addDescription: (description: string) => void;
-  clearDescriptions: () => void;
+  descriptions: Entity<Description>[]
+  addDescriptionMapping: (description: Description) => void
+  addDescription: (description: string) => void
+  clearDescriptions: () => void
 }
 
 const defaultState: INewDescriptionMappingsContext = {
@@ -17,35 +18,41 @@ const defaultState: INewDescriptionMappingsContext = {
   addDescriptionMapping: (_description) => {},
   addDescription: (_description) => {},
   clearDescriptions: () => {},
-};
+}
 
 const NewDescriptionMappingsContext =
-  React.createContext<INewDescriptionMappingsContext>(defaultState);
+  React.createContext<INewDescriptionMappingsContext>(defaultState)
 
 export const NewDescriptionMappingsProvider: FC<ProviderProps> = ({
   children,
 }) => {
-  const [descriptions, setDescriptions] = useState<Description[]>([]);
+  const [descriptions, setDescriptions] = useState<Entity<Description>[]>([])
 
   const addDescriptionMapping = (description: Description) => {
     if (
       description.fullDescription !== "" &&
       description.shortDescription !== ""
     )
-      setDescriptions((desc) => [...desc, description]);
-  };
+      setDescriptions((desc) => [...desc, { id: "", domain: description }])
+  }
 
   const addDescription = (description: string) => {
     if (description !== "")
       setDescriptions((desc) => [
         ...desc,
-        { shortDescription: description, fullDescription: description },
-      ]);
-  };
+        {
+          id: "",
+          domain: {
+            shortDescription: description,
+            fullDescription: description,
+          },
+        },
+      ])
+  }
 
   const clearDescriptions = () => {
-    setDescriptions([]);
-  };
+    setDescriptions([])
+  }
 
   return (
     <NewDescriptionMappingsContext.Provider
@@ -58,9 +65,9 @@ export const NewDescriptionMappingsProvider: FC<ProviderProps> = ({
     >
       {children}
     </NewDescriptionMappingsContext.Provider>
-  );
-};
+  )
+}
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useNewDescriptionMappingsContext = () =>
-  useContext(NewDescriptionMappingsContext);
+  useContext(NewDescriptionMappingsContext)

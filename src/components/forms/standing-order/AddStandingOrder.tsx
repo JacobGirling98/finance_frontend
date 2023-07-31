@@ -35,7 +35,7 @@ const AddStandingOrder = () => {
           <TypeableSelect
             selected={category}
             setSelected={setCategory}
-            options={categories}
+            options={categories.map(c => c.domain)}
             showAllOptions={true}
           />
         </div>

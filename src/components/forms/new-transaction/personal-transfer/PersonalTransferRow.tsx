@@ -56,7 +56,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = ({
             title="Category"
             selected={data.category}
             setSelected={(value) => handleChange(index, value, "category")}
-            options={categories}
+            options={categories.map(c => c.domain)}
             error={errors.category}
           />
         </div>
@@ -65,7 +65,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = ({
             title="Outbound"
             selected={data.outbound}
             setSelected={(value) => handleChange(index, value, "outbound")}
-            options={accounts}
+            options={accounts.map(a => a.domain)}
             error={errors.outbound}
           />
         </div>
@@ -74,7 +74,7 @@ const PersonalTransferRow: FC<PersonalTransferRowProps> = ({
             title="Inbound"
             selected={data.inbound}
             setSelected={(value) => handleChange(index, value, "inbound")}
-            options={accounts}
+            options={accounts.map(a => a.domain)}
             error={errors.inbound}
           />
         </div>
