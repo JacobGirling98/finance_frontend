@@ -1,7 +1,7 @@
 import { useState } from "react"
 import CreditDebitInputs from "../new-transaction/credit-debit/CreditDebitInputs"
 import { CreditDebit, ValidationErrors } from "../../../types/NewMoney"
-import { changeSingleTransaction } from "../new-transaction/changeSingleTransaction"
+import { changeSingleTransaction } from "../new-transaction/changeTransaction"
 
 const AddStandingOrder = () => {
   const [data, setData] = useState<CreditDebit>({

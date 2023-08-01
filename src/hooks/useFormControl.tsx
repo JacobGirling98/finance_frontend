@@ -12,7 +12,7 @@ import axios, { AxiosError } from "axios"
 import { BASE_URL, today } from "../utils/constants"
 import useReferenceData from "./useReferenceData"
 import { useModal } from "../context/useModal"
-import { changeSingleTransaction } from "../components/forms/new-transaction/changeSingleTransaction"
+import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 
 function useFormControl<
   T extends CreditDebit | BankTransfer | PersonalTransfer | Income

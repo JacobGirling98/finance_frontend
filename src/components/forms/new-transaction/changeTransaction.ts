@@ -4,4 +4,4 @@ export const changeSingleTransaction = <T extends CreditDebit | BankTransfer | P
   transaction: T,
   value: string | number,
   field: keyof T
-) : T => ({...transaction, [field]: typeof value === "number" && isNaN(value) ? 0 : value})
+): T => ({ ...transaction, [field]: typeof value === "number" && isNaN(value) ? 0 : value })
