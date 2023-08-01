@@ -23,30 +23,11 @@ import {
 import NewDescriptionMapping from "./NewDescriptionMapping"
 import { today } from "../../../../utils/constants"
 import Dialog from "../../../utils/Dialog"
+import { emptyCreditDebit, emptyCreditDebitErrors } from "./defaults"
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"
 }
-
-const emptyCreditDebit = (date: string, category: string): CreditDebit => ({
-  ...{
-    category,
-    date,
-    description: "",
-    quantity: 0,
-    value: 0,
-  },
-})
-
-const emptyCreditDebitErrors = (): ValidationErrors<CreditDebit> => ({
-  ...{
-    category: "",
-    date: "",
-    description: "",
-    quantity: "",
-    value: "",
-  },
-})
 
 const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
   const [receiptModalIsOpen, setReceiptModalIsOpen] = useState(false)

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"
 import {
   BankTransfer,
   CreditDebit,
@@ -6,12 +6,13 @@ import {
   PersonalTransfer,
   TransactionConfirmation,
   ValidationErrors,
-} from "../types/NewMoney";
-import { useMutation, useQueryClient } from "react-query";
-import axios, { AxiosError } from "axios";
-import { BASE_URL, today } from "../utils/constants";
-import useReferenceData from "./useReferenceData";
-import { useModal } from "../context/useModal";
+} from "../types/NewMoney"
+import { useMutation, useQueryClient } from "react-query"
+import axios, { AxiosError } from "axios"
+import { BASE_URL, today } from "../utils/constants"
+import useReferenceData from "./useReferenceData"
+import { useModal } from "../context/useModal"
+import { changeSingleTransaction } from "../components/forms/new-transaction/changeSingleTransaction"
 
 function useFormControl<
   T extends CreditDebit | BankTransfer | PersonalTransfer | Income
@@ -28,18 +29,17 @@ function useFormControl<
 ) {
   const [transactions, setTransactions] = useState<T[]>([
     emptyTransaction(today, ""),
-  ]);
+  ])
   const [validationErrors, setValidationErrors] = useState<
     ValidationErrors<T>[]
-  >([emptyError]);
+  >([emptyError])
 
-  const { postNewDescriptions } = useReferenceData();
-  const { toggleSuccessModal, toggleErrorModal } = useModal();
+  const { postNewDescriptions } = useReferenceData()
+  const { toggleSuccessModal, toggleErrorModal } = useModal()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const resetTransactions = () =>
-    setTransactions([emptyTransaction(today, "")]);
+  const resetTransactions = () => setTransactions([emptyTransaction(today, "")])
 
   const { mutate, isLoading } = useMutation<
     TransactionConfirmation,
@@ -51,42 +51,42 @@ function useFormControl<
       const response = await axios.post(
         `${BASE_URL}/transaction/multiple/${transactionType}`,
         transactions
-      );
-      return response.data;
+      )
+      return response.data
     },
     {
       onSuccess: async (data) => {
-        resetTransactions();
+        resetTransactions()
         toggleSuccessModal(
           `Added ${
             data.transactionCount
           } transactions worth £${data.value.toFixed(2)}`
-        );
-        queryClient.invalidateQueries(["getDescriptions"]);
+        )
+        queryClient.invalidateQueries(["getDescriptions"])
       },
       onError: (error) => {
-        toggleErrorModal(error.message);
+        toggleErrorModal(error.message)
       },
     }
-  );
+  )
 
   const addTransaction = () => {
     setTransactions((state) => [
       ...state,
       emptyTransaction(latestDate(state), latestCategory(state)),
-    ]);
-    setValidationErrors((state) => [...state, emptyError]);
-  };
+    ])
+    setValidationErrors((state) => [...state, emptyError])
+  }
 
   const clearTransactions = () => {
-    resetTransactions();
-    setValidationErrors([emptyError]);
-  };
+    resetTransactions()
+    setValidationErrors([emptyError])
+  }
 
   const deleteRow = (index: number) => {
-    setTransactions((state) => state.filter((_, i) => i !== index));
-    setValidationErrors((state) => state.filter((_, i) => i !== index));
-  };
+    setTransactions((state) => state.filter((_, i) => i !== index))
+    setValidationErrors((state) => state.filter((_, i) => i !== index))
+  }
 
   const changeTransaction = (
     index: number,
@@ -96,48 +96,45 @@ function useFormControl<
     setTransactions((state) =>
       state.map((transaction, i) => {
         return i === index
-          ? {
-              ...transaction,
-              [field]: typeof value === "number" && isNaN(value) ? 0 : value,
-            }
-          : transaction;
+          ? changeSingleTransaction(transaction, value, field)
+          : transaction
       })
-    );
-  };
+    )
+  }
 
   const submitTransactions = () => {
     const errors: ValidationErrors<T>[] = transactions.map((transaction) =>
       validate(transaction)
-    );
+    )
     if (containsValidationError(errors)) {
-      setValidationErrors(errors);
-      return;
+      setValidationErrors(errors)
+      return
     } else {
-      setValidationErrors(transactions.map(() => emptyError));
+      setValidationErrors(transactions.map(() => emptyError))
     }
-    postNewDescriptions(transactions.map((t) => t.description));
-    mutate(transactions);
-  };
+    postNewDescriptions(transactions.map((t) => t.description))
+    mutate(transactions)
+  }
 
   const overrideTransactions = (transactions: T[]) => {
-    setTransactions(transactions);
-    setValidationErrors(transactions.map(() => emptyError));
-  };
+    setTransactions(transactions)
+    setValidationErrors(transactions.map(() => emptyError))
+  }
 
   const latestDate = (transactions: T[]): string =>
-    transactions[transactions.length - 1].date;
+    transactions[transactions.length - 1].date
 
   const latestCategory = (transactions: T[]): string =>
-    transactions[transactions.length - 1].category;
+    transactions[transactions.length - 1].category
 
   const containsValidationError = (errors: ValidationErrors<T>[]): boolean =>
     errors
       .flatMap((error) =>
         Object.entries(error).map(([_, value]) => value !== "")
       )
-      .includes(true);
+      .includes(true)
 
-  const onlyOneRow = transactions.length === 1;
+  const onlyOneRow = transactions.length === 1
 
   return {
     transactions,
@@ -150,7 +147,7 @@ function useFormControl<
     submitTransactions,
     overrideTransactions,
     isLoading,
-  };
+  }
 }
 
-export default useFormControl;
+export default useFormControl
