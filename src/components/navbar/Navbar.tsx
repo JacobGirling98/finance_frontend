@@ -1,35 +1,44 @@
-import { BanknotesIcon } from "@heroicons/react/24/outline";
-import { useMutation } from "react-query";
-import axios, { AxiosError } from "axios";
-import { BASE_URL } from "../../utils/constants";
-import Spinner from "../utils/Spinner";
-import Button from "../button/Button";
-import { useModal } from "../../context/useModal";
-import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch";
-import Sidebar from "./Sidebar";
+import { BanknotesIcon, Bars3Icon } from "@heroicons/react/24/outline"
+import { useMutation } from "react-query"
+import axios, { AxiosError } from "axios"
+import { BASE_URL } from "../../utils/constants"
+import Spinner from "../utils/Spinner"
+import Button from "../button/Button"
+import { useModal } from "../../context/useModal"
+import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch"
+import Sidebar from "./Sidebar"
+import React, { FC } from "react"
 
-const Navbar = () => {
-  const { toggleSuccessModal, toggleErrorModal } = useModal();
+interface NavbarProps {
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
+  const { toggleSuccessModal, toggleErrorModal } = useModal()
 
   const { mutate, isLoading } = useMutation<void, AxiosError, void>(
     "gitSync",
     async () => await axios.post(`${BASE_URL}/git/sync`, { sync: true }),
     {
       onSuccess: () => {
-        toggleSuccessModal("Successfully synced data");
+        toggleSuccessModal("Successfully synced data")
       },
       onError: (error) => {
-        toggleErrorModal(error.message);
-      },
+        toggleErrorModal(error.message)
+      }
     }
-  );
+  )
 
   return (
     <>
       <Spinner isOpen={isLoading} muteBackground={true} />
       <nav>
         <div className="flex py-2 mx-2">
-          <Sidebar />
+          <button onClick={() => setSidebarOpen((isOpen) => !isOpen)}>
+            <div className="h-6 w-6 my-auto ml-2 mr-4 text-text-light dark:text-text-dark">
+              <Bars3Icon />
+            </div>
+          </button>
           <div className="flex text-text-light dark:text-text-dark font-bold text-xl pl-2 pr-8 items-center">
             <p className="pr-2">My Finances</p>
             <BanknotesIcon className="block h-6 w-6" aria-hidden={true} />
@@ -47,7 +56,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
