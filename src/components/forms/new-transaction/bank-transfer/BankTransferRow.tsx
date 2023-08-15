@@ -1,11 +1,6 @@
-import { FC, useEffect, useRef } from "react"
-import Input from "../../../inputs/Input"
-import TypeableSelect from "../../../inputs/select/TypeableSelect"
+import { FC } from "react"
 import { BankTransfer, ValidationErrors } from "../../../../types/NewMoney"
-import CurrencyInput from "../../../inputs/CurrencyInput"
-import NumberInput from "../../../inputs/NumberInput"
 import DeleteRowButton from "../../../button/DeleteRowButton"
-import useReferenceData from "../../../../hooks/useReferenceData"
 import BankTransferInputs from "./BankTransferInputs"
 
 interface BankTransferRowProps {

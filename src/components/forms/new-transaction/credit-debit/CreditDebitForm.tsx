@@ -4,9 +4,7 @@ import { validateCreditDebit } from "../validation"
 import CreditDebitRow from "./CreditDebitRow"
 import FormButtons from "../FormButtons"
 import {
-  CreditDebit,
-  ReceiptTransaction,
-  ValidationErrors,
+  ReceiptTransaction
 } from "../../../../types/NewMoney"
 import Spinner from "../../../utils/Spinner"
 import Button from "../../../button/Button"

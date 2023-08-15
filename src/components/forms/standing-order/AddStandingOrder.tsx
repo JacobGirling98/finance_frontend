@@ -12,7 +12,7 @@ const AddStandingOrder = () => {
     value: 0,
   })
 
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors<CreditDebit>>({
+  const [validationErrors] = useState<ValidationErrors<CreditDebit>>({
     category: "",
     date: "",
     description: "",

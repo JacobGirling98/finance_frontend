@@ -6,7 +6,6 @@ import Spinner from "../utils/Spinner"
 import Button from "../button/Button"
 import { useModal } from "../../context/useModal"
 import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch"
-import Sidebar from "./Sidebar"
 import React, { FC } from "react"
 
 interface NavbarProps {
