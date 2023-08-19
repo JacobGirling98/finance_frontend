@@ -6,22 +6,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: {
-          light: colors.slate[100],
-          dark: colors.slate[800],
-          hover: {
-            light: colors.slate[200],
-            dark: colors.slate[700],
-          },
-          active: {
-            light: colors.slate[300],
-            dark: colors.slate[600],
-          },
-          highlight: {
-            light: colors.slate[50],
-            dark: colors.slate[900],
-          },
-        },
         text: {
           light: colors.gray[800],
           dark: colors.gray[100],

@@ -31,7 +31,7 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
   return (
     <>
       <Spinner isOpen={isLoading} muteBackground={true} />
-      <nav>
+      <nav className="bg-slate-100 dark:bg-zinc-800">
         <div className="flex py-2 mx-2">
           <button onClick={() => setSidebarOpen((isOpen) => !isOpen)}>
             <div className="h-6 w-6 my-auto ml-2 mr-4 text-text-light dark:text-text-dark">

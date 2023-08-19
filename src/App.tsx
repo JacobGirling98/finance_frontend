@@ -21,11 +21,11 @@ const App = () => {
 
   return (
     <Providers>
-      <div className="flex flex-col bg-bg-light dark:bg-bg-dark min-h-screen">
+      <div className="flex flex-col bg-slate-50 dark:bg-zinc-950 min-h-screen">
         <Navbar setSidebarOpen={setSidebarOpen} />
         <div className="flex grow transition ease-in-out duration-300">
           <Sidebar isOpen={sidebarOpen} />
-          <div className="flex flex-col w-full">{routing}</div>
+          <div className="flex flex-col w-full rounded-md m-3 bg-slate-200 dark:bg-zinc-900">{routing}</div>
           <ResultModal />
         </div>
         <Footer />

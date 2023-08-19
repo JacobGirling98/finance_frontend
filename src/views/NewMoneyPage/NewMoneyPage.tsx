@@ -29,14 +29,14 @@ const NewMoneyPage = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex mt-5 mx-5">
         <PageTitle title="Add Transaction">
           <>
             <span> - </span>
             <span className="text-special-light">{transactionType}</span>
           </>
         </PageTitle>
-        <div className="mx-5 ml-auto w-72">
+        <div className="ml-auto my-auto w-72">
           <TransactionTypeSelect
             value={transactionType}
             setValue={setTransactionType}
