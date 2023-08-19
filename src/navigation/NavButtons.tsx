@@ -12,7 +12,8 @@ const NavButtons: FC = () => {
             className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out
               text-text-light dark:text-text-dark
               hover:bg-bg-hover-light dark:hover:bg-bg-hover-dark
-              active:bg-bg-active-light dark:active:bg-bg-active-dark"
+              active:bg-bg-active-light dark:active:bg-bg-active-dark
+              w-full bg-red-200"
             aria-current={item.current ? "page" : undefined}
           >
             {item.name}

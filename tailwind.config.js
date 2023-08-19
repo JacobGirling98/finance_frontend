@@ -20,7 +20,7 @@ export default {
         },
         input: {
           light: colors.white,
-          dark: colors.gray[600],
+          dark: colors.stone[600],
         },
         transparent: {
           light: "#7a71de14",
