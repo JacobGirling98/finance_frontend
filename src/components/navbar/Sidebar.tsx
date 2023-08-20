@@ -12,15 +12,15 @@ const Sidebar: FC<SidebarProps> = ({ isOpen }) => {
         className={`bg-slate-100 dark:bg-zinc-800 z-50 relative transition-all
         duration-300 ${isOpen ? "w-52" : "w-0"}`}
       >
-        <div
-          className={`fixed duration-300 ${
-            isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <div className="flex flex-col w-full bg-blue-300">
-            <NavButtons />
-          </div>
+        {/* <div
+          className={`absolute w-full duration-300 
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          `}
+        > */}
+        <div className="flex flex-col">
+          <NavButtons />
         </div>
+        {/* </div> */}
       </div>
     </>
   )
