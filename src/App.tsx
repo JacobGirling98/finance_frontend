@@ -7,7 +7,6 @@ import ResultModal from "./components/utils/Modal.tsx"
 import Footer from "./components/footer/Footer.tsx"
 import { ReactQueryDevtools } from "react-query/devtools"
 import Sidebar from "./components/navbar/Sidebar.tsx"
-import NewSidebar from "./components/navbar/NewSidebar.tsx"
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
