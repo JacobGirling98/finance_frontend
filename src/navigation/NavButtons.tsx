@@ -6,14 +6,14 @@ const NavButtons: FC = () => {
   return (
     <>
       {navigation.map((item) => (
-        <Link to={item.path} className="mx-1 rounded-md" key={item.name}>
+        <Link to={item.path} className="rounded-md" key={item.name}>
           <button
             key={item.name}
-            className="px-2 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out
+            className="px-2 py-2 text-sm font-medium transition duration-150 ease-in-out
               text-text-light dark:text-text-dark
-              hover:bg-bg-hover-light dark:hover:bg-bg-hover-dark
-              active:bg-bg-active-light dark:active:bg-bg-active-dark
-              w-full bg-red-200"
+              hover:bg-slate-200 dark:hover:bg-zinc-700
+              active:bg-slate-300 dark:active:bg-zinc-600
+              w-full whitespace-nowrap h-12"
             aria-current={item.current ? "page" : undefined}
           >
             {item.name}
