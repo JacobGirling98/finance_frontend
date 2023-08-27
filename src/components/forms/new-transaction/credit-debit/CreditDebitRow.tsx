@@ -24,7 +24,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
   isLastRow,
   handleChange,
   errors,
-  focusValueInput = false,
+  focusValueInput = false
 }) => {
   const handleChangeWrapper = (
     value: string | number,
@@ -33,7 +33,7 @@ const CreditDebitRow: FC<CreditDebitRowProps> = ({
 
   return (
     <div className="flex">
-      <div className="grid grid-cols-5 gap-4 mx-6 flex-grow">
+      <div className="grid grid-cols-5 gap-4 mx-6 grow">
         <CreditDebitInputs
           data={data}
           handleChange={handleChangeWrapper}

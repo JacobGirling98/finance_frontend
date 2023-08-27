@@ -1,31 +1,31 @@
-import { ReactElement, useState } from "react";
-import { TransactionType } from "../../types/NewMoney";
-import CreditDebitForm from "../../components/forms/new-transaction/credit-debit/CreditDebitForm";
-import BankTransferForm from "../../components/forms/new-transaction/bank-transfer/BankTransferForm";
-import PersonalTransferForm from "../../components/forms/new-transaction/personal-transfer/PersonalTransferForm";
-import IncomeForm from "../../components/forms/new-transaction/income/IncomeForm";
-import PageTitle from "../../components/utils/PageTitle";
-import TransactionTypeSelect from "../../components/inputs/select/TransactionTypeSelect";
+import { ReactElement, useState } from "react"
+import { TransactionType } from "../../types/NewMoney"
+import CreditDebitForm from "../../components/forms/new-transaction/credit-debit/CreditDebitForm"
+import BankTransferForm from "../../components/forms/new-transaction/bank-transfer/BankTransferForm"
+import PersonalTransferForm from "../../components/forms/new-transaction/personal-transfer/PersonalTransferForm"
+import IncomeForm from "../../components/forms/new-transaction/income/IncomeForm"
+import PageTitle from "../../components/utils/PageTitle"
+import TransactionTypeSelect from "../../components/inputs/select/TransactionTypeSelect"
 
 const NewMoneyPage = () => {
   const [transactionType, setTransactionType] = useState<TransactionType>(
     TransactionType.CREDIT
-  );
+  )
 
   const renderBody = (): ReactElement => {
     switch (transactionType) {
       case TransactionType.CREDIT:
-        return <CreditDebitForm transactionType="credit" />;
+        return <CreditDebitForm transactionType="credit" />
       case TransactionType.DEBIT:
-        return <CreditDebitForm transactionType="debit" />;
+        return <CreditDebitForm transactionType="debit" />
       case TransactionType.BANK_TRANSFER:
-        return <BankTransferForm />;
+        return <BankTransferForm />
       case TransactionType.PERSONAL_TRANSFER:
-        return <PersonalTransferForm />;
+        return <PersonalTransferForm />
       case TransactionType.INCOME:
-        return <IncomeForm />;
+        return <IncomeForm />
     }
-  };
+  }
 
   return (
     <>
@@ -45,7 +45,7 @@ const NewMoneyPage = () => {
       </div>
       {renderBody()}
     </>
-  );
-};
+  )
+}
 
-export default NewMoneyPage;
+export default NewMoneyPage
