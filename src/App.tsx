@@ -25,7 +25,7 @@ const App = () => {
         <Navbar setSidebarOpen={setSidebarOpen} />
         <div className="flex grow transition ease-in-out duration-300">
           <Sidebar isOpen={sidebarOpen} />
-          <div className="flex grow">
+          <div className="flex grow overflow-auto">
             <div className="flex flex-col w-full rounded-md m-3 bg-slate-200 dark:bg-zinc-900">
               {routing}
             </div>
