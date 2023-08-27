@@ -13,7 +13,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen }) => {
         duration-300 ${isOpen ? "w-52" : "w-0"}`}
       >
         <div
-          className={`mt-5 flex flex-col overflow-hidden ${
+          className={`flex flex-col overflow-hidden ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } transition-all`}
         >
