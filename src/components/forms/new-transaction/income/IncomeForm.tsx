@@ -3,28 +3,9 @@ import useFormControl from "../../../../hooks/useFormControl";
 import { validateIncome } from "../validation";
 import FormButtons from "../FormButtons";
 import IncomeRow from "./IncomeRow";
-import { Income, ValidationErrors } from "../../../../types/NewMoney";
 import Spinner from "../../../utils/Spinner";
+import { emptyIncome, emptyIncomeErrors } from "./defaults";
 
-const emptyIncome = (date: string, category: string): Income => ({
-  ...{
-    category,
-    date,
-    description: "",
-    source: "",
-    value: 0,
-  },
-});
-
-const emptyIncomeErrors = (): ValidationErrors<Income> => ({
-  ...{
-    category: "",
-    date: "",
-    description: "",
-    source: "",
-    value: "",
-  },
-});
 
 const IncomeForm: FC = () => {
   const {

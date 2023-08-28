@@ -1,4 +1,4 @@
-import { TransactionType } from "./NewMoney";
+import { BankTransfer, CreditDebit, Income, PersonalTransfer, TransactionType } from "./NewMoney";
 
 export interface StandingOrder {
   nextDate: string;
@@ -15,3 +15,18 @@ export interface StandingOrder {
   quantity: number;
   id: string;
 }
+
+export interface Frequency {
+  frequency: "monthly" | "weekly"
+}
+
+
+export type CreditDebitStandingOrder = CreditDebit & Frequency
+
+export type BankTransferStandingOrder = BankTransfer & Frequency
+
+export type PersonalTransferStandingOrder = PersonalTransfer & Frequency
+
+export type IncomeStandingOrder = Income & Frequency
+
+export type AddStandingOrder = CreditDebitStandingOrder | BankTransferStandingOrder | PersonalTransferStandingOrder | IncomeStandingOrder

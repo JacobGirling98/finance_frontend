@@ -1,11 +1,8 @@
 import { useState } from "react"
 import {
-  BankTransfer,
-  CreditDebit,
-  Income,
-  PersonalTransfer,
+  Transaction,
   TransactionConfirmation,
-  ValidationErrors,
+  ValidationErrors
 } from "../types/NewMoney"
 import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
@@ -14,9 +11,7 @@ import useReferenceData from "./useReferenceData"
 import { useModal } from "../context/useModal"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 
-function useFormControl<
-  T extends CreditDebit | BankTransfer | PersonalTransfer | Income
->(
+function useFormControl<T extends Transaction>(
   emptyTransaction: (date: string, category: string) => T,
   emptyError: ValidationErrors<T>,
   validate: (transaction: T) => ValidationErrors<T>,
@@ -28,7 +23,7 @@ function useFormControl<
     | "income"
 ) {
   const [transactions, setTransactions] = useState<T[]>([
-    emptyTransaction(today, ""),
+    emptyTransaction(today, "")
   ])
   const [validationErrors, setValidationErrors] = useState<
     ValidationErrors<T>[]
@@ -66,14 +61,14 @@ function useFormControl<
       },
       onError: (error) => {
         toggleErrorModal(error.message)
-      },
+      }
     }
   )
 
   const addTransaction = () => {
     setTransactions((state) => [
       ...state,
-      emptyTransaction(latestDate(state), latestCategory(state)),
+      emptyTransaction(latestDate(state), latestCategory(state))
     ])
     setValidationErrors((state) => [...state, emptyError])
   }
@@ -146,7 +141,7 @@ function useFormControl<
     onlyOneRow,
     submitTransactions,
     overrideTransactions,
-    isLoading,
+    isLoading
   }
 }
 

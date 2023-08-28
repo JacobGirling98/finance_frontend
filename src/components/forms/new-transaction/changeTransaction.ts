@@ -1,6 +1,4 @@
-import { BankTransfer, CreditDebit, Income, PersonalTransfer } from "../../../types/NewMoney";
-
-export const changeSingleTransaction = <T extends CreditDebit | BankTransfer | PersonalTransfer | Income>(
+export const changeSingleTransaction = <T>(
   transaction: T,
   value: string | number,
   field: keyof T

@@ -1,47 +1,23 @@
-import { useState } from "react"
-import CreditDebitInputs from "../new-transaction/credit-debit/CreditDebitInputs"
-import {
-  CreditDebit,
-  TransactionType,
-  ValidationErrors
-} from "../../../types/NewMoney"
-import { changeSingleTransaction } from "../new-transaction/changeTransaction"
 import TransactionTypeSelect from "../../inputs/select/TransactionTypeSelect"
+import useTransactionType from "../../../hooks/useTransactionType"
+import CreditDebitForm from "./credit-debit/CreditDebitForm"
 
 const AddStandingOrder = () => {
-  const [transactionType, setTransactionType] = useState(TransactionType.DEBIT)
+  const {transactionType, setTransactionType} = useTransactionType()
 
-  const [data, setData] = useState<CreditDebit>({
-    category: "",
-    date: "",
-    description: "",
-    quantity: 0,
-    value: 0
-  })
-
-  const [validationErrors] = useState<ValidationErrors<CreditDebit>>({
-    category: "",
-    date: "",
-    description: "",
-    quantity: "",
-    value: ""
-  })
-
-  const handleChange = (value: string | number, field: keyof CreditDebit) => {
-    setData((data) => changeSingleTransaction(data, value, field))
-  }
 
   return (
     <div className="p-2">
+      <label
+          className="text-text-light dark:text-text-dark mb-1 ml-4"
+        >
+          Transaction Type
+        </label>
       <TransactionTypeSelect
         value={transactionType}
         setValue={setTransactionType}
       />
-      <CreditDebitInputs
-        data={data}
-        handleChange={handleChange}
-        errors={validationErrors}
-      />
+      <CreditDebitForm transactionType="debit"/>
     </div>
   )
 }
