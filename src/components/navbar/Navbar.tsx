@@ -4,9 +4,9 @@ import axios, { AxiosError } from "axios"
 import { BASE_URL } from "../../utils/constants"
 import Spinner from "../utils/Spinner"
 import Button from "../button/Button"
-import { useModal } from "../../context/useModal"
 import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch"
 import React, { FC } from "react"
+import { useModal } from "../../hooks/useModal"
 
 interface NavbarProps {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>

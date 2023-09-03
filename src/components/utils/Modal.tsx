@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { FC, Fragment } from "react";
-import { useModal } from "../../context/useModal";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/solid";
 import ExitButton from "../button/ExitButton";
+import { useModal } from "../../hooks/useModal";
 
 const ResultModal: FC = () => {
   const { isOpen, setIsOpen, body, isSuccess } = useModal();
@@ -34,7 +34,7 @@ const ResultModal: FC = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md px-6 pt-2 pb-4 rounded-2xl bg-bg-hover-light dark:bg-bg-hover-dark shadow-xl text-left align-middle  transition-all  z-50 transform overflow-hidden">
+                <Dialog.Panel className="w-full max-w-md px-6 pt-2 pb-4 rounded-2xl bg-slate-200 dark:bg-zinc-700 shadow-xl text-left align-middle  transition-all  z-50 transform overflow-hidden">
                   <ExitButton
                     onClick={() => setIsOpen(false)}
                     className="fixed right-3"

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Dispatch, FC, SetStateAction, useContext, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { ProviderProps } from "../Providers";
 import React from "react";
 
@@ -22,7 +22,7 @@ const defaultState: IModalContext = {
   isSuccess: true,
 };
 
-const ModalContext = React.createContext<IModalContext>(defaultState);
+export const ModalContext = React.createContext<IModalContext>(defaultState);
 
 export const ModalProvider: FC<ProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,5 +59,3 @@ export const ModalProvider: FC<ProviderProps> = ({ children }) => {
     </ModalContext.Provider>
   );
 };
-
-export const useModal = () => useContext(ModalContext);

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NewDescriptionMappingsProvider } from "./context/useNewDescriptionMappings";
-import { ModalProvider } from "./context/useModal";
+import { ModalProvider } from "./context/ModalContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 export interface ProviderProps {

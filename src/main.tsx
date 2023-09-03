@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import "./index.css"
 import { worker } from "./mocks/browser"
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development" && import.meta.env.MODE == "msw") {
   worker.start()
 }
 

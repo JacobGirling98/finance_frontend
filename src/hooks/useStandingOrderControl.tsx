@@ -5,10 +5,10 @@ import {
 import { BASE_URL, today } from "../utils/constants"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import useReferenceData from "./useReferenceData"
-import { useModal } from "../context/useModal"
 import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { AddStandingOrder } from "../types/StandingOrders"
+import { useModal } from "./useModal"
 
 
 const useStandingOrderControl = <T extends AddStandingOrder>(

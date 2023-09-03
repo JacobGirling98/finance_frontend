@@ -8,8 +8,8 @@ import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { BASE_URL, today } from "../utils/constants"
 import useReferenceData from "./useReferenceData"
-import { useModal } from "../context/useModal"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
+import { useModal } from "./useModal"
 
 function useFormControl<T extends Transaction>(
   emptyTransaction: (date: string, category: string) => T,
