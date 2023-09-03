@@ -9,7 +9,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen }) => {
   return (
     <>
       <aside
-        className={`bg-slate-100 dark:bg-zinc-800 z-50 relative transition-all
+        className={`bg-slate-100 dark:bg-zinc-800 relative transition-all
         duration-300 ${isOpen ? "w-52" : "w-0"}`}
       >
         <div

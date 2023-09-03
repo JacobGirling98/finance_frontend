@@ -11,12 +11,12 @@ interface SelectProps {
 const Select: FC<SelectProps> = ({ value, onChange, options }) => {
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className="relative m-1">
+      <div className="relative">
         <Listbox.Button
-          className="relative w-full h-10 cursor-default rounded-lg
+          className="relative w-full h-10 cursor-default rounded-md
                   bg-input-light dark:bg-input-dark
                   text-text-light dark:text-text-dark
-                  text-left pl-3 shadow-lg focus:outline-none "
+                  text-left pl-3 shadow-lg focus:outline-none"
         >
           <span className="block truncate">{value}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1">

@@ -1,0 +1,1 @@
+export const frequencyValues = ["Months", "Weeks"]
