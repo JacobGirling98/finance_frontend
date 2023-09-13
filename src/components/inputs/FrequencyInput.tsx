@@ -7,13 +7,15 @@ interface FrequencyInputProps {
   setFrequencyQuantity: (_: number) => void
   frequencyUnit: string
   setFrequencyUnit: (_: string) => void
+  validationError: string
 }
 
 const FrequencyInput: React.FC<FrequencyInputProps> = ({
   frequencyQuantity,
   setFrequencyQuantity,
   frequencyUnit,
-  setFrequencyUnit
+  setFrequencyUnit,
+  validationError
 }) => {
   return (
     <>
@@ -22,12 +24,15 @@ const FrequencyInput: React.FC<FrequencyInputProps> = ({
           Frequency
         </label>
         <div className="flex flex-row mx-2 space-x-2">
-          <Input
-            type="number"
-            value={frequencyQuantity}
-            onChange={setFrequencyQuantity}
-            className="w-1/3"
-          />
+          <div className="w-1/3 flex flex-col">
+            <Input
+              type="number"
+              value={frequencyQuantity}
+              onChange={setFrequencyQuantity}
+              error={validationError}
+            />
+          </div>
+
           <div className="w-2/3">
             <Select
               value={frequencyUnit}

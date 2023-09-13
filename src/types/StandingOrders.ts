@@ -17,7 +17,8 @@ export interface StandingOrder {
 }
 
 export interface Frequency {
-  frequency: "monthly" | "weekly"
+  frequencyQuantity: number
+  frequencyUnit: "Monthly" | "Weekly"
 }
 
 

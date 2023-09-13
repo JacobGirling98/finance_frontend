@@ -21,7 +21,8 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     | "debit"
     | "bank-transfer"
     | "personal-transfer"
-    | "income"
+    | "income",
+  onSuccess: () => void
 ) => {
   const [standingOrder, setStandingOrder] = useState<T>(
     emptyStandingOrder(today, "")
@@ -38,7 +39,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     "addStandingOrder",
     async () => {
       const response = await axios.post(
-        `${BASE_URL}/standing-order/${standingOrderType}`,
+        `${BASE_URL}/standing-orders/${standingOrderType}`,
         standingOrder
       )
       return response.data
@@ -47,6 +48,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
       onSuccess: async () => {
         toggleSuccessModal("Standing order added"),
           queryClient.invalidateQueries(["getDescriptions"])
+        onSuccess()
       },
       onError: (error) => toggleErrorModal(error.message)
     }

@@ -59,7 +59,7 @@ const StandingOrdersPage: FC = () => {
         onClose={addDialogOnClose}
         title="Add a standing order"
       >
-        <AddStandingOrder />
+        <AddStandingOrder closeDialog={addDialogOnClose}/>
       </Dialog>
       {data && (
         <div className="p-2 flex justify-center">

@@ -4,10 +4,12 @@ import { emptyCreditDebit, emptyCreditDebitErrors } from "../../new-transaction/
 
 export const emptyCreditDebitStandingOrder = (date: string, category: string): CreditDebitStandingOrder => ({
   ...emptyCreditDebit(date, category),
-  frequency: "monthly"
+  frequencyUnit: "Monthly",
+  frequencyQuantity: 1
 })
 
 export const emptyCreditDebitStandingOrderErrors = (): ValidationErrors<CreditDebitStandingOrder> => ({
   ...emptyCreditDebitErrors(),
-  frequency: ""
+  frequencyUnit: "",
+  frequencyQuantity: ""
 })

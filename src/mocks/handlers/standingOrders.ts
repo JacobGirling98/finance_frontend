@@ -36,5 +36,9 @@ export const standingOrdersHandlers = [
       ])
     )
   ),
-  rest.post(api, (_req, res, ctx) => res(ctx.status(204)))
+  rest.post(`${api}/debit`, (_req, res, ctx) => res(ctx.status(204))),
+  rest.post(`${api}/credit`, (_req, res, ctx) => res(ctx.status(204))),
+  rest.post(`${api}/bank-transfer`, (_req, res, ctx) => res(ctx.status(204))),
+  rest.post(`${api}/personal-transfer`, (_req, res, ctx) => res(ctx.status(204))),
+  rest.post(`${api}/income`, (_req, res, ctx) => res(ctx.status(204)))
 ]

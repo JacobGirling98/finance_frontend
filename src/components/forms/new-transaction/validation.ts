@@ -21,6 +21,12 @@ export const greaterThanZero = (value: number): boolean => value > 0;
 export const validateGreaterThanZero = (field: string, value: number) =>
   greaterThanZero(value) ? "" : `${field} must be greater than zero`;
 
+export const isInt = (value: number): boolean => Number.isInteger(value)
+
+export const validatePositiveInt = (field: string, value: number) =>
+  isInt(value) && greaterThanZero(value) ? "" : `${field} must be a positive integer value`
+
+
 export const validateCreditDebit = (
   transaction: CreditDebit
 ): ValidationErrors<CreditDebit> => ({
