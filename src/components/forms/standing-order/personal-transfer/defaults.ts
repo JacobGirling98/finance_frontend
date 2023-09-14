@@ -4,7 +4,7 @@ import { emptyPersonalTransfer, emptyPersonalTransferErrors } from "../../new-tr
 
 export const emptyPersonalTransferStandingOrder = (date: string, category: string): PersonalTransferStandingOrder => ({
   ...emptyPersonalTransfer(date, category),
-  frequencyUnit: "Monthly",
+  frequencyUnit: "Months",
   frequencyQuantity: 1
 })
 

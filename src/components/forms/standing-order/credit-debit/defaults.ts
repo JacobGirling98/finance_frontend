@@ -4,7 +4,7 @@ import { emptyCreditDebit, emptyCreditDebitErrors } from "../../new-transaction/
 
 export const emptyCreditDebitStandingOrder = (date: string, category: string): CreditDebitStandingOrder => ({
   ...emptyCreditDebit(date, category),
-  frequencyUnit: "Monthly",
+  frequencyUnit: "Months",
   frequencyQuantity: 1
 })
 

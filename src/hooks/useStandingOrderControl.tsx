@@ -8,7 +8,7 @@ import { changeSingleTransaction } from "../components/forms/new-transaction/cha
 import useReferenceData from "./useReferenceData"
 import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
-import { AddStandingOrder } from "../types/StandingOrders"
+import { AddStandingOrder, StandingOrder } from "../types/StandingOrders"
 import { useModal } from "./useModal"
 
 
@@ -37,10 +37,10 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const { mutate, isLoading } = useMutation<void, AxiosError, T>(
     "addStandingOrder",
-    async () => {
+    async (data: T) => {
       const response = await axios.post(
         `${BASE_URL}/standing-orders/${standingOrderType}`,
-        standingOrder
+        data
       )
       return response.data
     },
@@ -70,13 +70,21 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
       setValidationErrors(emptyError)
     }
     postNewDescriptions([standingOrder.description])
-    mutate(standingOrder)
+    mutate(normaliseFrequency(standingOrder))
   }
 
   const containsValidationError = (errors: ValidationErrors<T>): boolean =>
     Object.entries(errors)
       .map(([_, value]) => value !== "")
       .includes(true)
+
+  const normaliseFrequency = (standingOrder: T): T => {
+    const unit = standingOrder.frequencyUnit == "Months" ? "MONTHLY" : "WEEKLY"
+    return ({
+      ...standingOrder,
+      frequencyUnit: unit
+    })
+  }
 
   return {
     standingOrder,

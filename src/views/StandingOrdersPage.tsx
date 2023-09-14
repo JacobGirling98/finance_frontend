@@ -8,9 +8,11 @@ import { BASE_URL } from "../utils/constants"
 import Dialog from "../components/utils/Dialog"
 import AddStandingOrder from "../components/forms/standing-order/AddStandingOrder"
 import { Entity } from "../types/Api"
+import PageTitle from "../components/utils/PageTitle"
+import Button from "../components/button/Button"
 
 const StandingOrdersPage: FC = () => {
-  const [addDialogOpen, setAddDialogOpen] = useState(true)
+  const [addDialogOpen, setAddDialogOpen] = useState(false)
 
   const addDialogOnClose = () => {
     setAddDialogOpen(false)
@@ -53,19 +55,25 @@ const StandingOrdersPage: FC = () => {
 
   return (
     <>
-      <Dialog
-        open={addDialogOpen}
-        setOpen={setAddDialogOpen}
-        onClose={addDialogOnClose}
-        title="Add a standing order"
-      >
-        <AddStandingOrder closeDialog={addDialogOnClose}/>
-      </Dialog>
-      {data && (
-        <div className="p-2 flex justify-center">
-          <Table data={data} columns={columns} />
-        </div>
-      )}
+    <div className="flex mt-5 mx-5"> 
+      <PageTitle title={"Standing Orders"} />
+      <div className="ml-auto my-auto">
+        <Button value={"Add"} onClick={() => setAddDialogOpen(true)}/>
+      </div>
+    </div>
+    <Dialog
+      open={addDialogOpen}
+      setOpen={setAddDialogOpen}
+      onClose={addDialogOnClose}
+      title="Add a standing order"
+    >
+      <AddStandingOrder closeDialog={addDialogOnClose}/>
+    </Dialog>
+    {data && (
+      <div className="p-2 flex justify-center">
+        <Table data={data} columns={columns} />
+      </div>
+    )}
     </>
   )
 }

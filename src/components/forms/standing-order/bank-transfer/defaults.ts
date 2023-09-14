@@ -4,7 +4,7 @@ import { emptyBankTransfer, emptyBankTransferErrors } from "../../new-transactio
 
 export const emptyBankTransferStandingOrder = (date: string, category: string): BankTransferStandingOrder => ({
   ...emptyBankTransfer(date, category),
-  frequencyUnit: "Monthly",
+  frequencyUnit: "Months",
   frequencyQuantity: 1
 })
 

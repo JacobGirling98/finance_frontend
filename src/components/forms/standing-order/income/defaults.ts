@@ -4,7 +4,7 @@ import { emptyIncome, emptyIncomeErrors } from "../../new-transaction/income/def
 
 export const emptyIncomeStandingOrder = (date: string, category: string): IncomeStandingOrder => ({
   ...emptyIncome(date, category),
-  frequencyUnit: "Monthly",
+  frequencyUnit: "Months",
   frequencyQuantity: 1
 })
 

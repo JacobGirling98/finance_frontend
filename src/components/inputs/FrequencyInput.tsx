@@ -28,7 +28,7 @@ const FrequencyInput: React.FC<FrequencyInputProps> = ({
             <Input
               type="number"
               value={frequencyQuantity}
-              onChange={setFrequencyQuantity}
+              onChange={e => setFrequencyQuantity(parseFloat(e))}
               error={validationError}
             />
           </div>
