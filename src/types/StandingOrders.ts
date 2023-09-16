@@ -2,10 +2,11 @@ import { BankTransfer, CreditDebit, Income, PersonalTransfer, TransactionType } 
 
 export interface StandingOrder {
   nextDate: string;
-  frequency: "monthly" | "weekly";
+  frequencyQuantity: number
+  frequencyUnit: "MONTHLY" | "WEEKLY";
   outgoing: boolean;
   value: number;
-  transactionType: TransactionType;
+  type: string;
   outboundAccount?: string;
   inboundAccount?: string;
   destination?: string;
@@ -13,7 +14,7 @@ export interface StandingOrder {
   description: string;
   category: string;
   quantity: number;
-  id: string;
+  recipient?: string
 }
 
 export interface Frequency {

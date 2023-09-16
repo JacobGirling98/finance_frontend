@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Description } from "../types/NewMoney"
 import { FC, useContext, useState } from "react"
-import { ProviderProps } from "../Providers"
+import { ChildrenProps } from "../utils/Providers"
 import React from "react"
 import { Entity } from "../types/Api"
 
@@ -23,7 +23,7 @@ const defaultState: INewDescriptionMappingsContext = {
 const NewDescriptionMappingsContext =
   React.createContext<INewDescriptionMappingsContext>(defaultState)
 
-export const NewDescriptionMappingsProvider: FC<ProviderProps> = ({
+export const NewDescriptionMappingsProvider: FC<ChildrenProps> = ({
   children,
 }) => {
   const [descriptions, setDescriptions] = useState<Entity<Description>[]>([])

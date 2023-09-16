@@ -1,6 +1,4 @@
 import { FC, useState } from "react"
-import Table from "../components/table/Table"
-import { createColumnHelper } from "@tanstack/react-table"
 import { StandingOrder } from "../types/StandingOrders"
 import { useQuery } from "react-query"
 import axios from "axios"
@@ -10,6 +8,9 @@ import AddStandingOrder from "../components/forms/standing-order/AddStandingOrde
 import { Entity } from "../types/Api"
 import PageTitle from "../components/utils/PageTitle"
 import Button from "../components/button/Button"
+import Table, { TableCell, TableHeader, useTable } from "../components/table/Table"
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { formatFrequency, formatTransactionType, handleUndefined } from "../utils/Table"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false)
@@ -23,35 +24,46 @@ const StandingOrdersPage: FC = () => {
     return response.data
   })
 
-  const columnHelper = createColumnHelper<Entity<StandingOrder>>()
+  const tableHeaders = (
+    <>
+      <TableHeader>Next Date</TableHeader>
+      <TableHeader>Frequency</TableHeader>
+      <TableHeader>Category</TableHeader>
+      <TableHeader>Value</TableHeader>
+      <TableHeader>Description</TableHeader>
+      <TableHeader>Type</TableHeader>
+      <TableHeader>Recipient</TableHeader>
+      <TableHeader>Inbound</TableHeader>
+      <TableHeader>Outbound</TableHeader>
+      <TableHeader className="w-16" />
+    </>
+  )
 
-  const columns = [
-    columnHelper.accessor("domain.nextDate", {
-      header: () => <span>Next Date</span>,
-    }),
-    columnHelper.accessor("domain.value", {
-      header: () => <span>Value</span>,
-    }),
-    columnHelper.accessor("domain.frequency", {
-      header: () => <span>Frequency</span>,
-    }),
-    columnHelper.accessor("domain.outgoing", {
-      cell: (x) => x.getValue().toString(),
-      header: () => <span>Outgoing</span>,
-    }),
-    columnHelper.accessor("domain.transactionType", {
-      header: () => <span>Transaction Type</span>,
-    }),
-    columnHelper.accessor("domain.description", {
-      header: () => <span>Description</span>,
-    }),
-    columnHelper.accessor("domain.category", {
-      header: () => <span>Category</span>,
-    }),
-    columnHelper.accessor("domain.quantity", {
-      header: () => <span>Quantity</span>,
-    }),
-  ]
+  const rowMapper = (standingOrder: Entity<StandingOrder>) => (
+    <>
+      <TableCell>{standingOrder.domain.nextDate}</TableCell>
+      <TableCell>{formatFrequency(standingOrder.domain.frequencyUnit, standingOrder.domain.frequencyQuantity)}</TableCell>
+      <TableCell>{standingOrder.domain.category}</TableCell>
+      <TableCell>{standingOrder.domain.value}</TableCell>
+      <TableCell>{standingOrder.domain.description}</TableCell>
+      <TableCell>{formatTransactionType(standingOrder.domain.type)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.recipient)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.inboundAccount)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.outboundAccount)}</TableCell>
+      <TableCell>
+        <div className="flex justify-between">
+          <button>
+            <PencilIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
+          </button>
+          <button>
+            <TrashIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
+          </button>
+        </div>
+      </TableCell>
+    </>
+  )
+
+  const { table } = useTable(tableHeaders, rowMapper, data ?? [])
 
   return (
     <>
@@ -70,8 +82,8 @@ const StandingOrdersPage: FC = () => {
       <AddStandingOrder closeDialog={addDialogOnClose}/>
     </Dialog>
     {data && (
-      <div className="p-2 flex justify-center">
-        <Table data={data} columns={columns} />
+      <div className="p-2 flex">
+        {table()}
       </div>
     )}
     </>

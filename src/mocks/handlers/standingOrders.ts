@@ -1,15 +1,18 @@
 import { rest } from "msw"
 import { toEntity } from "./utils"
+import { StandingOrder } from "../../types/StandingOrders"
+import { Entity } from "../../types/Api"
 
 const api = "http://localhost:9000/standing-orders"
 
 export const standingOrdersHandlers = [
-  rest.get(api, (_req, res, ctx) =>
+  rest.get<Entity<StandingOrder>>(api, (_req, res, ctx) =>
     res(
       ctx.json([
         toEntity({
           nextDate: "2023-09-01",
-          frequency: "MONTHLY",
+          frequencyQuantity: 1,
+          frequencyUnit: "MONTHLY",
           category: "Spotify",
           value: 5,
           description: "Spotify",

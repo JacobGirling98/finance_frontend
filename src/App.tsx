@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Providers from "./Providers.tsx"
+import Providers from "./utils/Providers.tsx"
 import useRouter from "./hooks/useRouter.tsx"
 import { userIsInDarkMode } from "./utils/dark-mode.ts"
 import Navbar from "./components/navbar/Navbar.tsx"
