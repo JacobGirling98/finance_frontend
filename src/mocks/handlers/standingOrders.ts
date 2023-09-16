@@ -25,7 +25,8 @@ export const standingOrdersHandlers = [
         }),
         toEntity({
           nextDate: "2023-08-16",
-          frequency: "MONTHLY",
+          frequencyQuantity: 2,
+          frequencyUnit: "WEEKLY",
           category: "Savings",
           value: 200,
           description: "Help to Buy ISA",

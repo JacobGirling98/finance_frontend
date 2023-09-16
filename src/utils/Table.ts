@@ -7,7 +7,7 @@ export const formatFrequency = (frequencyUnit: string, frequencyQuantity: number
 }
 
 export const handleUndefined = (data?: string): string => (
-  data === undefined ? "-" : data
+  !data ? "-" : data
 )
 
 export const formatTransactionType = (type: string): string => {

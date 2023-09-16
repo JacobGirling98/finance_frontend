@@ -8,8 +8,10 @@ import AddStandingOrder from "../components/forms/standing-order/AddStandingOrde
 import { Entity } from "../types/Api"
 import PageTitle from "../components/utils/PageTitle"
 import Button from "../components/button/Button"
-import Table, { TableCell, TableHeader, useTable } from "../components/table/Table"
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { useTable } from "../hooks/useTable"
+import TableCell from "../components/table/TableCell"
+import TableHeader from "../components/table/TableHeader"
 import { formatFrequency, formatTransactionType, handleUndefined } from "../utils/Table"
 
 const StandingOrdersPage: FC = () => {
@@ -48,8 +50,8 @@ const StandingOrdersPage: FC = () => {
       <TableCell>{standingOrder.domain.description}</TableCell>
       <TableCell>{formatTransactionType(standingOrder.domain.type)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.recipient)}</TableCell>
-      <TableCell>{handleUndefined(standingOrder.domain.inboundAccount)}</TableCell>
-      <TableCell>{handleUndefined(standingOrder.domain.outboundAccount)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.inbound)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.outbound)}</TableCell>
       <TableCell>
         <div className="flex justify-between">
           <button>

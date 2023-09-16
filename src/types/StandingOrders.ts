@@ -1,4 +1,4 @@
-import { BankTransfer, CreditDebit, Income, PersonalTransfer, TransactionType } from "./NewMoney";
+import { BankTransfer, CreditDebit, Income, PersonalTransfer } from "./NewMoney";
 
 export interface StandingOrder {
   nextDate: string;
@@ -7,8 +7,8 @@ export interface StandingOrder {
   outgoing: boolean;
   value: number;
   type: string;
-  outboundAccount?: string;
-  inboundAccount?: string;
+  outbound?: string;
+  inbound?: string;
   destination?: string;
   source?: string;
   description: string;
