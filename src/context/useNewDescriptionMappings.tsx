@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Description } from "../types/NewMoney"
 import { FC, useContext, useState } from "react"
-import { ChildrenProps } from "../utils/Providers"
 import React from "react"
 import { Entity } from "../types/Api"
+import { ChildrenProps } from "../types/ChildrenProps"
 
 interface INewDescriptionMappingsContext {
   descriptions: Entity<Description>[]

@@ -3,7 +3,6 @@ import { Entity } from "../../../../types/Api"
 import { PersonalTransferStandingOrder } from "../../../../types/StandingOrders"
 import FrequencyInput from "../../../inputs/FrequencyInput"
 import PersonalTransferInputs from "../../new-transaction/personal-transfer/PersonalTransferInputs"
-import { emptyPersonalTransfer } from "../../new-transaction/personal-transfer/defaults"
 import FormButtons from "../FormButtons"
 import { validatePersonalTransferStandingOrder } from "../validation"
 import {

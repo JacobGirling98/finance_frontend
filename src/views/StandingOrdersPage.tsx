@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import { StandingOrder } from "../types/StandingOrders"
 import { useQuery } from "react-query"
 import axios from "axios"
