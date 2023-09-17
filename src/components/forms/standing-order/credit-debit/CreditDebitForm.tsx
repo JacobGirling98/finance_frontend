@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
 import {
   emptyCreditDebitStandingOrder,
@@ -8,23 +8,32 @@ import { validateCreditDebitStandingOrder } from "../validation"
 import CreditDebitInputs from "../../new-transaction/credit-debit/CreditDebitInputs"
 import FrequencyInput from "../../../inputs/FrequencyInput"
 import FormButtons from "../FormButtons"
+import { Entity } from "../../../../types/Api"
+import { CreditDebitStandingOrder } from "../../../../types/StandingOrders"
 
 interface CreditDebitFormProps {
   transactionType: "credit" | "debit"
   closeDialog: () => void
+  initialState?: Entity<CreditDebitStandingOrder>
 }
 
 const CreditDebitForm: FC<CreditDebitFormProps> = ({
   transactionType,
-  closeDialog
+  closeDialog,
+  initialState
 }) => {
+
+  const [id, setId] = useState(initialState?.id)
+
+  const startingData = initialState ? () => initialState.domain : emptyCreditDebitStandingOrder
+
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
     submitStandingOrder
   } = useStandingOrderControl(
-    emptyCreditDebitStandingOrder,
+    startingData,
     emptyCreditDebitStandingOrderErrors(),
     validateCreditDebitStandingOrder,
     transactionType,

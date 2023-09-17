@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { ChildrenProps } from "../../utils/ChildrenProps"
+import { ChildrenProps } from "../../types/ChildrenProps"
 import { ClassName } from "../../types/Utils"
 
 const TableHeader: FC<ChildrenProps & ClassName> = ({

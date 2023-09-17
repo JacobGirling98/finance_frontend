@@ -6,11 +6,12 @@ interface SelectProps {
   value: string;
   onChange: (s: string) => void;
   options: string[];
+  disabled?: boolean
 }
 
-const Select: FC<SelectProps> = ({ value, onChange, options }) => {
+const Select: FC<SelectProps> = ({ value, onChange, options, disabled = false }) => {
   return (
-    <Listbox value={value} onChange={onChange}>
+    <Listbox value={value} onChange={onChange} disabled={disabled}>
       <div className="relative">
         <Listbox.Button
           className="relative w-full h-10 cursor-default rounded-md

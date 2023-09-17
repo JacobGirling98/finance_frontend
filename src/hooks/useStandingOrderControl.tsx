@@ -3,17 +3,17 @@ import { useState } from "react"
 import {
   ValidationErrors
 } from "../types/NewMoney"
-import { BASE_URL, today } from "../utils/constants"
+import { BASE_URL } from "../utils/constants"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import useReferenceData from "./useReferenceData"
 import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
-import { AddStandingOrder, StandingOrder } from "../types/StandingOrders"
+import { AddStandingOrder } from "../types/StandingOrders"
 import { useModal } from "./useModal"
 
 
 const useStandingOrderControl = <T extends AddStandingOrder>(
-  emptyStandingOrder: (date: string, category: string) => T,
+  defaultStandingOrder: () => T,
   emptyError: ValidationErrors<T>,
   validate: (standingOrder: T) => ValidationErrors<T>,
   standingOrderType:
@@ -25,7 +25,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
   onSuccess: () => void
 ) => {
   const [standingOrder, setStandingOrder] = useState<T>(
-    emptyStandingOrder(today, "")
+    defaultStandingOrder()
   )
   const [validationErrors, setValidationErrors] =
     useState<ValidationErrors<T>>(emptyError)

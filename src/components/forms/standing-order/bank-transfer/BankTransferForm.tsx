@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react"
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
+import { Entity } from "../../../../types/Api"
+import { BankTransferStandingOrder } from "../../../../types/StandingOrders"
 import FrequencyInput from "../../../inputs/FrequencyInput"
 import BankTransferInputs from "../../new-transaction/bank-transfer/BankTransferInputs"
 import FormButtons from "../FormButtons"
@@ -10,21 +13,31 @@ import {
 
 interface BankTransferFormProps {
   closeDialog: () => void
+  initialState?: Entity<BankTransferStandingOrder>
 }
 
-const BankTransferForm: React.FC<BankTransferFormProps> = ({ closeDialog }) => {
+const BankTransferForm: React.FC<BankTransferFormProps> = ({ closeDialog, initialState }) => {
+
+  const [id, setId] = useState(initialState?.id)
+
+  const startingData = initialState ? () => initialState.domain : emptyBankTransferStandingOrder
+
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
     submitStandingOrder
   } = useStandingOrderControl(
-    emptyBankTransferStandingOrder,
+    startingData,
     emptyBankTransferStandingOrderErrors(),
     validateBankTransferStandingOrder,
     "bank-transfer",
     closeDialog
   )
+
+  useEffect(() => {
+    console.log(standingOrder)
+  }, [standingOrder])
 
   return (
     <>

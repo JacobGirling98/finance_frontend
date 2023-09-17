@@ -1,9 +1,10 @@
 import { ValidationErrors } from "../../../../types/NewMoney"
 import { PersonalTransferStandingOrder } from "../../../../types/StandingOrders"
+import { today } from "../../../../utils/constants"
 import { emptyPersonalTransfer, emptyPersonalTransferErrors } from "../../new-transaction/personal-transfer/defaults"
 
-export const emptyPersonalTransferStandingOrder = (date: string, category: string): PersonalTransferStandingOrder => ({
-  ...emptyPersonalTransfer(date, category),
+export const emptyPersonalTransferStandingOrder = (): PersonalTransferStandingOrder => ({
+  ...emptyPersonalTransfer(today, ""),
   frequencyUnit: "Months",
   frequencyQuantity: 1
 })
