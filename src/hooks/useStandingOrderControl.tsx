@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { AddStandingOrder } from "../types/StandingOrders"
 import { useModal } from "./useModal"
+import { Entity } from "../types/Api"
 
 
 const useStandingOrderControl = <T extends AddStandingOrder>(
@@ -35,7 +36,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const queryClient = useQueryClient()
 
-  const { mutate, isLoading } = useMutation<void, AxiosError, T>(
+  const { mutate: post, isLoading: postIsLoading } = useMutation<void, AxiosError, T>(
     "addStandingOrder",
     async (data: T) => {
       const response = await axios.post(
@@ -48,6 +49,26 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
       onSuccess: async () => {
         toggleSuccessModal("Standing order added"),
           queryClient.invalidateQueries(["getDescriptions"])
+        onSuccess()
+      },
+      onError: (error) => toggleErrorModal(error.message)
+    }
+  )
+
+  const { mutate: put, isLoading: putIsLoading } = useMutation<void, AxiosError, Entity<T>>(
+    "updateStandingOrder",
+    async (data) => {
+      const response = await axios.put(
+        `${BASE_URL}/standing-orders/${standingOrderType}`,
+        data
+      )
+      return response.data
+    },
+    {
+      onSuccess: async () => {
+        toggleSuccessModal("Standing order updated"),
+          queryClient.invalidateQueries(["getDescriptions"])
+          queryClient.invalidateQueries(["standingOrders"])
         onSuccess()
       },
       onError: (error) => toggleErrorModal(error.message)
@@ -70,7 +91,19 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
       setValidationErrors(emptyError)
     }
     postNewDescriptions([standingOrder.description])
-    mutate(normaliseFrequency(standingOrder))
+    post(normaliseFrequency(standingOrder))
+  }
+
+  const updateStandingOrder = (id: string) => {
+    const errors: ValidationErrors<T> = validate(standingOrder)
+    if (containsValidationError(errors)) {
+      setValidationErrors(errors)
+      return
+    } else {
+      setValidationErrors(emptyError)
+    }
+    postNewDescriptions([standingOrder.description])
+    put({id, domain: normaliseFrequency(standingOrder)})
   }
 
   const containsValidationError = (errors: ValidationErrors<T>): boolean =>
@@ -91,7 +124,9 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     validationErrors,
     changeStandingOrder,
     submitStandingOrder,
-    isLoading
+    isLoading: postIsLoading,
+    putIsLoading,
+    updateStandingOrder
   }
 }
 

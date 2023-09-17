@@ -1,4 +1,6 @@
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
+import { Entity } from "../../../../types/Api"
+import { IncomeStandingOrder } from "../../../../types/StandingOrders"
 import FrequencyInput from "../../../inputs/FrequencyInput"
 import IncomeInputs from "../../new-transaction/income/IncomeInputs"
 import FormButtons from "../FormButtons"
@@ -10,23 +12,34 @@ import {
 
 interface IncomeFormProps {
   closeDialog: () => void
+  initialState?: Entity<IncomeStandingOrder>
 }
 
 const IncomeForm: React.FC<IncomeFormProps> = ({
-  closeDialog
+  closeDialog,
+  initialState
 }) => {
+  const id = initialState?.id
+
+  const startingData = initialState
+    ? () => initialState.domain
+    : emptyIncomeStandingOrder
+
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
-    submitStandingOrder
+    submitStandingOrder,
+    updateStandingOrder
   } = useStandingOrderControl(
-    emptyIncomeStandingOrder,
+    startingData,
     emptyIncomeStandingOrderErrors(),
     validateIncomeStandingOrder,
     "income",
     closeDialog
   )
+
+  const onSubmit = id ? () => updateStandingOrder(id) : submitStandingOrder
 
   return (
     <>
@@ -48,7 +61,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({
           handleChange={changeStandingOrder}
         />
         <div className="mt-3 flex justify-center">
-          <FormButtons submit={submitStandingOrder} closeDialog={closeDialog} />
+          <FormButtons submit={onSubmit} closeDialog={closeDialog} />
         </div>
       </div>
     </>

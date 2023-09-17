@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
 import {
   emptyCreditDebitStandingOrder,
@@ -22,16 +22,18 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({
   closeDialog,
   initialState
 }) => {
+  const id = initialState?.id
 
-  const [id, setId] = useState(initialState?.id)
-
-  const startingData = initialState ? () => initialState.domain : emptyCreditDebitStandingOrder
+  const startingData = initialState
+    ? () => initialState.domain
+    : emptyCreditDebitStandingOrder
 
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
-    submitStandingOrder
+    submitStandingOrder,
+    updateStandingOrder
   } = useStandingOrderControl(
     startingData,
     emptyCreditDebitStandingOrderErrors(),
@@ -39,6 +41,8 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({
     transactionType,
     closeDialog
   )
+
+  const onSubmit = id ? () => updateStandingOrder(id) : submitStandingOrder
 
   return (
     <div>
@@ -57,7 +61,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({
         handleChange={changeStandingOrder}
       />
       <div className="mt-3 flex justify-center">
-        <FormButtons submit={submitStandingOrder} closeDialog={closeDialog} />
+        <FormButtons submit={onSubmit} closeDialog={closeDialog} />
       </div>
     </div>
   )

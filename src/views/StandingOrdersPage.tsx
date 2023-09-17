@@ -13,7 +13,7 @@ import { useTable } from "../hooks/useTable"
 import TableCell from "../components/table/TableCell"
 import TableHeader from "../components/table/TableHeader"
 import EditStandingOrder from "../components/forms/standing-order/EditStandingOrder"
-import { formatFrequency, formatTransactionType, handleUndefined } from "../utils/table"
+import { formatFrequency, handleUndefined } from "../utils/table"
 import { toTransactionType } from "../utils/transactionType"
 
 const StandingOrdersPage: FC = () => {
@@ -41,11 +41,6 @@ const StandingOrdersPage: FC = () => {
     async () => {
       const response = await axios.get(`${BASE_URL}/standing-orders`)
       return response.data
-    },
-    {
-      onSuccess: (d) => {
-        setStandingOrderToEdit(d[0])
-      }
     }
   )
 

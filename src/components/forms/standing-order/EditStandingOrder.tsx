@@ -7,7 +7,12 @@ import IncomeForm from "./income/IncomeForm"
 import PersonalTransferForm from "./personal-transfer/PersonalTransferForm"
 import TransactionTypeSelect from "../../inputs/select/TransactionTypeSelect"
 import { toTransactionType } from "../../../utils/transactionType"
-import { toBankTransferStandingOrder } from "../../../types/marshalling/standing-order"
+import {
+  toBankTransferStandingOrder,
+  toCreditDebitStandingOrder,
+  toIncomeStandingOrder,
+  toPersonalTransferStandingOrder
+} from "../../../types/marshalling/standing-order"
 
 interface EditStandingOrderProps {
   standingOrder: Entity<StandingOrder>
@@ -22,18 +27,41 @@ const EditStandingOrder: FC<EditStandingOrderProps> = ({
     switch (standingOrder.domain.type) {
       case "DEBIT":
         return (
-          <CreditDebitForm transactionType="credit" closeDialog={closeDialog} />
+          <CreditDebitForm
+            transactionType="debit"
+            closeDialog={closeDialog}
+            initialState={toCreditDebitStandingOrder(standingOrder)}
+          />
         )
       case "CREDIT":
         return (
-          <CreditDebitForm transactionType="debit" closeDialog={closeDialog} />
+          <CreditDebitForm
+            transactionType="credit"
+            closeDialog={closeDialog}
+            initialState={toCreditDebitStandingOrder(standingOrder)}
+          />
         )
       case "BANK_TRANSFER":
-        return <BankTransferForm closeDialog={closeDialog} initialState={toBankTransferStandingOrder(standingOrder)}/>
+        return (
+          <BankTransferForm
+            closeDialog={closeDialog}
+            initialState={toBankTransferStandingOrder(standingOrder)}
+          />
+        )
       case "PERSONAL_TRANSFER":
-        return <PersonalTransferForm closeDialog={closeDialog} />
+        return (
+          <PersonalTransferForm
+            closeDialog={closeDialog}
+            initialState={toPersonalTransferStandingOrder(standingOrder)}
+          />
+        )
       case "INCOME":
-        return <IncomeForm closeDialog={closeDialog} />
+        return (
+          <IncomeForm
+            closeDialog={closeDialog}
+            initialState={toIncomeStandingOrder(standingOrder)}
+          />
+        )
       default:
         return (
           <CreditDebitForm transactionType="credit" closeDialog={closeDialog} />

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
 import { Entity } from "../../../../types/Api"
 import { BankTransferStandingOrder } from "../../../../types/StandingOrders"
@@ -16,17 +15,22 @@ interface BankTransferFormProps {
   initialState?: Entity<BankTransferStandingOrder>
 }
 
-const BankTransferForm: React.FC<BankTransferFormProps> = ({ closeDialog, initialState }) => {
+const BankTransferForm: React.FC<BankTransferFormProps> = ({
+  closeDialog,
+  initialState
+}) => {
+  const id = initialState?.id
 
-  const [id, setId] = useState(initialState?.id)
-
-  const startingData = initialState ? () => initialState.domain : emptyBankTransferStandingOrder
+  const startingData = initialState
+    ? () => initialState.domain
+    : emptyBankTransferStandingOrder
 
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
-    submitStandingOrder
+    submitStandingOrder,
+    updateStandingOrder
   } = useStandingOrderControl(
     startingData,
     emptyBankTransferStandingOrderErrors(),
@@ -35,9 +39,7 @@ const BankTransferForm: React.FC<BankTransferFormProps> = ({ closeDialog, initia
     closeDialog
   )
 
-  useEffect(() => {
-    console.log(standingOrder)
-  }, [standingOrder])
+  const onSubmit = id ? () => updateStandingOrder(id) : submitStandingOrder
 
   return (
     <>
@@ -59,7 +61,7 @@ const BankTransferForm: React.FC<BankTransferFormProps> = ({ closeDialog, initia
           handleChange={changeStandingOrder}
         />
         <div className="mt-3 flex justify-center">
-          <FormButtons submit={submitStandingOrder} closeDialog={closeDialog} />
+          <FormButtons submit={onSubmit} closeDialog={closeDialog} />
         </div>
       </div>
     </>

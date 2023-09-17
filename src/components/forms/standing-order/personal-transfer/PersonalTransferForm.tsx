@@ -1,6 +1,9 @@
 import useStandingOrderControl from "../../../../hooks/useStandingOrderControl"
+import { Entity } from "../../../../types/Api"
+import { PersonalTransferStandingOrder } from "../../../../types/StandingOrders"
 import FrequencyInput from "../../../inputs/FrequencyInput"
 import PersonalTransferInputs from "../../new-transaction/personal-transfer/PersonalTransferInputs"
+import { emptyPersonalTransfer } from "../../new-transaction/personal-transfer/defaults"
 import FormButtons from "../FormButtons"
 import { validatePersonalTransferStandingOrder } from "../validation"
 import {
@@ -10,23 +13,34 @@ import {
 
 interface PersonalTransferFormProps {
   closeDialog: () => void
+  initialState?: Entity<PersonalTransferStandingOrder>
 }
 
 const PersonalTransferForm: React.FC<PersonalTransferFormProps> = ({
-  closeDialog
+  closeDialog,
+  initialState
 }) => {
+  const id = initialState?.id
+
+  const startingData = initialState
+    ? () => initialState.domain
+    : emptyPersonalTransferStandingOrder
+
   const {
     standingOrder,
     validationErrors,
     changeStandingOrder,
-    submitStandingOrder
+    submitStandingOrder,
+    updateStandingOrder
   } = useStandingOrderControl(
-    emptyPersonalTransferStandingOrder,
+    startingData,
     emptyPersonalTransferStandingOrderErrors(),
     validatePersonalTransferStandingOrder,
     "personal-transfer",
     closeDialog
   )
+
+  const onSubmit = id ? () => updateStandingOrder(id) : submitStandingOrder
 
   return (
     <>
@@ -48,7 +62,7 @@ const PersonalTransferForm: React.FC<PersonalTransferFormProps> = ({
           handleChange={changeStandingOrder}
         />
         <div className="mt-3 flex justify-center">
-          <FormButtons submit={submitStandingOrder} closeDialog={closeDialog} />
+          <FormButtons submit={onSubmit} closeDialog={closeDialog} />
         </div>
       </div>
     </>
