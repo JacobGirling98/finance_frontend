@@ -7,7 +7,6 @@ import {
   receiptTransactionToCreditDebit,
 } from "./upload-receipt";
 import { Description } from "../../../../types/NewMoney";
-import { Entity } from "../../../../types/Api";
 
 describe("can split Sainsbury's transaction to separate components", () => {
   test("with single item", () => {
@@ -65,19 +64,19 @@ describe("can format multiple transactions", () => {
 });
 
 describe("can flag if new description needed", () => {
-  const existingDescriptions: Entity<Description>[] = [
-    asEntity({
+  const existingDescriptions: Description[] = [
+    {
       fullDescription: "Sainsbury's Pure Orange Juice 4x1L",
       shortDescription: "Orange Juice",
-    }),
-    asEntity({
+    },
+    {
       fullDescription: "Sainsbury's Woodland Free Range Medium Eggs x12",
       shortDescription: "Eggs",
-    }),
-    asEntity({
+    },
+    {
       fullDescription: "Peroni Nastro Azzurro Beer Lager Bottles 18x330ml",
       shortDescription: "Peroni",
-    }),
+    },
   ];
 
   test("all are true if they exist", () => {
@@ -177,15 +176,15 @@ describe("can split Waitrose transaction to separate components", () => {
     expect(
       parseWaitroseTransaction(
         "McVitie's Jaffa Cakes\n" +
-          "Product Name\n" +
-          "McVitie's Jaffa Cakes\n" +
-          "Product Size\n" +
-          "30s\n" +
-          "Offer\n" +
-          "Quantity\n" +
-          "Qty:\n" +
-          "1Cost:\n" +
-          "£2.00"
+        "Product Name\n" +
+        "McVitie's Jaffa Cakes\n" +
+        "Product Size\n" +
+        "30s\n" +
+        "Offer\n" +
+        "Quantity\n" +
+        "Qty:\n" +
+        "1Cost:\n" +
+        "£2.00"
       )
     ).toEqual({
       quantity: 1,
@@ -198,15 +197,15 @@ describe("can split Waitrose transaction to separate components", () => {
     expect(
       parseWaitroseTransaction(
         "McVitie's Jaffa Cakes\n" +
-          "Product Name\n" +
-          "McVitie's Jaffa Cakes\n" +
-          "Product Size\n" +
-          "30s\n" +
-          "Offer\n" +
-          "Quantity\n" +
-          "Qty:\n" +
-          "4Cost:\n" +
-          "£8.00"
+        "Product Name\n" +
+        "McVitie's Jaffa Cakes\n" +
+        "Product Size\n" +
+        "30s\n" +
+        "Offer\n" +
+        "Quantity\n" +
+        "Qty:\n" +
+        "4Cost:\n" +
+        "£8.00"
       )
     ).toEqual({
       quantity: 4,
@@ -374,5 +373,3 @@ describe("can parse multiple waitrose transactions", () => {
     ]);
   });
 });
-
-const asEntity = <T>(domain: T): Entity<T> => ({ id: "12345", domain})

@@ -13,5 +13,8 @@ export const handlers = [
   ...headlinesHandlers,
   rest.get(`${api}/last-login`, (_req, res, ctx) => {
     return res(ctx.body("2023-08-01"))
+  }),
+  rest.get(`${api}/last-transaction`, (_req, res, ctx) => {
+    return res(ctx.body("2023-07-31"))
   })
 ]

@@ -1,4 +1,3 @@
-import { Entity } from "../../../../types/Api";
 import {
   CreditDebit,
   Description,
@@ -66,11 +65,11 @@ export const formatWaitroseTransactions = (
 };
 
 export const flagNewDescriptions = (
-  existingDescriptions: Entity<Description>[],
+  existingDescriptions: Description[],
   transactions: ReceiptTransaction[]
 ): ReceiptTransaction[] => {
   const fullDescriptions = existingDescriptions.map(
-    (desc) => desc.domain.fullDescription
+    (desc) => desc.fullDescription
   );
   return transactions.map((transaction) => ({
     ...transaction,

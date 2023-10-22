@@ -1,12 +1,11 @@
-FROM node:latest as build
+FROM arm64v8/node:18 as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm i -g npm@latest
 RUN npm ci
 COPY . ./
-RUN npm run build
+RUN npm run build --loglevel verbose
 
 FROM arm64v8/nginx:stable-alpine
 COPY nginx.conf /etc/nginx/nginx.conf

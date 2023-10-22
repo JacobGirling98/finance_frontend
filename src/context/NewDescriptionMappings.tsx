@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Description } from "../types/NewMoney"
-import { FC, useContext, useState } from "react"
+import { FC, useState } from "react"
 import React from "react"
-import { Entity } from "../types/Api"
 import { ChildrenProps } from "../types/ChildrenProps"
 
 interface INewDescriptionMappingsContext {
-  descriptions: Entity<Description>[]
+  descriptions: Description[]
   addDescriptionMapping: (description: Description) => void
   addDescription: (description: string) => void
   clearDescriptions: () => void
@@ -17,23 +16,23 @@ const defaultState: INewDescriptionMappingsContext = {
   descriptions: [],
   addDescriptionMapping: (_description) => {},
   addDescription: (_description) => {},
-  clearDescriptions: () => {},
+  clearDescriptions: () => {}
 }
 
-const NewDescriptionMappingsContext =
+export const NewDescriptionMappingsContext =
   React.createContext<INewDescriptionMappingsContext>(defaultState)
 
 export const NewDescriptionMappingsProvider: FC<ChildrenProps> = ({
-  children,
+  children
 }) => {
-  const [descriptions, setDescriptions] = useState<Entity<Description>[]>([])
+  const [descriptions, setDescriptions] = useState<Description[]>([])
 
   const addDescriptionMapping = (description: Description) => {
     if (
       description.fullDescription !== "" &&
       description.shortDescription !== ""
     )
-      setDescriptions((desc) => [...desc, { id: "", domain: description }])
+      setDescriptions((desc) => [...desc, description])
   }
 
   const addDescription = (description: string) => {
@@ -41,12 +40,9 @@ export const NewDescriptionMappingsProvider: FC<ChildrenProps> = ({
       setDescriptions((desc) => [
         ...desc,
         {
-          id: "",
-          domain: {
-            shortDescription: description,
-            fullDescription: description,
-          },
-        },
+          shortDescription: description,
+          fullDescription: description
+        }
       ])
   }
 
@@ -60,14 +56,10 @@ export const NewDescriptionMappingsProvider: FC<ChildrenProps> = ({
         descriptions,
         addDescriptionMapping,
         addDescription,
-        clearDescriptions,
+        clearDescriptions
       }}
     >
       {children}
     </NewDescriptionMappingsContext.Provider>
   )
 }
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useNewDescriptionMappingsContext = () =>
-  useContext(NewDescriptionMappingsContext)

@@ -13,13 +13,15 @@ import { useTable } from "../hooks/useTable"
 import TableCell from "../components/table/TableCell"
 import TableHeader from "../components/table/TableHeader"
 import EditStandingOrder from "../components/forms/standing-order/EditStandingOrder"
-import { formatFrequency, handleUndefined } from "../utils/table"
+import { formatFrequency, handleUndefined } from "../utils/TableUtils"
 import { toTransactionType } from "../utils/transactionType"
+import DeleteStandingOrder from "../components/forms/standing-order/DeleteStandingOrder"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false)
-  const [editDialogOpen, setEditDialogOpen] = useState(true)
-  const [standingOrderToEdit, setStandingOrderToEdit] =
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [standingOrderToMutate, setStandingOrderToMutate] =
     useState<Entity<StandingOrder>>()
 
   const addDialogOnClose = () => {
@@ -28,12 +30,22 @@ const StandingOrdersPage: FC = () => {
 
   const editDialogOnClose = () => {
     setEditDialogOpen(false)
-    setStandingOrderToEdit(undefined)
+    setStandingOrderToMutate(undefined)
+  }
+
+  const deleteDialogOnClose = () => {
+    setDeleteDialogOpen(false)
+    setStandingOrderToMutate(undefined)
   }
 
   const editOnClick = (standingOrder: Entity<StandingOrder>) => {
-    setStandingOrderToEdit(standingOrder)
+    setStandingOrderToMutate(standingOrder)
     setEditDialogOpen(true)
+  }
+
+  const deleteOnClick = (standingOrder: Entity<StandingOrder>) => {
+    setStandingOrderToMutate(standingOrder)
+    setDeleteDialogOpen(true)
   }
 
   const { data } = useQuery<Entity<StandingOrder>[]>(
@@ -80,7 +92,7 @@ const StandingOrdersPage: FC = () => {
           <button onClick={() => editOnClick(standingOrder)}>
             <PencilIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
           </button>
-          <button>
+          <button onClick={() => deleteOnClick(standingOrder)}>
             <TrashIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
           </button>
         </div>
@@ -106,18 +118,31 @@ const StandingOrdersPage: FC = () => {
       >
         <AddStandingOrder closeDialog={addDialogOnClose} />
       </Dialog>
-      {standingOrderToEdit && (
-        <Dialog
-          open={editDialogOpen}
-          setOpen={setEditDialogOpen}
-          onClose={editDialogOnClose}
-          title="Edit a standing order"
-        >
-          <EditStandingOrder
-            closeDialog={editDialogOnClose}
-            standingOrder={standingOrderToEdit}
-          />
-        </Dialog>
+      {standingOrderToMutate && (
+        <>
+          <Dialog
+            open={editDialogOpen}
+            setOpen={setEditDialogOpen}
+            onClose={editDialogOnClose}
+            title="Edit a standing order"
+          >
+            <EditStandingOrder
+              closeDialog={editDialogOnClose}
+              standingOrder={standingOrderToMutate}
+            />
+          </Dialog>
+          <Dialog
+            open={deleteDialogOpen}
+            setOpen={setDeleteDialogOpen}
+            onClose={deleteDialogOnClose}
+            title="Delete a standing order"
+          >
+            <DeleteStandingOrder
+              closeDialog={deleteDialogOnClose}
+              standingOrder={standingOrderToMutate}
+            />
+          </Dialog>
+        </>
       )}
       {data && <div className="p-2 flex">{table()}</div>}
     </>

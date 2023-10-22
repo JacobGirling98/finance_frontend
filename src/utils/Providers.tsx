@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ModalProvider } from "../context/ModalContext";
-import { NewDescriptionMappingsProvider } from "../context/useNewDescriptionMappings";
+import { NewDescriptionMappingsProvider } from "../context/NewDescriptionMappings";
 import { ChildrenProps } from "../types/ChildrenProps";
 
 
