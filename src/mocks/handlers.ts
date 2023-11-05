@@ -3,6 +3,7 @@ import { referenceHandlers } from "./handlers/reference"
 import { standingOrdersHandlers } from "./handlers/standingOrders"
 import { transactionHandlers } from "./handlers/transactions"
 import { headlinesHandlers } from "./handlers/headlines"
+import { backupHandlers } from "./handlers/backup"
 
 const api = "http://localhost:9000"
 
@@ -11,6 +12,7 @@ export const handlers = [
   ...standingOrdersHandlers,
   ...transactionHandlers,
   ...headlinesHandlers,
+  ...backupHandlers,
   rest.get(`${api}/last-login`, (_req, res, ctx) => {
     return res(ctx.body("2023-08-01"))
   }),

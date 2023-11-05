@@ -15,22 +15,35 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
   const { toggleSuccessModal, toggleErrorModal } = useModal()
 
-  const { mutate, isLoading } = useMutation<void, AxiosError, void>(
-    "gitSync",
-    async () => await axios.post(`${BASE_URL}/git/sync`, { sync: true }),
-    {
-      onSuccess: () => {
-        toggleSuccessModal("Successfully synced data")
-      },
-      onError: (error) => {
-        toggleErrorModal(error.message)
-      }
+  const { mutate: mutatePush, isLoading: pushIsLoading } = useMutation<
+    void,
+    AxiosError,
+    void
+  >("googlePush", async () => await axios.post(`${BASE_URL}/backup/push`), {
+    onSuccess: () => {
+      toggleSuccessModal("Successfully pushed data to Google Drive")
+    },
+    onError: (error) => {
+      toggleErrorModal(error.message)
     }
-  )
+  })
+
+  const { mutate: mutatePull, isLoading: pullIsLoading } = useMutation<
+    void,
+    AxiosError,
+    void
+  >("googlePull", async () => await axios.post(`${BASE_URL}/backup/pull`), {
+    onSuccess: () => {
+      toggleSuccessModal("Successfully pulled data from Google Drive")
+    },
+    onError: (error) => {
+      toggleErrorModal(error.message)
+    }
+  })
 
   return (
     <>
-      <Spinner isOpen={isLoading} muteBackground={true} />
+      <Spinner isOpen={pushIsLoading || pullIsLoading} muteBackground={true} />
       <nav className="bg-slate-100 dark:bg-zinc-800">
         <div className="flex py-2 mx-2">
           <button onClick={() => setSidebarOpen((isOpen) => !isOpen)}>
@@ -47,9 +60,14 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
           </div>
           <div className="flex items-center">
             <Button
-              value="Sync"
-              onClick={mutate}
+              value="Sync to"
               className="px-2 font-medium w-28"
+              onClick={mutatePush}
+            />
+            <Button
+              value="Sync from"
+              className="px-2 font-medium w-28"
+              onClick={mutatePull}
             />
           </div>
         </div>
