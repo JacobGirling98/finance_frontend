@@ -1,7 +1,6 @@
 import { BanknotesIcon, Bars3Icon } from "@heroicons/react/24/outline"
 import { useMutation } from "react-query"
 import axios, { AxiosError } from "axios"
-import { BASE_URL } from "../../utils/constants"
 import Spinner from "../utils/Spinner"
 import Button from "../button/Button"
 import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch"
@@ -19,7 +18,7 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
     void,
     AxiosError,
     void
-  >("googlePush", async () => await axios.post(`${BASE_URL}/backup/push`), {
+  >("googlePush", async () => await axios.post(`/api/backup/push`), {
     onSuccess: () => {
       toggleSuccessModal("Successfully pushed data to Google Drive")
     },
@@ -32,7 +31,7 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
     void,
     AxiosError,
     void
-  >("googlePull", async () => await axios.post(`${BASE_URL}/backup/pull`), {
+  >("googlePull", async () => await axios.post(`/api/backup/pull`), {
     onSuccess: () => {
       toggleSuccessModal("Successfully pulled data from Google Drive")
     },

@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "react-query"
 import { useModal } from "./useModal"
 import axios, { AxiosError } from "axios"
-import { BASE_URL } from "../utils/constants"
 
 const useDeleteStandingOrder = (onSuccess: () => void) => {
   const queryClient = useQueryClient()
@@ -10,7 +9,7 @@ const useDeleteStandingOrder = (onSuccess: () => void) => {
   const { mutate, isLoading } = useMutation<void, AxiosError, string>(
     "deleteStandingOrder",
     async (id) => {
-      const response = await axios.delete(`${BASE_URL}/standing-orders`, {
+      const response = await axios.delete(`/api/standing-orders`, {
         params: { id }
       })
       return response.data

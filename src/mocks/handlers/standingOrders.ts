@@ -3,7 +3,7 @@ import { toEntity } from "./utils"
 import { StandingOrder } from "../../types/StandingOrders"
 import { Entity } from "../../types/Api"
 
-const api = "http://localhost:9000/standing-orders"
+const api = "/api/standing-orders"
 
 export const standingOrdersHandlers = [
   rest.get<Entity<StandingOrder>>(api, (_req, res, ctx) =>

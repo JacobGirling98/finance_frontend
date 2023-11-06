@@ -3,7 +3,6 @@ import { useState } from "react"
 import {
   ValidationErrors
 } from "../types/NewMoney"
-import { BASE_URL } from "../utils/constants"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import useReferenceData from "./useReferenceData"
 import { useMutation, useQueryClient } from "react-query"
@@ -40,7 +39,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     "addStandingOrder",
     async (data: T) => {
       const response = await axios.post(
-        `${BASE_URL}/standing-orders/${standingOrderType}`,
+        `/api/standing-orders/${standingOrderType}`,
         data
       )
       return response.data
@@ -59,7 +58,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     "updateStandingOrder",
     async (data) => {
       const response = await axios.put(
-        `${BASE_URL}/standing-orders/${standingOrderType}`,
+        `/api/standing-orders/${standingOrderType}`,
         data
       )
       return response.data

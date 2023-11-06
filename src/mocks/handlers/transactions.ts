@@ -1,7 +1,7 @@
 import { rest } from "msw"
 import { toEntity } from "./utils"
 
-const api = "http://localhost:9000/transaction"
+const api = "/api/transaction"
 
 export const transactionHandlers = [
   rest.get(api, (_req, res, ctx) =>

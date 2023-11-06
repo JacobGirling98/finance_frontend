@@ -1,7 +1,7 @@
 import { rest } from "msw"
 import { toEntity } from "./utils"
 
-const api = "http://localhost:9000/reference"
+const api = "/api/reference"
 
 export const referenceHandlers = [
   rest.get(`${api}/accounts`, (_req, res, ctx) =>

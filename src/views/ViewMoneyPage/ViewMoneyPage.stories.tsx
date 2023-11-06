@@ -1,7 +1,6 @@
 import ViewMoneyPage from "./ViewMoneyPage";
 import { rest } from "msw";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { BASE_URL } from "../../utils/constants";
 import { Meta, StoryFn } from "@storybook/react";
 
 export default {
@@ -19,7 +18,7 @@ export const Default = Template.bind({});
 Default.parameters = {
   msw: {
     handlers: [
-      rest.get(`${BASE_URL}/reference/fiscal-months`, (_req, res, ctx) => {
+      rest.get(`/api/reference/fiscal-months`, (_req, res, ctx) => {
         return res(
           ctx.json([
             {
@@ -33,7 +32,7 @@ Default.parameters = {
           ])
         );
       }),
-      rest.get(`${BASE_URL}/view/headlines`, (_req, res, ctx) => {
+      rest.get(`/api/view/headlines`, (_req, res, ctx) => {
         return res(
           ctx.json([
             {

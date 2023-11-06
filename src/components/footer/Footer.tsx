@@ -1,5 +1,4 @@
 import axios from "axios"
-import { BASE_URL } from "../../utils/constants"
 import { useQuery } from "react-query"
 
 const Footer = () => {
@@ -12,7 +11,7 @@ const Footer = () => {
   }
 
   const { data: loginData } = useQuery<string>("getLastLogin", async () => {
-    const response = await axios.get(`${BASE_URL}/last-login`)
+    const response = await axios.get(`/api/last-login`)
     return response.data
   })
 
@@ -21,7 +20,7 @@ const Footer = () => {
   const { data: transactionData } = useQuery<string>(
     "getLastTransaction",
     async () => {
-      const response = await axios.get(`${BASE_URL}/last-transaction`)
+      const response = await axios.get(`/api/last-transaction`)
       return response.data
     }
   )
@@ -35,7 +34,7 @@ const Footer = () => {
       {login && transaction && (
         <div className="flex justify-end text-text-light dark:text-text-dark px-2 space-x-4">
           <p>Last Login: {login.toDateString()}</p>
-          <div className="border-l w-0 my-1 border-text-light dark:border-text-dark"/>
+          <div className="border-l w-0 my-1 border-text-light dark:border-text-dark" />
           <p>Last Transaction: {transaction.toDateString()}</p>
         </div>
       )}

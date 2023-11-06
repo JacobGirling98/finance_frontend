@@ -2,7 +2,6 @@ import { FC, useState } from "react"
 import { StandingOrder } from "../types/StandingOrders"
 import { useQuery } from "react-query"
 import axios from "axios"
-import { BASE_URL } from "../utils/constants"
 import Dialog from "../components/utils/Dialog"
 import AddStandingOrder from "../components/forms/standing-order/AddStandingOrder"
 import { Entity } from "../types/Api"
@@ -51,7 +50,7 @@ const StandingOrdersPage: FC = () => {
   const { data } = useQuery<Entity<StandingOrder>[]>(
     "standingOrders",
     async () => {
-      const response = await axios.get(`${BASE_URL}/standing-orders`)
+      const response = await axios.get(`/api/standing-orders`)
       return response.data
     }
   )

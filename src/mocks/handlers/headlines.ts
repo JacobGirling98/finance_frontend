@@ -1,6 +1,6 @@
 import { rest } from "msw"
 
-const api = "http://localhost:9000/headlines"
+const api = "/api/headlines"
 
 export const headlinesHandlers = [
   rest.get(api, (_req, res, ctx) =>

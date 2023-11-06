@@ -1,6 +1,6 @@
 import { rest } from "msw"
 
-const api = "http://localhost:9000/backup"
+const api = "/api/backup"
 
 export const backupHandlers = [
   rest.post(`${api}/push`, (_req, res, ctx) => res(ctx.status(204))),

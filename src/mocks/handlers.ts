@@ -5,7 +5,7 @@ import { transactionHandlers } from "./handlers/transactions"
 import { headlinesHandlers } from "./handlers/headlines"
 import { backupHandlers } from "./handlers/backup"
 
-const api = "http://localhost:9000"
+const api = "/api"
 
 export const handlers = [
   ...referenceHandlers,
