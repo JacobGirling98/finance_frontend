@@ -19,7 +19,7 @@ const CreditDebitInputs: FC<CreditDebitInputsProps> = ({
   errors,
   focusValueInput
 }) => {
-  const { categories, uniqueDescriptions, addNewDescription } =
+  const { categories, uniqueDescriptions, addNewDescription, addCategory } =
     useReferenceData()
 
   const valueInputRef = useRef<null | HTMLInputElement>(null)
@@ -48,6 +48,8 @@ const CreditDebitInputs: FC<CreditDebitInputsProps> = ({
           options={categories.map((cat) => cat.domain)}
           error={errors.category}
           showAllOptions={true}
+          allowCreate={true}
+          onCreate={addCategory}
         />
       </div>
       <div className="flex flex-col mx-2">

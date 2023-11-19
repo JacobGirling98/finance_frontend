@@ -1,7 +1,11 @@
 import { useState } from "react"
 import {
+  BankTransfer,
+  Income,
+  PersonalTransfer,
   Transaction,
   TransactionConfirmation,
+  TransactionType,
   ValidationErrors
 } from "../types/NewMoney"
 import { useMutation, useQueryClient } from "react-query"
@@ -29,7 +33,13 @@ function useFormControl<T extends Transaction>(
     ValidationErrors<T>[]
   >([emptyError])
 
-  const { postNewDescriptions } = useReferenceData()
+  const {
+    postNewDescriptions,
+    postNewAccounts,
+    postNewCategories,
+    postNewPayees,
+    postNewSources
+  } = useReferenceData()
   const { toggleSuccessModal, toggleErrorModal } = useModal()
 
   const queryClient = useQueryClient()
@@ -57,7 +67,13 @@ function useFormControl<T extends Transaction>(
             data.transactionCount
           } transactions worth £${data.value.toFixed(2)}`
         )
-        queryClient.invalidateQueries(["getDescriptions"])
+        queryClient.invalidateQueries([
+          "getDescriptions",
+          "getAccounts",
+          "getCategories",
+          "getPayees",
+          "getSources"
+        ])
       },
       onError: (error) => {
         toggleErrorModal(error.message)
@@ -108,6 +124,14 @@ function useFormControl<T extends Transaction>(
       setValidationErrors(transactions.map(() => emptyError))
     }
     postNewDescriptions(transactions.map((t) => t.description))
+    postNewCategories(transactions.map(t => t.category))
+    if (transactionType == "bank-transfer") {
+      postNewPayees((transactions as BankTransfer[]).map(t => t.recipient))
+    } else if (transactionType == "personal-transfer") {
+      postNewAccounts([...(transactions as PersonalTransfer[]).map(t => t.inbound), ...(transactions as PersonalTransfer[]).map(t => t.outbound)])
+    } else if (transactionType == "income") {
+      postNewSources((transactions as Income[]).map(t => t.source))
+    }
     mutate(transactions)
   }
 

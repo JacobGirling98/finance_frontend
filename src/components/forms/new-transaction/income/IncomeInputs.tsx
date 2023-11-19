@@ -18,7 +18,7 @@ const IncomeInputs: FC<IncomeInputsProps> = ({
   errors,
   focusValueInput,
 }) => {
-  const { categories, sources, uniqueDescriptions, addNewDescription } =
+  const { categories, sources, uniqueDescriptions, addNewDescription, addCategory, addSource } =
     useReferenceData()
 
   const valueInputRef = useRef<null | HTMLInputElement>(null)
@@ -46,6 +46,8 @@ const IncomeInputs: FC<IncomeInputsProps> = ({
           setSelected={(value) => handleChange(value, "category")}
           options={categories.map((c) => c.domain)}
           error={errors.category}
+          allowCreate={true}
+          onCreate={addCategory}
         />
       </div>
       <div className="flex flex-col mx-2">
@@ -55,6 +57,8 @@ const IncomeInputs: FC<IncomeInputsProps> = ({
           setSelected={(value) => handleChange(value, "source")}
           options={sources.map((s) => s.domain)}
           error={errors.source}
+          allowCreate={true}
+          onCreate={addSource}
         />
       </div>
       <div className="flex flex-col mx-2">

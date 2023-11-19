@@ -16,7 +16,7 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
   data,
   handleChange,
   errors,
-  focusValueInput,
+  focusValueInput
 }) => {
   const valueInputRef = useRef<null | HTMLInputElement>(null)
 
@@ -24,8 +24,14 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
     if (focusValueInput) valueInputRef.current?.focus()
   }, [focusValueInput])
 
-  const { categories, accounts, uniqueDescriptions, addNewDescription } =
-    useReferenceData()
+  const {
+    categories,
+    accounts,
+    uniqueDescriptions,
+    addNewDescription,
+    addCategory,
+    addAccount
+  } = useReferenceData()
 
   return (
     <>
@@ -46,6 +52,8 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           setSelected={(value) => handleChange(value, "category")}
           options={categories.map((c) => c.domain)}
           error={errors.category}
+          onCreate={addCategory}
+          allowCreate={true}
         />
       </div>
       <div className="flex flex-col mx-2">
@@ -55,6 +63,8 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           setSelected={(value) => handleChange(value, "outbound")}
           options={accounts.map((a) => a.domain)}
           error={errors.outbound}
+          allowCreate={true}
+          onCreate={addAccount}
         />
       </div>
       <div className="flex flex-col mx-2">
@@ -64,6 +74,8 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           setSelected={(value) => handleChange(value, "inbound")}
           options={accounts.map((a) => a.domain)}
           error={errors.inbound}
+          allowCreate={true}
+          onCreate={addAccount}
         />
       </div>
       <div className="flex flex-col mx-2">

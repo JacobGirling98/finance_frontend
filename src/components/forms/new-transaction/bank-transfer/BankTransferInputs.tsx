@@ -19,7 +19,7 @@ const BankTransferInputs: React.FC<BankTransferInputsProps> = ({
   errors,
   focusValueInput,
 }) => {
-  const { categories, payees, uniqueDescriptions, addNewDescription } =
+  const { categories, payees, uniqueDescriptions, addNewDescription, addCategory, addPayee } =
     useReferenceData()
 
   const valueInputRef = useRef<null | HTMLInputElement>(null)
@@ -47,6 +47,8 @@ const BankTransferInputs: React.FC<BankTransferInputsProps> = ({
           setSelected={(value) => handleChange(value, "category")}
           options={categories.map((cat) => cat.domain)}
           error={errors.category}
+          allowCreate={true}
+          onCreate={addCategory}
         />
       </div>
       <div className="flex flex-col mx-2">
@@ -56,6 +58,8 @@ const BankTransferInputs: React.FC<BankTransferInputsProps> = ({
           setSelected={(value) => handleChange(value, "recipient")}
           options={payees.map((p) => p.domain)}
           error={errors.recipient}
+          allowCreate={true}
+          onCreate={addPayee}
         />
       </div>
       <div className="flex flex-col mx-2">
