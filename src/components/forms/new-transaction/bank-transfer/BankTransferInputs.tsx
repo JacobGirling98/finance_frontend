@@ -45,7 +45,7 @@ const BankTransferInputs: React.FC<BankTransferInputsProps> = ({
           title="Category"
           selected={data.category}
           setSelected={(value) => handleChange(value, "category")}
-          options={categories.map((cat) => cat.domain)}
+          options={categories}
           error={errors.category}
           allowCreate={true}
           onCreate={addCategory}
@@ -56,7 +56,7 @@ const BankTransferInputs: React.FC<BankTransferInputsProps> = ({
           title="Recipient"
           selected={data.recipient}
           setSelected={(value) => handleChange(value, "recipient")}
-          options={payees.map((p) => p.domain)}
+          options={payees}
           error={errors.recipient}
           allowCreate={true}
           onCreate={addPayee}

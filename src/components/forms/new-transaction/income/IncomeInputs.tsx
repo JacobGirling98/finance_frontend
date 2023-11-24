@@ -44,7 +44,7 @@ const IncomeInputs: FC<IncomeInputsProps> = ({
           title="Category"
           selected={data.category}
           setSelected={(value) => handleChange(value, "category")}
-          options={categories.map((c) => c.domain)}
+          options={categories}
           error={errors.category}
           allowCreate={true}
           onCreate={addCategory}
@@ -55,7 +55,7 @@ const IncomeInputs: FC<IncomeInputsProps> = ({
           title="Source"
           selected={data.source}
           setSelected={(value) => handleChange(value, "source")}
-          options={sources.map((s) => s.domain)}
+          options={sources}
           error={errors.source}
           allowCreate={true}
           onCreate={addSource}

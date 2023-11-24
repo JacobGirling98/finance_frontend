@@ -45,7 +45,7 @@ const CreditDebitInputs: FC<CreditDebitInputsProps> = ({
           title="Category"
           selected={data.category}
           setSelected={(value) => handleChange(value, "category")}
-          options={categories.map((cat) => cat.domain)}
+          options={categories}
           error={errors.category}
           showAllOptions={true}
           allowCreate={true}

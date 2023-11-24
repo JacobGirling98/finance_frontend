@@ -212,10 +212,10 @@ const useReferenceData = () => {
 
   return {
     isLoading,
-    categories: categoriesData ?? [],
-    accounts: accountsData ?? [],
-    sources: sourcesData ?? [],
-    payees: payeesData ?? [],
+    categories: combinedCategories,
+    accounts: combinedAccounts,
+    sources: combinedSources,
+    payees: combinedPayees,
     descriptions: combinedDescriptions,
     uniqueDescriptions: uniqueDescriptions(),
     addNewDescription: addDescription,

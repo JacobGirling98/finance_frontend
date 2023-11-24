@@ -50,7 +50,7 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           title="Category"
           selected={data.category}
           setSelected={(value) => handleChange(value, "category")}
-          options={categories.map((c) => c.domain)}
+          options={categories}
           error={errors.category}
           onCreate={addCategory}
           allowCreate={true}
@@ -61,7 +61,7 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           title="Outbound"
           selected={data.outbound}
           setSelected={(value) => handleChange(value, "outbound")}
-          options={accounts.map((a) => a.domain)}
+          options={accounts}
           error={errors.outbound}
           allowCreate={true}
           onCreate={addAccount}
@@ -72,7 +72,7 @@ const PersonalTransferInputs: FC<PersonalTransferInputsProps> = ({
           title="Inbound"
           selected={data.inbound}
           setSelected={(value) => handleChange(value, "inbound")}
-          options={accounts.map((a) => a.domain)}
+          options={accounts}
           error={errors.inbound}
           allowCreate={true}
           onCreate={addAccount}
