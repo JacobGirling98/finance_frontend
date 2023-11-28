@@ -1,9 +1,7 @@
-import type { Preview } from "@storybook/react";
-import { initialize, mswDecorator } from "msw-storybook-addon";
+import type { Preview } from "@storybook/react"
+import '../src/index.css'
 
-initialize();
-
-export const decorators = [mswDecorator];
+import { withThemeByClassName } from "@storybook/addon-themes";
 
 const preview: Preview = {
   parameters: {
@@ -11,14 +9,19 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
+        date: /Date$/i
+      }
+    }
   },
-};
+}
 
-export default preview;
+export default preview
 
-export const globalTypes = {
-  darkMode: true,
-};
+export const decorators = [withThemeByClassName({
+  themes: {
+      // nameOfTheme: 'classNameForTheme',
+      light: '',
+      dark: 'dark',
+  },
+  defaultTheme: 'light',
+})]
