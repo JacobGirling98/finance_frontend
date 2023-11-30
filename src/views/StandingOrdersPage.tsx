@@ -15,6 +15,7 @@ import EditStandingOrder from "../components/forms/standing-order/EditStandingOr
 import { formatFrequency, handleUndefined } from "../utils/TableUtils"
 import { toTransactionType } from "../utils/transactionType"
 import DeleteStandingOrder from "../components/forms/standing-order/DeleteStandingOrder"
+import EditingTableCell from "../components/table/EditingTableCell"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false)
@@ -86,16 +87,7 @@ const StandingOrdersPage: FC = () => {
       <TableCell>{handleUndefined(standingOrder.domain.recipient)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.inbound)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.outbound)}</TableCell>
-      <TableCell>
-        <div className="flex justify-between">
-          <button onClick={() => editOnClick(standingOrder)}>
-            <PencilIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
-          </button>
-          <button onClick={() => deleteOnClick(standingOrder)}>
-            <TrashIcon className="h-5 text-text-light hover:text-text-soft-light active:text-text-strong-light dark:text-text-dark dark:hover:text-text-soft-dark dark:active:text-text-strong-dark" />
-          </button>
-        </div>
-      </TableCell>
+      <EditingTableCell editOnClick={editOnClick} deleteOnClick={deleteOnClick} dataEntry={standingOrder}/>
     </>
   )
 
@@ -143,7 +135,7 @@ const StandingOrdersPage: FC = () => {
           </Dialog>
         </>
       )}
-      {data && <div className="p-2 flex">{table()}</div>}
+      {data && <div className="m-4 p-2 flex">{table()}</div>}
     </>
   )
 }

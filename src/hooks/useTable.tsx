@@ -6,7 +6,7 @@ export const useTable = <T,>(
   data: T[]
 ) => {
   const table = () => (
-    <div className="w-full m-4 rounded-lg bg-slate-100 dark:bg-zinc-800">
+    <div className="w-full rounded-lg bg-slate-100 dark:bg-zinc-800">
       <table className="w-full table-auto">
         <thead>
           <tr>{headers}</tr>
