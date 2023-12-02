@@ -9,6 +9,7 @@ import { useTable } from "../../hooks/useTable"
 import Select from "../../components/inputs/select/Select"
 import { useState } from "react"
 import Button from "../../components/button/Button"
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline"
 
 const Transactions = () => {
   const [page, setPage] = useState(1)
@@ -29,6 +30,16 @@ const Transactions = () => {
       }
     }
   ]
+
+  const nextPage = () => {
+    setPage(p => p + 1)
+  }
+
+  const previousPage = () => {
+    if (page > 1) {
+      setPage(p => p - 1)
+    }
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   const editOnClick = (_transaction: Entity<Transaction>) => {}
@@ -78,12 +89,20 @@ const Transactions = () => {
     <>
       <div className="flex mx-3 mb-3 justify-end items-end">
         <div className="mr-3 flex">
-          <Button className="h-7 w-20" onClick={() => setPage((p) => p - 1)}>
-            Previous
+          <Button className="h-7 w-7" onClick={previousPage}>
+            <div className="w-full flex justify-center">
+              <div className="h-4 w-4">
+                <ArrowLeftIcon />
+              </div>
+            </div>
           </Button>
-          <div className="mx-4">{page}</div>
-          <Button className="h-7 w-20" onClick={() => setPage((p) => p + 1)}>
-            Next
+          <div className="mx-2">{page}</div>
+          <Button className="h-7 w-7" onClick={nextPage}>
+            <div className="w-full flex justify-center">
+              <div className="h-4 w-4">
+                <ArrowRightIcon />
+              </div>
+            </div>
           </Button>
         </div>
         <div className="w-24">
