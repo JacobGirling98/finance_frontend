@@ -58,16 +58,12 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
             <DarkModeSwitch />
           </div>
           <div className="flex items-center">
-            <Button
-              value="Sync to"
-              className="px-2 font-medium w-28"
-              onClick={mutatePush}
-            />
-            <Button
-              value="Sync from"
-              className="px-2 font-medium w-28"
-              onClick={mutatePull}
-            />
+            <Button className="px-2 font-medium w-28" onClick={mutatePush}>
+              Sync to
+            </Button>
+            <Button className="px-2 font-medium w-28" onClick={mutatePull}>
+              Sync from
+            </Button>
           </div>
         </div>
       </nav>

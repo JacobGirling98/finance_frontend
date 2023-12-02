@@ -30,11 +30,11 @@ const Transactions = () => {
     }
   ]
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const editOnClick = (transaction: Entity<Transaction>) => {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  const editOnClick = (_transaction: Entity<Transaction>) => {}
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const deleteOnClick = (transaction: Entity<Transaction>) => {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  const deleteOnClick = (_transaction: Entity<Transaction>) => {}
 
   const tableHeaders = (
     <>
@@ -77,15 +77,14 @@ const Transactions = () => {
   return (
     <>
       <div className="flex mx-3 mb-3 justify-end items-end">
-        <div className="mr-3">
-          <Button 
-            value="Previous"
-            className="h-7 w-20"
-          />
-          <Button 
-            value="Next"
-            className="h-7 w-20"
-          />
+        <div className="mr-3 flex">
+          <Button className="h-7 w-20" onClick={() => setPage((p) => p - 1)}>
+            Previous
+          </Button>
+          <div className="mx-4">{page}</div>
+          <Button className="h-7 w-20" onClick={() => setPage((p) => p + 1)}>
+            Next
+          </Button>
         </div>
         <div className="w-24">
           <Select

@@ -7,7 +7,6 @@ import AddStandingOrder from "../components/forms/standing-order/AddStandingOrde
 import { Entity } from "../types/Api"
 import PageTitle from "../components/utils/PageTitle"
 import Button from "../components/button/Button"
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useTable } from "../hooks/useTable"
 import TableCell from "../components/table/TableCell"
 import TableHeader from "../components/table/TableHeader"
@@ -98,7 +97,7 @@ const StandingOrdersPage: FC = () => {
       <div className="flex mt-5 mx-5">
         <PageTitle title={"Standing Orders"} />
         <div className="ml-auto my-auto">
-          <Button value={"Add"} onClick={() => setAddDialogOpen(true)} />
+          <Button onClick={() => setAddDialogOpen(true)} >Add</Button>
         </div>
       </div>
       <Dialog

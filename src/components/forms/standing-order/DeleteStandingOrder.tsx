@@ -23,11 +23,10 @@ const DeleteStandingOrder = ({
           <div>£{standingOrder.domain.value}</div>
         </div>
         <div className="flex mt-5 justify-center">
-          <Button
-            value="Delete"
-            onClick={() => deleteStandingOrder(standingOrder.id)}
-          />
-          <Button value="Cancel" onClick={closeDialog} />
+          <Button onClick={() => deleteStandingOrder(standingOrder.id)}>
+            Delete
+          </Button>
+          <Button onClick={closeDialog}>Cancel</Button>
         </div>
       </div>
     </>

@@ -3,9 +3,7 @@ import useFormControl from "../../../../hooks/useFormControl"
 import { validateCreditDebit } from "../validation"
 import CreditDebitRow from "./CreditDebitRow"
 import FormButtons from "../FormButtons"
-import {
-  ReceiptTransaction
-} from "../../../../types/NewMoney"
+import { ReceiptTransaction } from "../../../../types/NewMoney"
 import Spinner from "../../../utils/Spinner"
 import Button from "../../../button/Button"
 import TextArea from "../../../inputs/TextArea"
@@ -16,7 +14,7 @@ import {
   formatSainsburysTransactions,
   formatWaitroseTransactions,
   parseSainsburysTransaction,
-  receiptTransactionToCreditDebit,
+  receiptTransactionToCreditDebit
 } from "./upload-receipt"
 import NewDescriptionMapping from "./NewDescriptionMapping"
 import { today } from "../../../../utils/constants"
@@ -46,7 +44,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
     submitTransactions,
     onlyOneRow,
     overrideTransactions,
-    isLoading,
+    isLoading
   } = useFormControl(
     emptyCreditDebit,
     emptyCreditDebitErrors(),
@@ -58,7 +56,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
     descriptions,
     uniqueDescriptions,
     addNewDescriptionMapping,
-    shortDescriptionFrom,
+    shortDescriptionFrom
   } = useReferenceData()
 
   const processReceiptTransactions = (transactions: ReceiptTransaction[]) => {
@@ -92,7 +90,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
       prevState.map((transaction) => ({
         ...transaction,
         description: shortDescriptionFrom(transaction.description),
-        isNewDescription: false,
+        isNewDescription: false
       }))
     )
   }
@@ -109,10 +107,11 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
       </div>
       <div className="mt-4 flex justify-center">
         <Button
-          value="Next"
           onClick={() => setReceiptModalStage(1)}
           className="transition-none"
-        />
+        >
+          Next
+        </Button>
       </div>
     </>
   )
@@ -123,17 +122,13 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
         <TextArea onChange={(content) => setReceiptModalContent(content)} />
       </div>
       <div className="mt-4 flex justify-center">
-        <Button
-          value="Upload Waitrose"
-          className="w-40"
-          onClick={handleUploadWaitroseReceipt}
-        />
-        <Button
-          value="Upload Sainsbury's"
-          className="w-40"
-          onClick={handleUploadSainsburysReceipt}
-        />
-        <Button value="Back" onClick={() => setReceiptModalStage(0)} />
+        <Button className="w-40" onClick={handleUploadWaitroseReceipt}>
+          Upload Waitrose
+        </Button>
+        <Button className="w-40" onClick={handleUploadSainsburysReceipt}>
+          Upload Sainsbury's
+        </Button>
+        <Button onClick={() => setReceiptModalStage(0)}>Back</Button>
       </div>
     </>
   )

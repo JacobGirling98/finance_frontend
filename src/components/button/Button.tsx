@@ -1,14 +1,14 @@
 import { FC } from "react";
+import { ChildrenProps } from "../../types/ChildrenProps";
 
 interface FormButtonProps {
-  value: string;
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
 }
 
-const Button: FC<FormButtonProps> = ({
-  value,
+const Button: FC<FormButtonProps & ChildrenProps> = ({
+  children,
   className,
   onClick,
   disabled = false,
@@ -25,7 +25,7 @@ const Button: FC<FormButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {value}
+      {children}
     </button>
   );
 };
