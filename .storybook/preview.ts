@@ -1,7 +1,10 @@
 import type { Preview } from "@storybook/react"
 import '../src/index.css'
-
 import { withThemeByClassName } from "@storybook/addon-themes";
+import { initialize, mswLoader } from "msw-storybook-addon"
+import { QueryClient } from "react-query";
+
+initialize()
 
 const preview: Preview = {
   parameters: {
@@ -13,6 +16,7 @@ const preview: Preview = {
       }
     }
   },
+  loaders: [mswLoader]
 }
 
 export default preview

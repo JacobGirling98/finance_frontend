@@ -1,0 +1,330 @@
+{
+  "data": [
+    {
+      "id": "fd1c7235-0aef-435e-9140-63ca696099a3",
+      "domain": {
+        "date": "2023-12-01",
+        "category": "Spotify",
+        "value": 5,
+        "description": "Spotify",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "Parents",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "35a94bc4-ce3a-4a76-9863-b90640256453",
+      "domain": {
+        "date": "2023-12-01",
+        "category": "Water",
+        "value": 300,
+        "description": "Water Bill",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "28be90b5-fe37-4d74-8cf0-e6a586a0fb43",
+      "domain": {
+        "date": "2023-11-30",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "2b72e17e-532c-4d6f-b95b-222026ce033c",
+      "domain": {
+        "date": "2023-11-28",
+        "category": "Savings",
+        "value": 200,
+        "description": "Regular Saver",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Regular Saver",
+        "outbound": "Current",
+        "source": null
+      }
+    },
+    {
+      "id": "d855b151-223f-4171-a6b9-e92e8f8b43dc",
+      "domain": {
+        "date": "2023-11-25",
+        "category": "Tech",
+        "value": 10,
+        "description": "Personal Transfer Test",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Eating Out",
+        "outbound": "Help to Buy ISA",
+        "source": null
+      }
+    },
+    {
+      "id": "daaa738b-0bc0-40ba-938b-a4d4b97b0e56",
+      "domain": {
+        "date": "2023-11-23",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "841e36b0-dfaa-4b27-a4ba-3c98b901ec8f",
+      "domain": {
+        "date": "2023-11-21",
+        "category": "Phone",
+        "value": 12.49,
+        "description": "Phone Bill",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "EE",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "9b97f652-9b84-4262-b451-75197b3d5a9e",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "a new category",
+        "value": 10,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "48ee88d5-4e03-4017-8783-e3247374dd7c",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "another new category",
+        "value": 11,
+        "description": "Choccy Milk",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "25e26fb0-fe24-4e34-8994-4cac06c50cb5",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "Charity",
+        "value": 10,
+        "description": "Milk",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "1492a8e4-36c9-45f0-ac27-807aa9a3b860",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "new category",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "507e1965-661d-4b8d-8ba5-dbd2e39e212f",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "new category",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "8d6cda4e-f2ef-4e64-a802-b6bd9dd37bce",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "Different Category",
+        "value": 1,
+        "description": "Bananas",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "Friends",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "f18b61e9-7077-4dca-b498-7c8b5afafab1",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "personal transfer category",
+        "value": 1,
+        "description": "Bananas",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "inbound account",
+        "outbound": "outbound account",
+        "source": null
+      }
+    },
+    {
+      "id": "564a56c9-d6af-4fd1-99fa-66905d2e3cf4",
+      "domain": {
+        "date": "2023-11-19",
+        "category": "income category",
+        "value": 1,
+        "description": "Bananas",
+        "type": "INCOME",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": "work"
+      }
+    },
+    {
+      "id": "5f8145a6-1e02-4172-b5d7-0ee5ed243a18",
+      "domain": {
+        "date": "2023-11-18",
+        "category": "Rent",
+        "value": 815,
+        "description": "Rent",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "f4497529-58d0-4896-9821-cb49e6f5adbe",
+      "domain": {
+        "date": "2023-11-18",
+        "category": "TV License",
+        "value": 5,
+        "description": "TV License",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "2bc14dd6-9cb9-463f-b7a7-5e4bc71ef8cb",
+      "domain": {
+        "date": "2023-11-18",
+        "category": "A new category",
+        "value": 20,
+        "description": "Choccy Milk",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "cacbb9e8-240b-4170-a3e0-e046d59b7963",
+      "domain": {
+        "date": "2023-11-18",
+        "category": "Another new category",
+        "value": 19,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "c4e177e7-54e4-4c52-8744-de77f24e3a4a",
+      "domain": {
+        "date": "2023-11-18",
+        "category": "Charity",
+        "value": 10,
+        "description": "Biscuits",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    }
+  ],
+  "pageNumber": 1,
+  "pageSize": 20,
+  "totalElements": 40,
+  "totalPages": 2,
+  "hasPreviousPage": false,
+  "hasNextPage": true
+}

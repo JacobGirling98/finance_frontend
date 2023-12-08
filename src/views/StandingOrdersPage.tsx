@@ -134,7 +134,7 @@ const StandingOrdersPage: FC = () => {
           </Dialog>
         </>
       )}
-      {data && <div className="m-4 p-2 flex">{table()}</div>}
+      {data && <div className="m-2 p-2 flex">{table()}</div>}
     </>
   )
 }

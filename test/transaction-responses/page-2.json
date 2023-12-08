@@ -1,0 +1,330 @@
+{
+  "data": [
+    {
+      "id": "20f6b105-ef5f-437e-ba05-c47f326c5e11",
+      "domain": {
+        "date": "2023-11-16",
+        "category": "Savings",
+        "value": 200,
+        "description": "Help to Buy ISA",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Help to Buy ISA",
+        "outbound": "Current",
+        "source": null
+      }
+    },
+    {
+      "id": "67763422-3374-4da4-9bf2-0336e8e8b181",
+      "domain": {
+        "date": "2023-11-16",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "12881bfc-47f4-474c-b296-9d432f159a89",
+      "domain": {
+        "date": "2023-11-15",
+        "category": "Insurance",
+        "value": 6.07,
+        "description": "Home Insurance",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "Nationwide",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "062dc69c-ae45-4c48-a6f0-343904cfc81f",
+      "domain": {
+        "date": "2023-11-13",
+        "category": "Internet",
+        "value": 27.13,
+        "description": "Flat Internet",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "2bc745e0-d035-42f1-8948-fd7f4be45165",
+      "domain": {
+        "date": "2023-11-13",
+        "category": "Internet",
+        "value": 1,
+        "description": "CreditTest",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "cf54a6b3-1df9-4207-a276-21050ec2e4d0",
+      "domain": {
+        "date": "2023-11-13",
+        "category": "Food",
+        "value": 1,
+        "description": "Bananas",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "62ea8398-2b68-4e29-9cf9-714e1a07a221",
+      "domain": {
+        "date": "2023-11-11",
+        "category": "Tech",
+        "value": 10,
+        "description": "Personal Transfer Test",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Eating Out",
+        "outbound": "Help to Buy ISA",
+        "source": null
+      }
+    },
+    {
+      "id": "f61aba77-5db2-49d0-915c-9b847150ab0a",
+      "domain": {
+        "date": "2023-11-09",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "850d7105-c060-4203-b27d-25699170f4b6",
+      "domain": {
+        "date": "2023-11-04",
+        "category": "Health",
+        "value": 25.99,
+        "description": "Gym",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "7a52a1e6-71ea-4801-af83-aa04ab6cf690",
+      "domain": {
+        "date": "2023-11-02",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "17af638b-576a-46a8-818d-4ce1aa50f032",
+      "domain": {
+        "date": "2023-11-01",
+        "category": "Spotify",
+        "value": 5,
+        "description": "Spotify",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "Parents",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "af3f2722-bb83-4a2c-b02e-1e5c2bcf546b",
+      "domain": {
+        "date": "2023-11-01",
+        "category": "Water",
+        "value": 300,
+        "description": "Water Bill",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "2e5ffdeb-9584-4ad5-b38c-7a927c30d76a",
+      "domain": {
+        "date": "2023-10-28",
+        "category": "Savings",
+        "value": 200,
+        "description": "Regular Saver",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Regular Saver",
+        "outbound": "Current",
+        "source": null
+      }
+    },
+    {
+      "id": "6b562a1d-7e87-40a8-a596-7fb519149146",
+      "domain": {
+        "date": "2023-10-28",
+        "category": "Tech",
+        "value": 10,
+        "description": "Personal Transfer Test",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Eating Out",
+        "outbound": "Help to Buy ISA",
+        "source": null
+      }
+    },
+    {
+      "id": "1067ab10-a7b5-4cef-974e-e7263e8902a5",
+      "domain": {
+        "date": "2023-10-26",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "fb9639ea-05d0-4aac-8ad9-987742dddcd9",
+      "domain": {
+        "date": "2023-10-21",
+        "category": "Phone",
+        "value": 12.49,
+        "description": "Phone Bill",
+        "type": "BANK_TRANSFER",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": "EE",
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "1a309683-46d0-48b2-aa92-500abf1112ee",
+      "domain": {
+        "date": "2023-10-19",
+        "category": "Rent",
+        "value": 1,
+        "description": "Bananas",
+        "type": "CREDIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "ef725b14-4077-48fb-9f4b-14b4970d0fe9",
+      "domain": {
+        "date": "2023-10-18",
+        "category": "Rent",
+        "value": 815,
+        "description": "Rent",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "3e16522c-b139-407c-84a1-592c8bbe334f",
+      "domain": {
+        "date": "2023-10-18",
+        "category": "TV License",
+        "value": 5,
+        "description": "TV License",
+        "type": "DEBIT",
+        "outgoing": true,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": null,
+        "outbound": null,
+        "source": null
+      }
+    },
+    {
+      "id": "c1e930dc-f988-4e37-8575-ae98210d7cdc",
+      "domain": {
+        "date": "2023-10-16",
+        "category": "Savings",
+        "value": 200,
+        "description": "Help to Buy ISA",
+        "type": "PERSONAL_TRANSFER",
+        "outgoing": false,
+        "quantity": 1,
+        "recipient": null,
+        "inbound": "Help to Buy ISA",
+        "outbound": "Current",
+        "source": null
+      }
+    }
+  ],
+  "pageNumber": 2,
+  "pageSize": 20,
+  "totalElements": 40,
+  "totalPages": 2,
+  "hasPreviousPage": true,
+  "hasNextPage": false
+}

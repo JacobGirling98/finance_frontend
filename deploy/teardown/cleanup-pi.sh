@@ -10,9 +10,3 @@ fi
 
 docker container stop $container_name
 docker rm $container_name
-docker image rm $container_name
-
-cd $finance_dir || exit
-docker load < frontend.tar.gz || exit
-
-rm frontend.tar.gz
