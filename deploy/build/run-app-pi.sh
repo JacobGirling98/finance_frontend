@@ -5,4 +5,5 @@ script_dir=$(dirname "$script_path")
 
 container_name=finance-frontend
 
-docker build -t $container_name "$script_dir"/../../.
+git pull
+docker build -t $container_name .
