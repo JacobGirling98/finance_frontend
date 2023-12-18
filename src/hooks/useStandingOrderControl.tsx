@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react"
-import {
-  ValidationErrors
-} from "../types/NewMoney"
+import { ValidationErrors } from "../types/NewMoney"
 import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import useReferenceData from "./useReferenceData"
 import { useMutation, useQueryClient } from "react-query"
@@ -10,7 +8,7 @@ import axios, { AxiosError } from "axios"
 import { AddStandingOrder } from "../types/StandingOrders"
 import { useModal } from "./useModal"
 import { Entity } from "../types/Api"
-
+import useGetStandingOrders from "./useGetStandingOrders"
 
 const useStandingOrderControl = <T extends AddStandingOrder>(
   defaultStandingOrder: () => T,
@@ -24,9 +22,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     | "income",
   onSuccess: () => void
 ) => {
-  const [standingOrder, setStandingOrder] = useState<T>(
-    defaultStandingOrder()
-  )
+  const [standingOrder, setStandingOrder] = useState<T>(defaultStandingOrder())
   const [validationErrors, setValidationErrors] =
     useState<ValidationErrors<T>>(emptyError)
 
@@ -35,7 +31,13 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const queryClient = useQueryClient()
 
-  const { mutate: post, isLoading: postIsLoading } = useMutation<void, AxiosError, T>(
+  const { refetch } = useGetStandingOrders()
+
+  const { mutate: post, isLoading: postIsLoading } = useMutation<
+    void,
+    AxiosError,
+    T
+  >(
     "addStandingOrder",
     async (data: T) => {
       const response = await axios.post(
@@ -46,15 +48,20 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     },
     {
       onSuccess: async () => {
-        toggleSuccessModal("Standing order added"),
-          queryClient.invalidateQueries(["getDescriptions"])
+        toggleSuccessModal("Standing order added")
+        queryClient.invalidateQueries(["getDescriptions"])
+        refetch()
         onSuccess()
       },
       onError: (error) => toggleErrorModal(error.message)
     }
   )
 
-  const { mutate: put, isLoading: putIsLoading } = useMutation<void, AxiosError, Entity<T>>(
+  const { mutate: put, isLoading: putIsLoading } = useMutation<
+    void,
+    AxiosError,
+    Entity<T>
+  >(
     "updateStandingOrder",
     async (data) => {
       const response = await axios.put(
@@ -65,19 +72,16 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     },
     {
       onSuccess: async () => {
-        toggleSuccessModal("Standing order updated"),
-          queryClient.invalidateQueries(["getDescriptions"])
-          queryClient.invalidateQueries(["standingOrders"])
+        toggleSuccessModal("Standing order updated")
+        queryClient.invalidateQueries(["getDescriptions"])
+        refetch()
         onSuccess()
       },
       onError: (error) => toggleErrorModal(error.message)
     }
   )
 
-  const changeStandingOrder = (
-    value: string | number,
-    field: keyof T
-  ) => {
+  const changeStandingOrder = (value: string | number, field: keyof T) => {
     setStandingOrder((data) => changeSingleTransaction(data, value, field))
   }
 
@@ -102,7 +106,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
       setValidationErrors(emptyError)
     }
     postNewDescriptions([standingOrder.description])
-    put({id, domain: normaliseFrequency(standingOrder)})
+    put({ id, domain: normaliseFrequency(standingOrder) })
   }
 
   const containsValidationError = (errors: ValidationErrors<T>): boolean =>
@@ -112,10 +116,10 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const normaliseFrequency = (standingOrder: T): T => {
     const unit = standingOrder.frequencyUnit == "Months" ? "MONTHLY" : "WEEKLY"
-    return ({
+    return {
       ...standingOrder,
       frequencyUnit: unit
-    })
+    }
   }
 
   return {

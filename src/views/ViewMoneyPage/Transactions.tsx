@@ -18,7 +18,6 @@ import Input from "../../components/inputs/Input"
 const Transactions = () => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState("20")
-
   const [searchTerm, setSearchTerm] = useState("")
 
   const debouncedSearchTerm = useDebounce(searchTerm, 200)

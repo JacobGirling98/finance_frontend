@@ -15,6 +15,7 @@ import { formatFrequency, handleUndefined } from "../utils/TableUtils"
 import { toTransactionType } from "../utils/transactionType"
 import DeleteStandingOrder from "../components/forms/standing-order/DeleteStandingOrder"
 import EditingTableCell from "../components/table/EditingTableCell"
+import useGetStandingOrders from "../hooks/useGetStandingOrders"
 
 const StandingOrdersPage: FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false)
@@ -47,16 +48,7 @@ const StandingOrdersPage: FC = () => {
     setDeleteDialogOpen(true)
   }
 
-  const { data } = useQuery<Entity<StandingOrder>[]>(
-    "standingOrders",
-    async () => {
-      const response = await axios.get(`/api/standing-orders`)
-      return response.data
-    },
-    {
-      keepPreviousData: true
-    }
-  )
+  const { data } = useGetStandingOrders()
 
   const tableHeaders = (
     <>

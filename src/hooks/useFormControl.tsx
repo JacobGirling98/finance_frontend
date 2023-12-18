@@ -71,7 +71,8 @@ function useFormControl<T extends Transaction>(
           "getAccounts",
           "getCategories",
           "getPayees",
-          "getSources"
+          "getSources",
+          "transactions"
         ])
       },
       onError: (error) => {
