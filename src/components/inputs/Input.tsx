@@ -1,14 +1,14 @@
-import { FC, HTMLInputTypeAttribute } from "react";
-import ErrorMessage from "./ErrorMessage";
-import { isNotBlank } from "../forms/new-transaction/validation";
+import { FC, HTMLInputTypeAttribute } from "react"
+import ErrorMessage from "./ErrorMessage"
+import { isNotBlank } from "../forms/new-transaction/validation"
 
 interface InputProps {
-  title?: string;
-  type: HTMLInputTypeAttribute;
-  value: string | number;
-  onChange: (s: any) => void;
-  error?: string;
-  className?: string;
+  title?: string
+  type: HTMLInputTypeAttribute
+  value: string | number
+  onChange: (s: any) => void
+  error?: string
+  className?: string
 }
 
 const Input: FC<InputProps> = ({
@@ -17,14 +17,14 @@ const Input: FC<InputProps> = ({
   value,
   onChange,
   error,
-  className = "",
+  className = ""
 }) => {
   return (
     <>
       {title && (
         <label
           htmlFor={`${type}`}
-          className="text-text-light dark:text-text-dark mb-1 ml-2"
+          className="text-text-light dark:text-text-dark mb-1 mx-2"
         >
           {title}
         </label>
@@ -41,7 +41,7 @@ const Input: FC<InputProps> = ({
       />
       <ErrorMessage message={error} />
     </>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

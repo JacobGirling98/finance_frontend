@@ -52,6 +52,9 @@ const StandingOrdersPage: FC = () => {
     async () => {
       const response = await axios.get(`/api/standing-orders`)
       return response.data
+    },
+    {
+      keepPreviousData: true
     }
   )
 
@@ -86,7 +89,11 @@ const StandingOrdersPage: FC = () => {
       <TableCell>{handleUndefined(standingOrder.domain.recipient)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.inbound)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.outbound)}</TableCell>
-      <EditingTableCell editOnClick={editOnClick} deleteOnClick={deleteOnClick} dataEntry={standingOrder}/>
+      <EditingTableCell
+        editOnClick={editOnClick}
+        deleteOnClick={deleteOnClick}
+        dataEntry={standingOrder}
+      />
     </>
   )
 
@@ -97,7 +104,7 @@ const StandingOrdersPage: FC = () => {
       <div className="flex mt-5 mx-5">
         <PageTitle title={"Standing Orders"} />
         <div className="ml-auto my-auto">
-          <Button onClick={() => setAddDialogOpen(true)} >Add</Button>
+          <Button onClick={() => setAddDialogOpen(true)}>Add</Button>
         </div>
       </div>
       <Dialog

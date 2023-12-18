@@ -25,7 +25,7 @@ const ViewMoneyPage: FC = () => {
           </div>
         </div>
       </div>
-      <div className="m-2 p-2">
+      <div className="mx-2 mb-2 p-2">
         <Transactions />
       </div>
     </>

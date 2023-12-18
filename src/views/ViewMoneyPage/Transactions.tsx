@@ -12,14 +12,20 @@ import Button from "../../components/button/Button"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline"
 import { useQuery } from "react-query"
 import axios from "axios"
+import useDebounce from "../../hooks/useDebounce"
+import Input from "../../components/inputs/Input"
 
 const Transactions = () => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState("20")
 
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 200)
+
   const pageSizeOptions = ["10", "20", "50", "100"]
 
-  const { data } = useQuery<Page<Transaction>>(
+  const { data: allData } = useQuery<Page<Transaction>>(
     ["transactions", page, pageSize],
     async () => {
       const response = await axios.get("/api/transaction", {
@@ -29,8 +35,31 @@ const Transactions = () => {
         }
       })
       return response.data
+    },
+    {
+      keepPreviousData: true
     }
   )
+
+  const { data: searchData } = useQuery<Page<Transaction>>(
+    ["transactions", debouncedSearchTerm, page, pageSize],
+    async () => {
+      const response = await axios.get("/api/transaction/search", {
+        params: {
+          pageNumber: page,
+          pageSize: pageSize,
+          value: debouncedSearchTerm
+        }
+      })
+      return response.data
+    },
+    {
+      enabled: debouncedSearchTerm !== "",
+      keepPreviousData: true
+    }
+  )
+
+  const data = debouncedSearchTerm !== "" ? searchData : allData
 
   const maxPages = data?.totalPages ?? 1
 
@@ -94,32 +123,45 @@ const Transactions = () => {
 
   return (
     <>
-      <div className="flex mx-3 mb-3 justify-end items-end">
-        <div className="mr-3 flex">
-          <Button className="h-7 w-7" onClick={previousPage}>
-            <div className="w-full flex justify-center">
-              <div className="h-4 w-4">
-                <ArrowLeftIcon />
-              </div>
-            </div>
-          </Button>
-          <div className="mx-2 text-text-light dark:text-text-dark">{page}</div>
-          <Button className="h-7 w-7" onClick={nextPage}>
-            <div className="w-full flex justify-center">
-              <div className="h-4 w-4">
-                <ArrowRightIcon />
-              </div>
-            </div>
-          </Button>
-        </div>
-        <div className="w-24">
-          <Select
-            value={pageSize}
-            options={pageSizeOptions}
-            onChange={setPageSize}
-            title="Page Size"
+      <div className="flex mx-3 mb-3 justify-between items-end">
+        <div>
+          <Input
+            type="text"
+            value={searchTerm}
+            onChange={setSearchTerm}
+            title="Search"
             className="h-7"
           />
+        </div>
+        <div className="flex items-end">
+          <div className="mr-3 flex">
+            <Button className="h-7 w-7" onClick={previousPage}>
+              <div className="w-full flex justify-center">
+                <div className="h-4 w-4">
+                  <ArrowLeftIcon />
+                </div>
+              </div>
+            </Button>
+            <div className="mx-2 text-text-light dark:text-text-dark">
+              {page}
+            </div>
+            <Button className="h-7 w-7" onClick={nextPage}>
+              <div className="w-full flex justify-center">
+                <div className="h-4 w-4">
+                  <ArrowRightIcon />
+                </div>
+              </div>
+            </Button>
+          </div>
+          <div className="w-24">
+            <Select
+              value={pageSize}
+              options={pageSizeOptions}
+              onChange={setPageSize}
+              title="Page Size"
+              className="h-7"
+            />
+          </div>
         </div>
       </div>
       <div>{table()}</div>
