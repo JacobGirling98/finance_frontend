@@ -1,7 +1,5 @@
 import { FC, useState } from "react"
 import { StandingOrder } from "../types/StandingOrders"
-import { useQuery } from "react-query"
-import axios from "axios"
 import Dialog from "../components/utils/Dialog"
 import AddStandingOrder from "../components/forms/standing-order/AddStandingOrder"
 import { Entity } from "../types/Api"
