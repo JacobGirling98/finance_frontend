@@ -1,11 +1,6 @@
-import { useFormAction } from "react-router-dom"
 import { Entity } from "../../../../types/Api"
 import { CreditDebit } from "../../../../types/NewMoney"
-import useTransactionsControl from "../../../../hooks/useTransactionsControl"
-import {
-  emptyCreditDebit,
-  emptyCreditDebitErrors
-} from "../../new-transaction/credit-debit/defaults"
+import { emptyCreditDebitErrors } from "../../new-transaction/credit-debit/defaults"
 import { validateCreditDebit } from "../../new-transaction/validation"
 import CreditDebitInputs from "../../new-transaction/credit-debit/CreditDebitInputs"
 import useTransactionControl from "../../../../hooks/useTransactionControl"

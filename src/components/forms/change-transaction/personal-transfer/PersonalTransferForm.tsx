@@ -1,13 +1,8 @@
 import { Entity } from "../../../../types/Api"
-import { Income, PersonalTransfer } from "../../../../types/NewMoney"
-import {
-  validateIncome,
-  validatePersonalTransfer
-} from "../../new-transaction/validation"
+import { PersonalTransfer } from "../../../../types/NewMoney"
+import { validatePersonalTransfer } from "../../new-transaction/validation"
 import useTransactionControl from "../../../../hooks/useTransactionControl"
 import FormButtons from "../../standing-order/FormButtons"
-import { emptyIncomeErrors } from "../../new-transaction/income/defaults"
-import IncomeInputs from "../../new-transaction/income/IncomeInputs"
 import { emptyPersonalTransferErrors } from "../../new-transaction/personal-transfer/defaults"
 import PersonalTransferInputs from "../../new-transaction/personal-transfer/PersonalTransferInputs"
 
