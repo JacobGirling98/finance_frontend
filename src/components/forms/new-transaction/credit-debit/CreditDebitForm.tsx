@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react"
-import useFormControl from "../../../../hooks/useFormControl"
+import useTransactionsControl from "../../../../hooks/useTransactionsControl"
 import { validateCreditDebit } from "../validation"
 import CreditDebitRow from "./CreditDebitRow"
 import FormButtons from "../FormButtons"
@@ -45,7 +45,7 @@ const CreditDebitForm: FC<CreditDebitFormProps> = ({ transactionType }) => {
     onlyOneRow,
     overrideTransactions,
     isLoading
-  } = useFormControl(
+  } = useTransactionsControl(
     emptyCreditDebit,
     emptyCreditDebitErrors(),
     validateCreditDebit,

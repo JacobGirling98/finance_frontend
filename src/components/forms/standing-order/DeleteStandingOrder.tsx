@@ -16,7 +16,7 @@ const DeleteStandingOrder = ({
 
   return (
     <>
-      <div className="pt-2">
+      <div className="pt-2 text-text-light dark:text-text-dark">
         <div>Are you sure you want to delete this standing order?</div>
         <div className="my-2 w-full flex justify-center space-x-2">
           <div>{standingOrder.domain.description}:</div>

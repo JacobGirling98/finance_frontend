@@ -1,5 +1,5 @@
 import { FC } from "react"
-import useFormControl from "../../../../hooks/useFormControl"
+import useTransactionsControl from "../../../../hooks/useTransactionsControl"
 import { validateBankTransfer } from "../validation"
 import FormButtons from "../FormButtons"
 import BankTransferRow from "./BankTransferRow"
@@ -17,7 +17,7 @@ const BankTransferForm: FC = () => {
     submitTransactions,
     onlyOneRow,
     isLoading
-  } = useFormControl(
+  } = useTransactionsControl(
     emptyBankTransfer,
     emptyBankTransferErrors(),
     validateBankTransfer,

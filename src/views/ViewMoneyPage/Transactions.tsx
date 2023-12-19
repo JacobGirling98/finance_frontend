@@ -14,15 +14,43 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import useDebounce from "../../hooks/useDebounce"
 import Input from "../../components/inputs/Input"
+import Dialog from "../../components/utils/Dialog"
+import EditTransaction from "../../components/forms/change-transaction/EditTransaction"
+import DeleteTransaction from "../../components/forms/change-transaction/DeleteTransaction"
+import useGetTransactions from "../../hooks/useGetTransactions"
 
 const Transactions = () => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState("20")
   const [searchTerm, setSearchTerm] = useState("")
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [transactionToMutate, setTransactionToMutate] =
+    useState<Entity<Transaction>>()
 
   const debouncedSearchTerm = useDebounce(searchTerm, 200)
 
   const pageSizeOptions = ["10", "20", "50", "100"]
+
+  const editDialogOnClose = () => {
+    setEditDialogOpen(false)
+    setTransactionToMutate(undefined)
+  }
+
+  const deleteDialogOnClose = () => {
+    setDeleteDialogOpen(false)
+    setTransactionToMutate(undefined)
+  }
+
+  const editOnClick = (transaction: Entity<Transaction>) => {
+    setTransactionToMutate(transaction)
+    setEditDialogOpen(true)
+  }
+
+  const deleteOnClick = (transaction: Entity<Transaction>) => {
+    setTransactionToMutate(transaction)
+    setDeleteDialogOpen(true)
+  }
 
   const { data: allData } = useQuery<Page<Transaction>>(
     ["transactions", page, pageSize],
@@ -40,22 +68,10 @@ const Transactions = () => {
     }
   )
 
-  const { data: searchData } = useQuery<Page<Transaction>>(
-    ["transactions", debouncedSearchTerm, page, pageSize],
-    async () => {
-      const response = await axios.get("/api/transaction/search", {
-        params: {
-          pageNumber: page,
-          pageSize: pageSize,
-          value: debouncedSearchTerm
-        }
-      })
-      return response.data
-    },
-    {
-      enabled: debouncedSearchTerm !== "",
-      keepPreviousData: true
-    }
+  const { data: searchData } = useGetTransactions(
+    debouncedSearchTerm,
+    page,
+    parseInt(pageSize)
   )
 
   const data = debouncedSearchTerm !== "" ? searchData : allData
@@ -75,12 +91,6 @@ const Transactions = () => {
       setPage((p) => p - 1)
     }
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  const editOnClick = (_transaction: Entity<Transaction>) => {}
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  const deleteOnClick = (_transaction: Entity<Transaction>) => {}
 
   const tableHeaders = (
     <>
@@ -163,7 +173,33 @@ const Transactions = () => {
           </div>
         </div>
       </div>
-      <div>{table()}</div>
+      {transactionToMutate && (
+        <>
+          <Dialog
+            open={editDialogOpen}
+            setOpen={setEditDialogOpen}
+            onClose={editDialogOnClose}
+            title="Edit a standing order"
+          >
+            <EditTransaction
+              closeDialog={editDialogOnClose}
+              transaction={transactionToMutate}
+            />
+          </Dialog>
+          <Dialog
+            open={deleteDialogOpen}
+            setOpen={setDeleteDialogOpen}
+            onClose={deleteDialogOnClose}
+            title="Delete a standing order"
+          >
+            <DeleteTransaction
+              closeDialog={deleteDialogOnClose}
+              transaction={transactionToMutate}
+            />
+          </Dialog>
+        </>
+      )}
+      {data && <div>{table()}</div>}
     </>
   )
 }

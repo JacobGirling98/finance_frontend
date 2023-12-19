@@ -1,11 +1,10 @@
-import { FC } from "react";
-import useFormControl from "../../../../hooks/useFormControl";
-import { validateIncome } from "../validation";
-import FormButtons from "../FormButtons";
-import IncomeRow from "./IncomeRow";
-import Spinner from "../../../utils/Spinner";
-import { emptyIncome, emptyIncomeErrors } from "./defaults";
-
+import { FC } from "react"
+import useTransactionsControl from "../../../../hooks/useTransactionsControl"
+import { validateIncome } from "../validation"
+import FormButtons from "../FormButtons"
+import IncomeRow from "./IncomeRow"
+import Spinner from "../../../utils/Spinner"
+import { emptyIncome, emptyIncomeErrors } from "./defaults"
 
 const IncomeForm: FC = () => {
   const {
@@ -17,13 +16,13 @@ const IncomeForm: FC = () => {
     changeTransaction,
     submitTransactions,
     onlyOneRow,
-    isLoading,
-  } = useFormControl(
+    isLoading
+  } = useTransactionsControl(
     emptyIncome,
     emptyIncomeErrors(),
     validateIncome,
     "income"
-  );
+  )
 
   return (
     <>
@@ -50,7 +49,7 @@ const IncomeForm: FC = () => {
       </div>
       <Spinner isOpen={isLoading} />
     </>
-  );
-};
+  )
+}
 
-export default IncomeForm;
+export default IncomeForm

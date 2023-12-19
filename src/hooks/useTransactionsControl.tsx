@@ -11,10 +11,13 @@ import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { today } from "../utils/constants"
 import useReferenceData from "./useReferenceData"
-import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import { useModal } from "./useModal"
+import {
+  changeSingleTransaction,
+  containsValidationError
+} from "../utils/transaction-handler"
 
-function useFormControl<T extends Transaction>(
+function useTransactionsControl<T extends Transaction>(
   emptyTransaction: (date: string, category: string) => T,
   emptyError: ValidationErrors<T>,
   validate: (transaction: T) => ValidationErrors<T>,
@@ -149,13 +152,6 @@ function useFormControl<T extends Transaction>(
   const latestCategory = (transactions: T[]): string =>
     transactions[transactions.length - 1].category
 
-  const containsValidationError = (errors: ValidationErrors<T>[]): boolean =>
-    errors
-      .flatMap((error) =>
-        Object.entries(error).map(([_, value]) => value !== "")
-      )
-      .includes(true)
-
   const onlyOneRow = transactions.length === 1
 
   return {
@@ -172,4 +168,4 @@ function useFormControl<T extends Transaction>(
   }
 }
 
-export default useFormControl
+export default useTransactionsControl

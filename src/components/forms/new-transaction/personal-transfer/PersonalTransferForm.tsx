@@ -1,4 +1,4 @@
-import useFormControl from "../../../../hooks/useFormControl"
+import useTransactionsControl from "../../../../hooks/useTransactionsControl"
 import { validatePersonalTransfer } from "../validation"
 import FormButtons from "../FormButtons"
 import PersonalTransferRow from "./PersonalTransferRow"
@@ -17,7 +17,7 @@ const PersonalTransferForm: FC = () => {
     submitTransactions,
     onlyOneRow,
     isLoading
-  } = useFormControl(
+  } = useTransactionsControl(
     emptyPersonalTransfer,
     emptyPersonalTransferErrors(),
     validatePersonalTransfer,

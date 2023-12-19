@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react"
 import { ValidationErrors } from "../types/NewMoney"
-import { changeSingleTransaction } from "../components/forms/new-transaction/changeTransaction"
 import useReferenceData from "./useReferenceData"
 import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
@@ -9,6 +8,10 @@ import { AddStandingOrder } from "../types/StandingOrders"
 import { useModal } from "./useModal"
 import { Entity } from "../types/Api"
 import useGetStandingOrders from "./useGetStandingOrders"
+import {
+  changeSingleTransaction,
+  hasValidationError
+} from "../utils/transaction-handler"
 
 const useStandingOrderControl = <T extends AddStandingOrder>(
   defaultStandingOrder: () => T,
@@ -87,7 +90,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const submitStandingOrder = () => {
     const errors: ValidationErrors<T> = validate(standingOrder)
-    if (containsValidationError(errors)) {
+    if (hasValidationError(errors)) {
       setValidationErrors(errors)
       return
     } else {
@@ -99,7 +102,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
 
   const updateStandingOrder = (id: string) => {
     const errors: ValidationErrors<T> = validate(standingOrder)
-    if (containsValidationError(errors)) {
+    if (hasValidationError(errors)) {
       setValidationErrors(errors)
       return
     } else {
@@ -108,11 +111,6 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     postNewDescriptions([standingOrder.description])
     put({ id, domain: normaliseFrequency(standingOrder) })
   }
-
-  const containsValidationError = (errors: ValidationErrors<T>): boolean =>
-    Object.entries(errors)
-      .map(([_, value]) => value !== "")
-      .includes(true)
 
   const normaliseFrequency = (standingOrder: T): T => {
     const unit = standingOrder.frequencyUnit == "Months" ? "MONTHLY" : "WEEKLY"
