@@ -50,7 +50,7 @@ const useTransactionControl = <T extends Transaction>(
     {
       onSuccess: async () => {
         toggleSuccessModal("Transaction updated")
-        queryClient.invalidateQueries(["getDescriptions"])
+        queryClient.invalidateQueries(["getDescriptions", "transactions"])
         refetch()
         onSuccess()
       },
