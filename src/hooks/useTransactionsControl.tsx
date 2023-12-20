@@ -57,7 +57,10 @@ function useTransactionsControl<T extends Transaction>(
     async () => {
       const response = await axios.post(
         `/api/transaction/multiple/${transactionType}`,
-        transactions
+        transactions,
+        {
+          headers: { user: "Jacob" }
+        }
       )
       return response.data
     },

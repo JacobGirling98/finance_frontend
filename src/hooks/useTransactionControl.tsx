@@ -43,7 +43,10 @@ const useTransactionControl = <T extends Transaction>(
     async (data) => {
       const response = await axios.put(
         `/api/transaction/${transactionType}`,
-        data
+        data,
+        {
+          headers: { user: "Jacob" }
+        }
       )
       return response.data
     },
