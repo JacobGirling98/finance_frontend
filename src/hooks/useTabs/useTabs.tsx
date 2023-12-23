@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import Tab from "../../components/navbar/Tabs/Tab"
 
 export interface TabElement {
@@ -13,17 +13,22 @@ const useTabs = (elements: TabElement[]) => {
     setActiveIndex(index)
   }
 
+  useEffect(() => {
+    console.log(activeIndex)
+  }, [activeIndex])
+
   const elementToRender = elements[activeIndex].body
 
   const tabs = (
     <>
       <div className="flex">
         {elements.map((element, index) => (
-          <div>
+          <div className="w-32">
             <Tab
               content={element.tabTitle}
               active={index === activeIndex}
-              setActive={() => changeTab(index)}
+              onClick={() => changeTab(index)}
+              className="w-full"
             />
           </div>
         ))}

@@ -16,5 +16,5 @@ export const Primary: Story = {
     content: "Transactions",
     active: false
   },
-  argTypes: { setActive: { action: "clicked" } }
+  argTypes: { onClick: { action: "clicked" } }
 }

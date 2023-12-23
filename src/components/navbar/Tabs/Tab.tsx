@@ -1,23 +1,24 @@
 interface TabProps {
   content: string
   active: boolean
-  setActive: () => void
+  onClick: () => void
+  className?: string
 }
 
-const Tab = ({ content, active, setActive }: TabProps) => {
+const Tab = ({ content, active, onClick, className }: TabProps) => {
   return (
     <>
       <button
-        className={`${
-          active ? "border-solid" : "border-[transparent]"
+        className={`group border-b-2 ${
+          active ? "" : "border-opacity-0 dark:border-opacity-0"
         } border-special-light dark:border-special-dark
-        border-b-2
         hover:border-solid hover:border-special-hover-light hover:dark:border-special-hover-dark
         active:border-solid active:border-special-active-light active:dark:border-special-active-dark
-        h-10 px-2`}
-        onClick={setActive}
+        h-10 px-2
+        ${className}`}
+        onClick={onClick}
       >
-        <div className="text-text-light dark:text-text-dark hover:scale-105 active:scale-105 transition-transform duration-75">
+        <div className="text-text-light dark:text-text-dark group-hover:scale-105 group-active:scale-105 transition-transform duration-75">
           {content}
         </div>
       </button>
