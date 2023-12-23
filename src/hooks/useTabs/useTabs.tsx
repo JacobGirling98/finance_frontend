@@ -13,10 +13,6 @@ const useTabs = (elements: TabElement[]) => {
     setActiveIndex(index)
   }
 
-  useEffect(() => {
-    console.log(activeIndex)
-  }, [activeIndex])
-
   const elementToRender = elements[activeIndex].body
 
   const tabs = (
