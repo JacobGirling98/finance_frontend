@@ -2,7 +2,7 @@ import { FC, useState } from "react"
 import PageTitle from "../../components/utils/PageTitle"
 import { Period, periods } from "../../types/ViewMoney"
 import UnionSelect from "../../components/inputs/select/UnionSelect"
-import Transactions from "./Transactions"
+import Transactions from "./Transactions/Transactions"
 
 const ViewMoneyPage: FC = () => {
   // const [transactionType, setTransactionType] = useState<TransactionType>(
@@ -15,6 +15,7 @@ const ViewMoneyPage: FC = () => {
     <>
       <div className="flex px-5 pt-5">
         <PageTitle title={"View Money"} />
+        <div></div>
         <div className="ml-auto flex items-center">
           <div className="w-72">
             <UnionSelect

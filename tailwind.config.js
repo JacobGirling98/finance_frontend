@@ -1,4 +1,5 @@
 import colors from "tailwindcss/colors"
+import headlessuiTailwind from "@headlessui/tailwindcss"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -57,6 +58,6 @@ export default {
       }
     }
   },
-  plugins: [],
+  plugins: [headlessuiTailwind],
   darkMode: "class"
 }

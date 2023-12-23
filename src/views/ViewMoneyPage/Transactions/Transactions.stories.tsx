@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react"
 import Transactions from "./Transactions"
 
-import { getTransactionsHandler } from "../../mocks/handlers/transactions"
+import { getTransactionsHandler } from "../../../mocks/handlers/transactions"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const queryClient = new QueryClient()

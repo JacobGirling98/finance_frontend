@@ -1,4 +1,4 @@
-import HeadlineCard from "../../components/card/HeadlineCard/HeadlineCard"
+import HeadlineCard from "../../../components/card/HeadlineCard/HeadlineCard"
 
 const Headlines = () => {
   return (
