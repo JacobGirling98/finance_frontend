@@ -14,10 +14,12 @@ const Tab = ({ content, active, setActive }: TabProps) => {
         border-b-2
         hover:border-solid hover:border-special-hover-light hover:dark:border-special-hover-dark
         active:border-solid active:border-special-active-light active:dark:border-special-active-dark
-        h-10`}
+        h-10 px-2`}
         onClick={setActive}
       >
-        <div className="text-text-light dark:text-text-dark">{content}</div>
+        <div className="text-text-light dark:text-text-dark hover:scale-105 active:scale-105 transition-transform duration-75">
+          {content}
+        </div>
       </button>
     </>
   )
