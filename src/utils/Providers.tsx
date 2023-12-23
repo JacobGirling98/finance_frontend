@@ -1,11 +1,9 @@
-import { FC } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ModalProvider } from "../context/ModalContext";
-import { NewDescriptionMappingsProvider } from "../context/NewDescriptionMappings";
-import { ChildrenProps } from "../types/ChildrenProps";
-import { ReferenceDataProvider } from "../context/ReferenceDataContext";
-
-
+import { FC } from "react"
+import { ModalProvider } from "../context/ModalContext"
+import { NewDescriptionMappingsProvider } from "../context/NewDescriptionMappings"
+import { ChildrenProps } from "../types/ChildrenProps"
+import { ReferenceDataProvider } from "../context/ReferenceDataContext"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const Providers: FC<ChildrenProps> = ({ children }) => {
   return (
@@ -18,7 +16,7 @@ const Providers: FC<ChildrenProps> = ({ children }) => {
         </NewDescriptionMappingsProvider>
       </QueryClientProvider>
     </>
-  );
-};
+  )
+}
 
-export default Providers;
+export default Providers

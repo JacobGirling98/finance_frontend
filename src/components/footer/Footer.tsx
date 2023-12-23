@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { useQuery } from "react-query"
 
 const Footer = () => {
   const parseDate = (date: string): Date => {
@@ -10,20 +10,23 @@ const Footer = () => {
     return new Date(year, month, day)
   }
 
-  const { data: loginData } = useQuery<string>("getLastLogin", async () => {
-    const response = await axios.get(`/api/last-login`)
-    return response.data
+  const { data: loginData } = useQuery({
+    queryKey: ["getLastLogin"],
+    queryFn: async () => {
+      const response = await axios.get(`/api/last-login`)
+      return response.data
+    }
   })
 
   const login = loginData ? new Date(parseDate(loginData)) : undefined
 
-  const { data: transactionData } = useQuery<string>(
-    "getLastTransaction",
-    async () => {
+  const { data: transactionData } = useQuery<string>({
+    queryKey: ["getLastTransaction"],
+    queryFn: async () => {
       const response = await axios.get(`/api/last-transaction`)
       return response.data
     }
-  )
+  })
 
   const transaction = transactionData
     ? new Date(parseDate(transactionData))

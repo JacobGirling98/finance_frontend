@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Transaction, ValidationErrors } from "../types/NewMoney"
 import useReferenceData from "./useReferenceData"
 import { useModal } from "./useModal"
-import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { Entity } from "../types/Api"
 import {
@@ -10,6 +9,7 @@ import {
   hasValidationError
 } from "../utils/transaction-handler"
 import useGetTransactions from "./useGetTransactions"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 const useTransactionControl = <T extends Transaction>(
   defaultTransaction: () => T,
@@ -34,13 +34,13 @@ const useTransactionControl = <T extends Transaction>(
 
   const { refetch } = useGetTransactions("", 1, 20)
 
-  const { mutate: put, isLoading: putIsLoading } = useMutation<
+  const { mutate: put, isPending: putIsLoading } = useMutation<
     void,
     AxiosError,
     Entity<T>
-  >(
-    "updateTransaction",
-    async (data) => {
+  >({
+    mutationKey: ["updateTransaction"],
+    mutationFn: async (data) => {
       const response = await axios.put(
         `/api/transaction/${transactionType}`,
         data,
@@ -50,16 +50,16 @@ const useTransactionControl = <T extends Transaction>(
       )
       return response.data
     },
-    {
-      onSuccess: async () => {
-        toggleSuccessModal("Transaction updated")
-        queryClient.invalidateQueries(["getDescriptions", "transactions"])
-        refetch()
-        onSuccess()
-      },
-      onError: (error) => toggleErrorModal(error.message)
-    }
-  )
+    onSuccess: async () => {
+      toggleSuccessModal("Transaction updated")
+      queryClient.invalidateQueries({
+        queryKey: ["getDescriptions", "transactions"]
+      })
+      refetch()
+      onSuccess()
+    },
+    onError: (error) => toggleErrorModal(error.message)
+  })
 
   const changeTransaction = (value: string | number, field: keyof T) => {
     setTransaction((data) => changeSingleTransaction(data, value, field))

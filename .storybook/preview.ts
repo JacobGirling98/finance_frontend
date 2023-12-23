@@ -1,8 +1,7 @@
 import type { Preview } from "@storybook/react"
-import '../src/index.css'
-import { withThemeByClassName } from "@storybook/addon-themes";
+import "../src/index.css"
+import { withThemeByClassName } from "@storybook/addon-themes"
 import { initialize, mswLoader } from "msw-storybook-addon"
-import { QueryClient } from "react-query";
 
 initialize()
 
@@ -21,11 +20,13 @@ const preview: Preview = {
 
 export default preview
 
-export const decorators = [withThemeByClassName({
-  themes: {
+export const decorators = [
+  withThemeByClassName({
+    themes: {
       // nameOfTheme: 'classNameForTheme',
-      light: '',
-      dark: 'dark',
-  },
-  defaultTheme: 'light',
-})]
+      light: "",
+      dark: "dark"
+    },
+    defaultTheme: "light"
+  })
+]

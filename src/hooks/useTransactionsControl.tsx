@@ -7,7 +7,6 @@ import {
   TransactionConfirmation,
   ValidationErrors
 } from "../types/NewMoney"
-import { useMutation, useQueryClient } from "react-query"
 import axios, { AxiosError } from "axios"
 import { today } from "../utils/constants"
 import useReferenceData from "./useReferenceData"
@@ -16,6 +15,7 @@ import {
   changeSingleTransaction,
   containsValidationError
 } from "../utils/transaction-handler"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 function useTransactionsControl<T extends Transaction>(
   emptyTransaction: (date: string, category: string) => T,
@@ -48,13 +48,13 @@ function useTransactionsControl<T extends Transaction>(
 
   const resetTransactions = () => setTransactions([emptyTransaction(today, "")])
 
-  const { mutate, isLoading } = useMutation<
+  const { mutate, isPending: isLoading } = useMutation<
     TransactionConfirmation,
     AxiosError,
     T[]
-  >(
-    "submitTransactions",
-    async () => {
+  >({
+    mutationKey: ["submitTransactions"],
+    mutationFn: async () => {
       const response = await axios.post(
         `/api/transaction/multiple/${transactionType}`,
         transactions,
@@ -64,28 +64,28 @@ function useTransactionsControl<T extends Transaction>(
       )
       return response.data
     },
-    {
-      onSuccess: async (data) => {
-        resetTransactions()
-        toggleSuccessModal(
-          `Added ${
-            data.transactionCount
-          } transactions worth £${data.value.toFixed(2)}`
-        )
-        queryClient.invalidateQueries([
+    onSuccess: async (data) => {
+      resetTransactions()
+      toggleSuccessModal(
+        `Added ${
+          data.transactionCount
+        } transactions worth £${data.value.toFixed(2)}`
+      )
+      queryClient.invalidateQueries({
+        queryKey: [
           "getDescriptions",
           "getAccounts",
           "getCategories",
           "getPayees",
           "getSources",
           "transactions"
-        ])
-      },
-      onError: (error) => {
-        toggleErrorModal(error.message)
-      }
+        ]
+      })
+    },
+    onError: (error) => {
+      toggleErrorModal(error.message)
     }
-  )
+  })
 
   const addTransaction = () => {
     setTransactions((state) => [

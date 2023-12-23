@@ -10,7 +10,6 @@ import Select from "../../components/inputs/select/Select"
 import { useState } from "react"
 import Button from "../../components/button/Button"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline"
-import { useQuery } from "react-query"
 import axios from "axios"
 import useDebounce from "../../hooks/useDebounce"
 import Input from "../../components/inputs/Input"
@@ -18,6 +17,7 @@ import Dialog from "../../components/utils/Dialog"
 import EditTransaction from "../../components/forms/change-transaction/EditTransaction"
 import DeleteTransaction from "../../components/forms/change-transaction/DeleteTransaction"
 import useGetTransactions from "../../hooks/useGetTransactions"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 
 const Transactions = () => {
   const [page, setPage] = useState(1)
@@ -52,9 +52,9 @@ const Transactions = () => {
     setDeleteDialogOpen(true)
   }
 
-  const { data: allData } = useQuery<Page<Transaction>>(
-    ["transactions", page, pageSize],
-    async () => {
+  const { data: allData } = useQuery<Page<Transaction>>({
+    queryKey: ["transactions", page, pageSize],
+    queryFn: async () => {
       const response = await axios.get("/api/transaction", {
         params: {
           pageNumber: page,
@@ -63,10 +63,8 @@ const Transactions = () => {
       })
       return response.data
     },
-    {
-      keepPreviousData: true
-    }
-  )
+    placeholderData: keepPreviousData
+  })
 
   const { data: searchData } = useGetTransactions(
     debouncedSearchTerm,

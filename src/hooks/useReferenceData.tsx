@@ -1,10 +1,10 @@
 import axios from "axios"
-import { useMutation, useQuery } from "react-query"
 import { Description } from "../types/NewMoney"
 import { Entity } from "../types/Api"
 import { useNewDescriptionMappingsContext } from "./useNewDescriptionMappings"
 import { useContext } from "react"
 import { ReferenceDataContext } from "../context/ReferenceDataContext"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 const getReferenceData = async (dataType: string) => {
   const response = await axios.get(`/api/reference/${dataType}`)
@@ -14,112 +14,108 @@ const getReferenceData = async (dataType: string) => {
 const useReferenceData = () => {
   const { data: categoriesData, isLoading: categoriesIsLoading } = useQuery<
     Entity<string>[]
-  >("getCategories", () => getReferenceData("categories"), {
+  >({
+    queryKey: ["getCategories"],
+    queryFn: () => getReferenceData("categories"),
     staleTime: 60000,
     refetchOnMount: false
   })
 
   const { data: accountsData, isLoading: accountsIsLoading } = useQuery<
     Entity<string>[]
-  >("getAccounts", () => getReferenceData("accounts"), {
+  >({
+    queryKey: ["getAccounts"],
+    queryFn: () => getReferenceData("accounts"),
     staleTime: 60000,
     refetchOnMount: false
   })
 
   const { data: sourcesData, isLoading: sourcesIsLoading } = useQuery<
     Entity<string>[]
-  >("getSources", () => getReferenceData("sources"), {
+  >({
+    queryKey: ["getSources"],
+    queryFn: () => getReferenceData("sources"),
     staleTime: 60000,
     refetchOnMount: false
   })
 
   const { data: payeesData, isLoading: payeesIsLoading } = useQuery<
     Entity<string>[]
-  >("getPayees", () => getReferenceData("payees"), {
+  >({
+    queryKey: ["getPayees"],
+    queryFn: () => getReferenceData("payees"),
     staleTime: 60000,
     refetchOnMount: false
   })
 
   const { data: descriptionsEntityData, isLoading: descriptionsIsLoading } =
-    useQuery<Entity<Description>[]>(
-      "getDescriptions",
-      () => getReferenceData("descriptions"),
-      {
-        staleTime: 60000,
-        refetchOnMount: false
-      }
-    )
+    useQuery<Entity<Description>[]>({
+      queryKey: ["getDescriptions"],
+      queryFn: () => getReferenceData("descriptions"),
+      staleTime: 60000,
+      refetchOnMount: false
+    })
 
-  const { mutate: postDescriptions } = useMutation<void, void, Description[]>(
-    "postDescriptions",
-    async (newDescriptions: Description[]) => {
+  const { mutate: postDescriptions } = useMutation<void, void, Description[]>({
+    mutationKey: ["postDescriptions"],
+    mutationFn: async (newDescriptions: Description[]) => {
       const response = await axios.post(
         `/api/reference/descriptions/multiple`,
         newDescriptions
       )
       return response.data
     },
-    {
-      onSuccess: () => {
-        clearDescriptions()
-      }
+    onSuccess: () => {
+      clearDescriptions()
     }
-  )
+  })
 
-  const { mutate: postAccounts } = useMutation<void, void, string[]>(
-    "postAccounts",
-    async (newAccounts: string[]) => {
+  const { mutate: postAccounts } = useMutation<void, void, string[]>({
+    mutationKey: ["postAccounts"],
+    mutationFn: async (newAccounts: string[]) => {
       const response = await axios.post(`/api/reference/accounts`, newAccounts)
       return response.data
     },
-    {
-      onSuccess: () => {
-        clearAccounts()
-      }
+    onSuccess: () => {
+      clearAccounts()
     }
-  )
+  })
 
-  const { mutate: postCategories } = useMutation<void, void, string[]>(
-    "postCategories",
-    async (newCategories: string[]) => {
+  const { mutate: postCategories } = useMutation<void, void, string[]>({
+    mutationKey: ["postCategories"],
+    mutationFn: async (newCategories: string[]) => {
       const response = await axios.post(
         `/api/reference/categories`,
         newCategories
       )
       return response.data
     },
-    {
-      onSuccess: () => {
-        clearCategories()
-      }
+    onSuccess: () => {
+      clearCategories()
     }
-  )
+  })
 
-  const { mutate: postPayees } = useMutation<void, void, string[]>(
-    "postPayees",
-    async (newPayees: string[]) => {
+  const { mutate: postPayees } = useMutation<void, void, string[]>({
+    mutationKey: ["postPayees"],
+    mutationFn: async (newPayees: string[]) => {
       const response = await axios.post(`/api/reference/payees`, newPayees)
       return response.data
     },
-    {
-      onSuccess: () => {
-        clearPayees()
-      }
+    onSuccess: () => {
+      clearPayees()
     }
-  )
+  })
 
-  const { mutate: postSources } = useMutation<void, void, string[]>(
-    "postSources",
-    async (newSources: string[]) => {
+  const { mutate: postSources } = useMutation<void, void, string[]>({
+    mutationKey: ["postSources"],
+    mutationFn: async (newSources: string[]) => {
       const response = await axios.post(`/api/reference/sources`, newSources)
       return response.data
     },
-    {
-      onSuccess: () => {
-        clearSources()
-      }
+    onSuccess: () => {
+      clearSources()
     }
-  )
+  })
 
   const {
     addDescription,

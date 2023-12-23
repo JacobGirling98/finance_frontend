@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react"
 import Transactions from "./Transactions"
-import { rest } from "msw"
-import * as page1 from "../../../test/transaction-responses/page-1.json"
-import * as page2 from "../../../test/transaction-responses/page-2.json"
-import { QueryClient, QueryClientProvider } from "react-query"
+
+import { getTransactionsHandler } from "../../mocks/handlers/transactions"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const queryClient = new QueryClient()
 
@@ -25,17 +24,7 @@ export const Primary: Story = {
   ],
   parameters: {
     msw: {
-      handlers: [
-        rest.get("/api/transaction", (req, res, ctx) => {
-          const pageNumber = req.url.searchParams.get("pageNumber")
-          console.log(pageNumber)
-          if (pageNumber === "1") {
-            return res(ctx.json(page1))
-          } else {
-            return res(ctx.json(page2))
-          }
-        })
-      ]
+      handlers: [getTransactionsHandler]
     }
   }
 }

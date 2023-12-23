@@ -1,54 +1,23 @@
 import { rest } from "msw"
-import { toEntity } from "./utils"
+import * as page1 from "../../../test/transaction-responses/page-1.json"
+import * as page2 from "../../../test/transaction-responses/page-2.json"
 
 const api = "/api/transaction"
 
+export const getTransactionsHandler = rest.get(
+  "/api/transaction",
+  (req, res, ctx) => {
+    const pageNumber = req.url.searchParams.get("pageNumber")
+    console.log(pageNumber)
+    if (pageNumber === "1") {
+      return res(ctx.json(page1))
+    } else {
+      return res(ctx.json(page2))
+    }
+  }
+)
+
 export const transactionHandlers = [
-  rest.get(api, (_req, res, ctx) =>
-    res(
-      ctx.json([
-        toEntity({
-          date: "2020-10-23",
-          category: "Leisure",
-          value: 17.67,
-          description: "Architects Ticket",
-          type: "DEBIT",
-          outgoing: true,
-          quantity: 1,
-          recipient: null,
-          inbound: null,
-          outbound: null,
-          source: null
-        }),
-        toEntity({
-          date: "2020-10-24",
-          category: "Food",
-          value: 5.85,
-          description: "Pizza/Drink",
-          type: "DEBIT",
-          outgoing: true,
-          quantity: 1,
-          recipient: null,
-          inbound: null,
-          outbound: null,
-          source: null
-        }),
-        toEntity({
-          date: "2020-10-24",
-          category: "Petrol",
-          value: 32.26,
-          description: "Petrol",
-          type: "DEBIT",
-          outgoing: true,
-          quantity: 1,
-          recipient: null,
-          inbound: null,
-          outbound: null,
-          source: null
-        })
-      ])
-    )
-  ),
   rest.post(`${api}/bank-transfer`, (_req, res, ctx) => res(ctx.status(204))),
   rest.post(`${api}/personal-transfer`, (_req, res, ctx) =>
     res(ctx.status(204))
@@ -70,5 +39,6 @@ export const transactionHandlers = [
   ),
   rest.post(`${api}/multiple/income`, (_req, res, ctx) =>
     res(ctx.status(200), ctx.json([{ transactionCount: 5, value: 5.0 }]))
-  )
+  ),
+  getTransactionsHandler
 ]

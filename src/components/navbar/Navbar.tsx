@@ -1,11 +1,11 @@
 import { BanknotesIcon, Bars3Icon } from "@heroicons/react/24/outline"
-import { useMutation } from "react-query"
 import axios, { AxiosError } from "axios"
 import Spinner from "../utils/Spinner"
 import Button from "../button/Button"
 import DarkModeSwitch from "../inputs/DarkModeSwitch/DarkModeSwitch"
 import React, { FC } from "react"
 import { useModal } from "../../hooks/useModal"
+import { useMutation } from "@tanstack/react-query"
 
 interface NavbarProps {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,11 +14,13 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
   const { toggleSuccessModal, toggleErrorModal } = useModal()
 
-  const { mutate: mutatePush, isLoading: pushIsLoading } = useMutation<
+  const { mutate: mutatePush, isPending: pushIsLoading } = useMutation<
     void,
     AxiosError,
     void
-  >("googlePush", async () => await axios.post(`/api/backup/push`), {
+  >({
+    mutationKey: ["googlePush"],
+    mutationFn: async () => await axios.post(`/api/backup/push`),
     onSuccess: () => {
       toggleSuccessModal("Successfully pushed data to Google Drive")
     },
@@ -27,11 +29,13 @@ const Navbar: FC<NavbarProps> = ({ setSidebarOpen }) => {
     }
   })
 
-  const { mutate: mutatePull, isLoading: pullIsLoading } = useMutation<
+  const { mutate: mutatePull, isPending: pullIsLoading } = useMutation<
     void,
     AxiosError,
     void
-  >("googlePull", async () => await axios.post(`/api/backup/pull`), {
+  >({
+    mutationKey: ["googlePull"],
+    mutationFn: async () => await axios.post(`/api/backup/pull`),
     onSuccess: () => {
       toggleSuccessModal("Successfully pulled data from Google Drive")
     },

@@ -1,16 +1,16 @@
 import axios from "axios"
-import { useQuery } from "react-query"
 import { Page } from "../types/Api"
 import { Transaction } from "../types/ViewMoney"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 
 const useGetTransactions = (
   searchTerm: string,
   page: number,
   pageSize: number
 ) => {
-  const { data, refetch } = useQuery<Page<Transaction>>(
-    ["transactions", searchTerm, page, pageSize],
-    async () => {
+  const { data, refetch } = useQuery<Page<Transaction>>({
+    queryKey: ["transactions", searchTerm, page, pageSize],
+    queryFn: async () => {
       const response = await axios.get("/api/transaction/search", {
         params: {
           pageNumber: page,
@@ -20,11 +20,9 @@ const useGetTransactions = (
       })
       return response.data
     },
-    {
-      enabled: searchTerm !== "",
-      keepPreviousData: true
-    }
-  )
+    enabled: searchTerm !== "",
+    placeholderData: keepPreviousData
+  })
 
   return {
     data,

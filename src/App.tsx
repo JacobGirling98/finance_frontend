@@ -5,8 +5,8 @@ import { userIsInDarkMode } from "./utils/dark-mode.ts"
 import Navbar from "./components/navbar/Navbar.tsx"
 import ResultModal from "./components/utils/Modal.tsx"
 import Footer from "./components/footer/Footer.tsx"
-import { ReactQueryDevtools } from "react-query/devtools"
 import Sidebar from "./components/navbar/Sidebar.tsx"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -34,7 +34,7 @@ const App = () => {
         </div>
         <Footer />
       </div>
-      <ReactQueryDevtools />
+      <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
     </Providers>
   )
 }
