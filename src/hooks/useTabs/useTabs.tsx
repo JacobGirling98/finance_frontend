@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useState } from "react"
 import Tab from "../../components/navbar/Tabs/Tab"
 
 export interface TabElement {
