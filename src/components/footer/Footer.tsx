@@ -34,13 +34,15 @@ const Footer = () => {
 
   return (
     <footer className="bottom-0 left-0 bg-slate-300 dark:bg-zinc-700 min-w-full">
-      {login && transaction && (
-        <div className="flex justify-end text-text-light dark:text-text-dark px-2 space-x-4">
-          <p>Last Login: {login.toDateString()}</p>
-          <div className="border-l w-0 my-1 border-text-light dark:border-text-dark" />
-          <p>Last Transaction: {transaction.toDateString()}</p>
-        </div>
-      )}
+      <div className="flex justify-end text-text-light dark:text-text-dark px-2 space-x-4 h-6">
+        {login && transaction && (
+          <>
+            <p>Last Login: {login.toDateString()}</p>
+            <div className="border-l w-0 my-1 border-text-light dark:border-text-dark" />
+            <p>Last Transaction: {transaction.toDateString()}</p>
+          </>
+        )}
+      </div>
     </footer>
   )
 }
