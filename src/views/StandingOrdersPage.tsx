@@ -59,6 +59,7 @@ const StandingOrdersPage: FC = () => {
       <TableHeader>Recipient</TableHeader>
       <TableHeader>Inbound</TableHeader>
       <TableHeader>Outbound</TableHeader>
+      <TableHeader>Source</TableHeader>
       <TableHeader className="w-16" />
     </>
   )
@@ -79,6 +80,7 @@ const StandingOrdersPage: FC = () => {
       <TableCell>{handleUndefined(standingOrder.domain.recipient)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.inbound)}</TableCell>
       <TableCell>{handleUndefined(standingOrder.domain.outbound)}</TableCell>
+      <TableCell>{handleUndefined(standingOrder.domain.source)}</TableCell>
       <EditingTableCell
         editOnClick={editOnClick}
         deleteOnClick={deleteOnClick}
