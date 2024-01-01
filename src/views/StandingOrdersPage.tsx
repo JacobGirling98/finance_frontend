@@ -66,10 +66,10 @@ const StandingOrdersPage: FC = () => {
 
   const rowMapper = (standingOrder: Entity<StandingOrder>) => (
     <>
-      <TableCell>{standingOrder.domain.nextDate}</TableCell>
+      <TableCell>{standingOrder.domain.date}</TableCell>
       <TableCell>
         {formatFrequency(
-          standingOrder.domain.frequencyUnit,
+          standingOrder.domain.frequency,
           standingOrder.domain.frequencyQuantity
         )}
       </TableCell>
