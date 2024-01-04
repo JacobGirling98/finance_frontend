@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { useEffect, useState } from "react"
 import Providers from "./utils/Providers.tsx"
 import useRouter from "./hooks/useRouter.tsx"
@@ -7,6 +8,9 @@ import ResultModal from "./components/utils/Modal.tsx"
 import Footer from "./components/footer/Footer.tsx"
 import Sidebar from "./components/navbar/Sidebar.tsx"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import Snackbar from "./components/utils/Snackbar/Snackbar.tsx"
+import Reminder from "./components/Reminder/Reminder.tsx"
+import Reminders from "./components/Reminder/Reminders.tsx"
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -20,7 +24,7 @@ const App = () => {
   const routing = useRouter()
 
   return (
-    <Providers>
+    <>
       <div className="flex flex-col bg-slate-50 dark:bg-zinc-950 min-h-screen">
         <Navbar setSidebarOpen={setSidebarOpen} />
         <div className="flex grow transition ease-in-out duration-300">
@@ -34,8 +38,9 @@ const App = () => {
         </div>
         <Footer />
       </div>
+      <Reminders />
       <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
-    </Providers>
+    </>
   )
 }
 
