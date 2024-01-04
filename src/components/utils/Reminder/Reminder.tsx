@@ -12,13 +12,13 @@ const Reminder = ({ text, onSuccess, onCross }: ReminderProps) => {
       <div className="rounded-md flex bg-slate-200 dark:bg-zinc-700 p-2">
         <p className="text-text-light dark:text-text-dark ml-2">{text}</p>
         <div className="ml-auto flex h-full my-auto space-x-2">
-          <button onClick={onSuccess} className="group">
+          <button onClick={onSuccess} className="group" data-testid="tick">
             <CheckIcon
               className="h-6 w-6 text-text-light dark:text-text-dark group-hover:text-text-soft-light dark:group-hover:text-text-soft-dark group-active:text-text-strong-light dark:group-active:text-text-strong-dark"
               aria-hidden="true"
             />
           </button>
-          <button onClick={onCross} className="group">
+          <button onClick={onCross} className="group" data-testid="cross">
             <XMarkIcon
               className="h-6 w-6 text-text-light dark:text-text-dark group-hover:text-text-soft-light dark:group-hover:text-text-soft-dark group-active:text-text-strong-light dark:group-active:text-text-strong-dark"
               aria-hidden="true"
