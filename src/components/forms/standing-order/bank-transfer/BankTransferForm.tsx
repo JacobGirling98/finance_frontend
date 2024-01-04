@@ -49,10 +49,8 @@ const BankTransferForm: React.FC<BankTransferFormProps> = ({
           setFrequencyQuantity={(quantity) =>
             changeStandingOrder(quantity, "frequencyQuantity")
           }
-          frequencyUnit={standingOrder.frequencyUnit}
-          setFrequencyUnit={(unit) =>
-            changeStandingOrder(unit, "frequencyUnit")
-          }
+          frequencyUnit={standingOrder.frequency}
+          setFrequencyUnit={(unit) => changeStandingOrder(unit, "frequency")}
           validationError={validationErrors.frequencyQuantity}
         />
         <BankTransferInputs

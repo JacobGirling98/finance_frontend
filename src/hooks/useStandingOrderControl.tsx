@@ -109,7 +109,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
   }
 
   const normaliseFrequency = (standingOrder: T): T => {
-    const unit = standingOrder.frequencyUnit == "Months" ? "MONTHLY" : "WEEKLY"
+    const unit = standingOrder.frequency == "Months" ? "MONTHLY" : "WEEKLY"
     return {
       ...standingOrder,
       frequencyUnit: unit
