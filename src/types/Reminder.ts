@@ -4,3 +4,7 @@ export interface Reminder {
   frequencyQuantity: number
   description: string
 }
+
+export interface ReminderId {
+  id: string
+}

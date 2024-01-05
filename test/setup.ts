@@ -7,7 +7,7 @@ expect.extend(matchers)
 
 export const server = setupServer()
 
-beforeAll(() => server.listen())
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }))
 
 afterEach(() => {
   cleanup()

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import Snackbar from "../utils/Snackbar/Snackbar"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { Entity } from "../../types/Api"
 import ReminderCmp from "./Reminder"
 import { Reminder } from "../../types/Reminder"
 
 const Reminders = () => {
-  const [oustandingReminders, setOutstandingReminders] = useState<
+  const [outstandingReminders, setOutstandingReminders] = useState<
     Entity<Reminder>[]
   >([])
 
@@ -26,6 +26,13 @@ const Reminders = () => {
     }
   })
 
+  const { mutate } = useMutation({
+    mutationKey: ["advanceReminder"],
+    mutationFn: async (id: string) => {
+      await axios.post("/api/reminders/advance", { id })
+    }
+  })
+
   useEffect(() => {
     if (data) {
       setOutstandingReminders(data)
@@ -33,11 +40,20 @@ const Reminders = () => {
   }, [data])
 
   const reminderToRender =
-    oustandingReminders.length > 0 ? oustandingReminders[0] : undefined
+    outstandingReminders.length > 0 ? outstandingReminders[0] : undefined
 
-  useEffect(() => {
-    console.log(oustandingReminders)
-  }, [oustandingReminders])
+  const onSuccess = () => {
+    if (reminderToRender) {
+      mutate(reminderToRender.id)
+      setOutstandingReminders((reminders) => reminders.slice(1))
+    }
+  }
+
+  const onCross = () => {
+    if (outstandingReminders.length > 0) {
+      setOutstandingReminders((reminders) => reminders.slice(1))
+    }
+  }
 
   return (
     <>
@@ -45,8 +61,8 @@ const Reminders = () => {
         <Snackbar isOpen={standingOrderReminderIsOpen}>
           <ReminderCmp
             text={reminderToRender.domain.description}
-            onSuccess={closeStandingOrderReminder}
-            onCross={closeStandingOrderReminder}
+            onSuccess={onSuccess}
+            onCross={onCross}
           />
         </Snackbar>
       )}
