@@ -11,13 +11,6 @@ const Reminders = () => {
     Entity<Reminder>[]
   >([])
 
-  const [standingOrderReminderIsOpen, setStandingOrderReminderIsOpen] =
-    useState(true)
-
-  const closeStandingOrderReminder = () => {
-    setStandingOrderReminderIsOpen(false)
-  }
-
   const { data } = useQuery<Entity<Reminder>[]>({
     queryKey: ["getOutstandingReminders"],
     queryFn: async () => {
@@ -54,6 +47,8 @@ const Reminders = () => {
       setOutstandingReminders((reminders) => reminders.slice(1))
     }
   }
+
+  const standingOrderReminderIsOpen = !!reminderToRender
 
   return (
     <>
