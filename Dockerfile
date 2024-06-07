@@ -3,12 +3,12 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
-# RUN node --dns-result-order=ipv4first $(which npm) --loglevel verbose ci
-RUN ping -6 registry.npmjs.org
-RUN npm ping
-RUN npm ci
+
+RUN alias npm-ipv4="node --dns-result-order=ipv4first $(which npm)"
+
+RUN npm-ipv4 ci
 COPY . ./
-RUN node --dns-result-order=ipv4first $(which npm) run build
+RUN npm-ipv4 run build
 
 FROM nginx:stable-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
