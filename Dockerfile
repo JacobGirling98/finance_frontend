@@ -4,7 +4,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 # RUN node --dns-result-order=ipv4first $(which npm) --loglevel verbose ci
-RUN npm config list
+RUN ping -4 registry.npmjs.org
+RUN ping -6 registry.npmjs.org
+RUN npm ping
 RUN npm ci
 COPY . ./
 RUN node --dns-result-order=ipv4first $(which npm) run build
