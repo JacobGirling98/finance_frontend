@@ -42,8 +42,8 @@ const useTransactionControl = <T extends Transaction>(
     mutationKey: ["updateTransaction"],
     mutationFn: async (data) => {
       const response = await axios.put(
-        `/api/transaction/${transactionType}`,
-        data,
+        `/api/transaction/${transactionType}/${data.id}`,
+        data.domain,
         {
           headers: { user: "Jacob" }
         }
