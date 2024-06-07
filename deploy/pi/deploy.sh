@@ -18,7 +18,7 @@ start_app() {
 }
 
 build() {
-  docker build -t $container_name ../.
+  docker build -t $container_name .
 }
 
 log_prefix="Finance Frontend:"
