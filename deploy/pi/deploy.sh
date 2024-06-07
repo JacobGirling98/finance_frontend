@@ -1,5 +1,7 @@
 #!/bin/bash
 
+force_build=$1
+
 start_app() {
   container_id=$(docker ps -q -f name=$container_name)
 
@@ -13,6 +15,10 @@ start_app() {
   container_id=`docker run -p 3000:3000 -d --name $container_name -t $container_name`
   
   echo "$log_prefix started with container id $container_id"
+}
+
+build() {
+  docker build -t $container_name ../.
 }
 
 log_prefix="Finance Frontend:"
@@ -30,18 +36,14 @@ git merge > /dev/null
 # Store the new HEAD commit hash
 NEW_HEAD=$(git rev-parse HEAD)
 
-# Compare OLD_HEAD and NEW_HEAD
-if [ "$OLD_HEAD" = "$NEW_HEAD" ]; then
-  echo "$log_prefix up to date, skipping Docker build..."
-
-  start_app
-
-  exit 0
+if [ -n "$force_build" ]; then
+  echo "$log_prefix Forcing Docker build..."
+  build
+elif [ "$OLD_HEAD" = "$NEW_HEAD" ]; then
+  echo "$log_prefix Up to date, skipping Docker build..."
+else
+  echo "$log_prefix There are unbuilt changes, starting build now."
+  build
 fi
 
-echo "$log_prefix there are unbuilt changes, starting build now."
-
-docker build -t $container_name ../.
-
 start_app
-
