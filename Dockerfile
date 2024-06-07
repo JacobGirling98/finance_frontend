@@ -3,7 +3,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
-RUN node --dns-result-order=ipv4first $(which npm) ci
+RUN node --dns-result-order=ipv4first $(which npm) --loglevel verbose ci
 COPY . ./
 RUN node --dns-result-order=ipv4first $(which npm) run build
 
