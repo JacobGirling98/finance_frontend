@@ -4,9 +4,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
-# RUN node --dns-result-order=ipv4first $(which npm) ci
 COPY . ./
-RUN node --dns-result-order=ipv4first $(which npm) run build
+RUN npm run build
 
 FROM nginx:stable-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
