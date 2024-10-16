@@ -29,7 +29,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
   const [validationErrors, setValidationErrors] =
     useState<ValidationErrors<T>>(emptyError)
 
-  const { postNewDescriptions } = useReferenceData()
+  const { postNewDescriptions, postNewCategories } = useReferenceData()
   const { toggleSuccessModal, toggleErrorModal } = useModal()
 
   const queryClient = useQueryClient()
@@ -84,6 +84,11 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     setStandingOrder((data) => changeSingleTransaction(data, value, field))
   }
 
+  const postNewReferenceData = () => {
+    postNewDescriptions([standingOrder.description])
+    postNewCategories([standingOrder.category])
+  }
+
   const submitStandingOrder = () => {
     const errors: ValidationErrors<T> = validate(standingOrder)
     if (hasValidationError(errors)) {
@@ -92,7 +97,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     } else {
       setValidationErrors(emptyError)
     }
-    postNewDescriptions([standingOrder.description])
+    postNewReferenceData()
     post(normaliseFrequency(standingOrder))
   }
 
@@ -104,7 +109,7 @@ const useStandingOrderControl = <T extends AddStandingOrder>(
     } else {
       setValidationErrors(emptyError)
     }
-    postNewDescriptions([standingOrder.description])
+    postNewReferenceData()
     put({ id, domain: normaliseFrequency(standingOrder) })
   }
 
