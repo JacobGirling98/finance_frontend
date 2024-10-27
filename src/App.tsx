@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react"
 import useRouter from "./hooks/useRouter.tsx"
 import { userIsInDarkMode } from "./utils/dark-mode.ts"
-import Navbar from "./components/navbar/Navbar.tsx"
+import Navbar from "./components/navigation/Navbar.tsx"
 import ResultModal from "./components/utils/Modal.tsx"
 import Footer from "./components/footer/Footer.tsx"
-import Sidebar from "./components/navbar/Sidebar.tsx"
+import Sidebar from "./components/navigation/Sidebar.tsx"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import Reminders from "./components/Reminder/Reminders.tsx"
 

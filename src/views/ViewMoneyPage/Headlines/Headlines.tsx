@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import HeadlineCard from "../../../components/card/HeadlineCard/HeadlineCard"
+import HeadlineCard from "../../../components/card/HeadlineCard/HeadlineCard/HeadlineCard"
 import UnionSelect from "../../../components/inputs/select/UnionSelect"
 import { DateRange, Period, Summary, periods } from "../../../types/ViewMoney"
 import { useQuery } from "@tanstack/react-query"

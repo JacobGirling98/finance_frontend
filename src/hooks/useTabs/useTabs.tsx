@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react"
-import Tab from "../../components/navbar/Tabs/Tab"
+import Tab from "../../components/navigation/Tabs/Tab"
 
 export interface TabElement {
   tabTitle: string

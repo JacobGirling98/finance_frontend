@@ -1,5 +1,5 @@
-import HeadlineCard from "./HeadlineCard";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import HeadlineCard from "./HeadlineCard";
 
 export default {
   title: "Headline Card",
