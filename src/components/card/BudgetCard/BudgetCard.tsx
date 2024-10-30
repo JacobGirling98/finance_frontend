@@ -1,5 +1,7 @@
 import React from "react"
 import { PieChart, Pie, Cell, Tooltip } from "recharts"
+import colors from "tailwindcss/colors"
+import useDarkModeObserver from "../../../hooks/useDarkModeObserver.ts"
 
 interface BudgetCardProps {
   category: string
@@ -19,7 +21,12 @@ const BudgetCard: React.FC<BudgetCardProps> = ({
     { name: "Remaining", value: remainingAmount }
   ]
 
-  const COLORS = ["#0088FE", "#00C49F"]
+  const colourMode = useDarkModeObserver()
+
+  const lightColours = [colors.green["600"], colors.gray["200"]]
+  const darkColours = [colors.green["500"], colors.gray["700"]]
+
+  const COLORS = colourMode === "dark" ? darkColours : lightColours
 
   const pieChartSize = 120
 
@@ -30,10 +37,18 @@ const BudgetCard: React.FC<BudgetCardProps> = ({
       </h2>
       <div className="flex justify-between">
         <div className="flex flex-col justify-center">
-          <p className="text-gray-700 font-semibold">Spending</p>
-          <p className="text-gray-500">{actualSpending}</p>
-          <p className="text-gray-700 font-semibold">Allowance</p>
-          <p className="text-gray-500">{budgetAllowance}</p>
+          <p className="text-special-light dark:text-special-dark font-semibold">
+            Spending
+          </p>
+          <p className="text-text-light dark:text-text-dark">
+            {actualSpending}
+          </p>
+          <p className="text-special-light dark:text-special-dark font-semibold">
+            Allowance
+          </p>
+          <p className="text-text-light dark:text-text-dark">
+            {budgetAllowance}
+          </p>
         </div>
         <div className="w-1/2 flex justify-center">
           <PieChart width={pieChartSize} height={pieChartSize}>
@@ -45,6 +60,7 @@ const BudgetCard: React.FC<BudgetCardProps> = ({
               fill="#8884d8"
               startAngle={90}
               endAngle={-270}
+              stroke="none"
             >
               {data.map((_, index) => (
                 <Cell
