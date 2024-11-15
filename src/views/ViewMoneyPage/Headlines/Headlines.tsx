@@ -1,53 +1,11 @@
-import { useEffect, useState } from "react"
 import HeadlineCard from "../../../components/card/HeadlineCard/HeadlineCard/HeadlineCard"
-import UnionSelect from "../../../components/inputs/select/UnionSelect"
-import { DateRange, Period, Summary, periods } from "../../../types/ViewMoney"
+import { Summary } from "../../../types/ViewMoney"
 import { useQuery } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
-import Select from "../../../components/inputs/select/Select"
-import {
-  matchingDateRange,
-  parsingFn
-} from "../../../utils/date-range-helpers/date-range-helpers"
+import useDateRange from "../../../hooks/useDateRange.tsx"
 
 const Headlines = () => {
-  const [period, setPeriod] = useState<Period>("Fiscal Month")
-  const [dateRange, setDateRange] = useState<DateRange>()
-
-  const periodToApiPeriod = (period: Period): string => {
-    switch (period) {
-      case "Fiscal Month":
-        return "fiscal-months"
-      case "Fiscal Year":
-        return "fiscal-years"
-      case "Month":
-        return "months"
-      case "Year":
-        return "years"
-    }
-  }
-
-  const selectDateRange = (dateRangeString: string) => {
-    setDateRange(matchingDateRange(dateRangeString, period, dateRanges))
-  }
-
-  const { data: dateRangeData } = useQuery<DateRange[]>({
-    queryKey: ["getDateRanges", period],
-    queryFn: async () => {
-      const response = await axios.get(
-        `/api/reference/${periodToApiPeriod(period)}`
-      )
-      return response.data
-    }
-  })
-
-  useEffect(() => {
-    if (dateRangeData) setDateRange(dateRangeData[0])
-  }, [dateRangeData])
-
-  const dateRanges = dateRangeData ?? []
-
-  const format = parsingFn(period)
+  const { dateRange, DateRanges } = useDateRange()
 
   const { data: summary } = useQuery<Summary, AxiosError>({
     queryKey: ["summary", dateRange],
@@ -66,25 +24,8 @@ const Headlines = () => {
   return (
     <>
       <div className="mt-3">
-        <div className="flex mb-5 space-x-3">
-          <div className="w-72">
-            <UnionSelect
-              value={period}
-              onChange={setPeriod}
-              options={periods}
-              title="Period"
-            />
-          </div>
-          {dateRange && (
-            <div className="w-72">
-              <Select
-                value={format(dateRange)}
-                onChange={selectDateRange}
-                options={dateRanges.map((r) => format(r))}
-                title="Period"
-              />
-            </div>
-          )}
+        <div className="mb-5 ">
+          <DateRanges />
         </div>
         {summary && (
           <div className="grid grid-cols-4 gap-4">
